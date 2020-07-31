@@ -1,0 +1,32 @@
+
+#---standard pioneer footprint---
+#---(in meters)---
+robot_radius: 0.25
+footprint_padding: 0.0
+
+transform_tolerance: 0.2
+map_type: costmap
+
+always_send_full_costmap: true
+
+obstacle_layer:
+ enabled: true
+ obstacle_range: 10.0
+ raytrace_range: 4.0
+ inflation_radius: 0.5
+ track_unknown_space: true
+ combination_method: 1
+
+ observation_sources: point_cloud_sensorA
+ point_cloud_sensorA: {sensor_frame: /apnapioneer3at/MultiSense_S21_meta_range_finder, data_type: PointCloud2, topic: /apnapioneer3at/MultiSense_S21_meta_range_finder/point_cloud_segmented
+, marking: true, clearing: true}
+
+
+inflation_layer:
+  enabled:              true
+  cost_scaling_factor:  1.1  # exponential rate at which the obstacle cost drops off (default: 10)
+  inflation_radius:     0.7  # max. distance from an obstacle at which costs are incurred for planning paths.
+
+static_layer:
+  enabled:              true
+  map_topic:            "/map"
