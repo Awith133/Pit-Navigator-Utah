@@ -1,0 +1,8 @@
+prefix=/home/alex/pit-navigator-utah/Simulation/catkin_ws/devel
+
+Name: ground_segmentation
+Description: Description of ground_segmentation
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
