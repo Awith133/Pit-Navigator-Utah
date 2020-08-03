@@ -1,10 +1,10 @@
 # Pit-Navigator-Utah
 # INSTALL
-Home computer attempt - DEPENDS ubuntu 16/ ros kinetic
+##Home computer attempt - DEPENDS ubuntu 16/ ros kinetic
 from a fresh computer with nothing installed
 needs 17 GB of storage for everything
 
-open a terminal and copy and paste this line by line:
+##open a terminal and copy and paste this line by line:
 
 mkdir pit-navigator-utah
 
@@ -99,6 +99,9 @@ rm devel
 catkin_make 
 
 source devel/setup.bash
+
+##not a command but in demo3.launch file:
+lines 14&15 need editing to match new file location 
 
 roslaunch teb_local_planner_tutorials demo3.launch
 
