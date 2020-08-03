@@ -10,7 +10,7 @@ import time
 import subprocess
 def display_real_images(userdata, file_locations):
     time.sleep(1)
-    images_folder = file_locations['project_file_location'] + '/Pictures/UtahImagesMRSD/'
+    images_folder = file_locations['project_file_location'] + '/Pictures/test/'
     
     grep = images_folder + str(userdata.wp_around_pit[userdata.counter_wp_around_pit][5])+ '_' +str(userdata.wp_around_pit[userdata.counter_wp_around_pit][6])+ '_'+'2_1_1_0_0.png'
     #smalldst = images_folder+iteration[userdata.counter_wp_around_pit][0] +'_'+iteration[userdata.counter_wp_around_pit][1]+'/'
