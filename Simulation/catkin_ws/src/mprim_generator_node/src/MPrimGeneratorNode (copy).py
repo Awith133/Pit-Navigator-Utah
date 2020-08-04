@@ -7,15 +7,8 @@ import tf
 from std_msgs.msg import String
 from geometry_msgs.msg import Point, Pose, Quaternion
 
-system_path    = rospy.get_param('/system_name','/home/alex/pit-navigator-utah/Simulation')
-hotelEnergyOut = rospy.get_param('/battery/hotel_energy_out',25) #per second
-turnEnergyOut  = rospy.get_param('/battery/turn_energy_out' ,25) #per second
-arcEnergyOut   = rospy.get_param('/battery/arc_energy_out'  ,10) #per second
-driveEnergyOut = rospy.get_param('/battery/drive_energy_out', 5) #per second
-batterySolar   = rospy.get_param('/battery/solar_peak'      ,50) #per second in sun
-nominalVelocity= rospy.get_param('/nominalvel_mpersecs',    0.4) #meter per second
-turnangleTime  = rospy.get_param('/timetoturn45degsinplace_secs',0.6)/45*22.5 #time to turn 1 angle
-sun_direction = np.array([1,0,0])
+system_path = rospy.get_param('/system_name','/home/alex/pit-navigator-utah/Simulation')
+sun_direction = np.array((0,0,0))
 
 def newMotionPrimitives(outfilename):
     UNICYCLE_MPRIM_16DEGS = 1
@@ -176,40 +169,7 @@ def newMotionPrimitives(outfilename):
             endx_c = round(baseendpose_c[0]*math.cos(angle) - baseendpose_c[1]*math.sin(angle))         
             endy_c = round(baseendpose_c[0]*math.sin(angle) + baseendpose_c[1]*math.cos(angle)) 
             endtheta_c = (angleind + baseendpose_c[2])% numberofangles 
-            #assign type of movement to batteryout
-            movementError = (math.sqrt(endx_c**2+endy_c**2))
-            angleError = abs(currentangle-endtheta_c)
-            secondsperTurn = turnangleTime
-            secondsperDrive = movementError/nominalVelocity
-            secondsperWait = 1 #TODO
-            if   (movementError >0 and angleError >0):
-                battery_out = arcEnergyOut  * secondsperDrive     + hotelEnergyOut * secondsperDrive 
-                seconds = secondsperDrive
-            elif (movementError >0 and angleError==0):
-                battery_out = driveEnergyOut* secondsperDrive     + hotelEnergyOut * secondsperDrive
-                seconds = secondsperDrive
-            elif (movementError==0 and angleError >0):
-                battery_out = turnEnergyOut * secondsperTurn      + hotelEnergyOut * secondsperTurn
-                seconds = secondsperTurn
-            elif (movementError==0 and angleError==0):
-                battery_out =                                       hotelEnergyOut * secondsperWait
-                seconds = secondsperWait
-
-
-            # if there is high sun
-            verticalUnitVector = np.array([0,0,1])
-            if (math.acos(np.dot(sun_direction,verticalUnitVector)/1) < math.pi/2.0):
-                battery_in = np.dot(sun_direction,verticalUnitVector)/1
-            else: 
-                sun_error = endtheta_c-sun_direction[2]
-                sun_error = abs(sun_error)
-                if sun_error > math.pi/2.0:
-                    sun_error = math.pi-sun_error
-                battery_in = batterySolar*math.cos(sun_error)*seconds
-
-            # finish endpose
-            endbattery_c = round(battery_in) - round(battery_out)
-            endpose_c = [endx_c, endy_c, endtheta_c, endbattery_c] 
+            endpose_c = [endx_c, endy_c, endtheta_c] 
             
             print( 'rotation angle=%f\n'% (angle*180/math.pi)) 
             
@@ -220,20 +180,18 @@ def newMotionPrimitives(outfilename):
             #generate intermediate poses (remember they are w.r.t 0,0 (and not
             #centers of the cells)
             numofsamples = 10 
-            intermcells_m = np.zeros((numofsamples,4)) 
+            intermcells_m = np.zeros((numofsamples,3)) 
             if (UNICYCLE_MPRIM_16DEGS == 1):
-                startpt = [0, 0, currentangle, 0] 
-                endpt = [endpose_c[0]*resolution, endpose_c[1]*resolution, ((angleind + baseendpose_c[2])% numberofangles )*2*math.pi/numberofangles, endpose_c[3]]
-                intermcells_m = np.zeros((numofsamples,4)) 
+                startpt = [0, 0, currentangle] 
+                endpt = [endpose_c[0]*resolution, endpose_c[1]*resolution, ((angleind + baseendpose_c[2])% numberofangles )*2*math.pi/numberofangles]
+                intermcells_m = np.zeros((numofsamples,3)) 
                 if ((endx_c == 0 and endy_c == 0) or baseendpose_c[2] == 0): #turn in place or move forward            
                     for iind in range(numofsamples):
                         intermcells_m[iind,:] = [startpt[0] + (endpt[0] - startpt[0])*(iind)/(numofsamples-1), 
                                                 startpt[1] + (endpt[1] - startpt[1])*(iind)/(numofsamples-1), 
-                                                0,
-                                                startpt[3] + (endpt[3] - startpt[3])*(iind)/(numofsamples-1)] 
+                                                0] 
                         rotation_angle = (baseendpose_c[2] ) * (2*math.pi/numberofangles) 
                         intermcells_m[iind,2] = (startpt[2] + rotation_angle*(iind/(numofsamples-1.0)))% (2*math.pi) 
-                        
                                  
                 else: #unicycle-based move forward or backward
                     R = np.array([[math.cos(startpt[2]),  math.sin(endpt[2]) - math.sin(startpt[2])], 
@@ -264,16 +222,10 @@ def newMotionPrimitives(outfilename):
                         #                        dtheta] 
                         
                         if(np.all(abs(dt*tv) < abs(l))):
-                            intermcells_m[iind,:] = np.array([startpt[0] + dt*tv*math.cos(startpt[2]),
-                                                             startpt[1] + dt*tv*math.sin(startpt[2]), 
-                                                             startpt[2],
-                                                             startpt[3] + (endpt[3] - startpt[3])*(iind)/(numofsamples-1)])
+                            intermcells_m[iind,:] = np.array([startpt[0] + dt*tv*math.cos(startpt[2]), startpt[1] + dt*tv*math.sin(startpt[2]), startpt[2]])
                         else:
                             dtheta = rv*(dt - l/tv) + startpt[2] 
-                            intermcells_m[iind,:] = np.array([startpt[0] + l*math.cos(startpt[2]) + tvoverrv*(math.sin(dtheta) - math.sin(startpt[2])),
-                                                              startpt[1] + l*math.sin(startpt[2]) - tvoverrv*(math.cos(dtheta) - math.cos(startpt[2])), 
-                                                              dtheta,
-                                                              startpt[3] + (endpt[3] - startpt[3])*(iind)/(numofsamples-1)])
+                            intermcells_m[iind,:] = np.array([startpt[0] + l*math.cos(startpt[2]) + tvoverrv*(math.sin(dtheta) - math.sin(startpt[2])), startpt[1] + l*math.sin(startpt[2]) - tvoverrv*(math.cos(dtheta) - math.cos(startpt[2])), dtheta])
 
                     #correct
                     errorxy = [endpt[0] - intermcells_m[numofsamples-1,0] ,
@@ -288,7 +240,7 @@ def newMotionPrimitives(outfilename):
             fout.write('additionalactioncostmult: %d\n'% additionalactioncostmult) 
             fout.write('intermediateposes: %d\n'% len(intermcells_m[:,0])) 
             for interind in range(len(intermcells_m[:,0])):
-                fout.write('%.4f %.4f %.4f %.4f\n'% (intermcells_m[interind,0], intermcells_m[interind,1], intermcells_m[interind,2], intermcells_m[interind,3])) 
+                fout.write('%.4f %.4f %.4f\n'% (intermcells_m[interind,0], intermcells_m[interind,1], intermcells_m[interind,2])) 
     fout.close()
 
 

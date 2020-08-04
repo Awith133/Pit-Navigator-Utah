@@ -227,8 +227,8 @@ for angleind = 1:numberofangles
                     intermcells_m(iind,3) = rem(startpt(3) + (rotation_angle)*(iind-1)/(numofsamples-1), 2*pi);
                 end;            
             else %unicycle-based move forward or backward
-                R = [cos(startpt(3)) sin(endpt(3)) - sin(startpt(3));
-                    sin(startpt(3)) -(cos(endpt(3)) - cos(startpt(3)))];
+                R = [cos(startpt(3)), sin(endpt(3)) - sin(startpt(3));
+                    sin(startpt(3)), -(cos(endpt(3)) - cos(startpt(3)))];
                 S = pinv(R)*[endpt(1) - startpt(1); endpt(2) - startpt(2)];
                 l = S(1); 
                 tvoverrv = S(2);
