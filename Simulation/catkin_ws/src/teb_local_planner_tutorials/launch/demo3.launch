@@ -19,7 +19,14 @@
 	<param name="lunar_env_path" type="string" value="$(arg LUNAR_ENV_PATH)"/>
 	<!--<param name="show_rock_distances" type="int" value="1"/> -->
     <!--param name="/use_sim_time" value="true"/ -->
-	<param name="/tackSize" value="20" />
+	<param name="/tackSize"                     value="20" />  
+	<param name="/battery/capacity"             value="4000"/> <!--#Watt seconds-->
+	<param name="/battery/hotel_energy_out"     value="25"/>   <!--#Watt per second-->
+	<param name="/battery/turn_energy_out"      value="25"/>   <!--#Watt per second-->
+	<param name="/battery/arc_energy_out"       value="10"/>   <!--#Watt per second-->
+	<param name="/battery/drive_energy_out"     value="5"/>    <!--#Watt per second-->
+	<param name="/battery/solar_peak"           value="50"/>   <!--#Watt per second-->
+
 
 
 
@@ -68,9 +75,6 @@
 		<!--param name="SBPLLatticePlanner/force_scratch_limit"     type="int"    value="500"/-->
 		<!--param name="SBPLLatticePlanner/forward_search"          type="bool"   value="false"/-->
 		
-
-
-
 		<!-- *************** LOCAL PLANNER ***************  -->
 		<!--param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" /-->
 		<rosparam file="$(find teb_local_planner_tutorials)/cfg/diff_drive/teb_local_planner_params.yaml" command="load" />
@@ -78,7 +82,7 @@
 		<param name="controller_frequency"                                     value="5.0" />
 		<param name="controller_patience"                                      value="15.0" />
 	</node>
-	<node pkg="mprim_generator_node" type="MPrimGeneratorNode.py" name="MPrimGeneratorNode" output="screen"/>
+	<node pkg="mprim_generator_node" type="MPrimGeneratorNode.py" name="MPrimGeneratorNode" output="log"/>
 	
 
 

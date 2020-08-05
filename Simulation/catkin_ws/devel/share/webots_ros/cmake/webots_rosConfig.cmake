@@ -67,7 +67,7 @@ set(webots_ros_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(webots_ros_SOURCE_PREFIX /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/old files/webots_ros)
+  set(webots_ros_SOURCE_PREFIX /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/webots_ros)
   set(webots_ros_DEVEL_PREFIX /home/alex/pit-navigator-utah/Simulation/catkin_ws/devel)
   set(webots_ros_INSTALL_PREFIX "")
   set(webots_ros_PREFIX ${webots_ros_DEVEL_PREFIX})
@@ -110,7 +110,7 @@ if(NOT "/home/alex/pit-navigator-utah/Simulation/catkin_ws/devel/include " STREQ
         message(FATAL_ERROR "Project 'webots_ros' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'webots_ros' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/old files/webots_ros/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'webots_ros' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/webots_ros/${idir}'.  ${_report}")
     endif()
     _list_append_unique(webots_ros_INCLUDE_DIRS ${include})
   endforeach()
