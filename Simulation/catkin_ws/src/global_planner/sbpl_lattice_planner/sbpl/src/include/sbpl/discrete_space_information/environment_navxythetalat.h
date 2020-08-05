@@ -736,6 +736,11 @@ public:
     virtual void InitializeEnvironment();
     
     void SetDepth(int depth);
+
+    virtual bool ReadMotionPrimitives(FILE* fMotPrims);
+    virtual bool ReadinMotionPrimitive(SBPL_xytheta_mprimitive* pMotPrim, FILE* fIn);
+    virtual bool ReadinPose(sbpl_xy_theta_pt_t* pose, FILE* fIn);
+    virtual bool ReadinCell(sbpl_xy_theta_cell_t* cell, FILE* fIn);
     
     /**
      * \brief setting 2D map for the additional level at levind index

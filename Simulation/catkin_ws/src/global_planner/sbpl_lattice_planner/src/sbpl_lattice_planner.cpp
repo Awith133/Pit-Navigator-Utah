@@ -109,7 +109,7 @@ void SBPLLatticePlanner::initialize(std::string name, costmap_2d::Costmap2DROS* 
     private_nh.param("force_scratch_limit",force_scratch_limit_,500);
 
     /* TODO include battery model */
-    private_nh.param("battery_capacity",numofadditionalzlevs,10);
+    private_nh.param("/battery/capacity",numofadditionalzlevs,10);
 
 
     double nominalvel_mpersecs, timetoturn45degsinplace_secs;

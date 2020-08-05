@@ -4526,4 +4526,334 @@ bool EnvironmentNAVXYTHETAMLEVLAT::UpdateCost(int x, int y, unsigned char newcos
     }
 }
 
+
+bool EnvironmentNAVXYTHETAMLEVLAT::ReadMotionPrimitives(FILE* fMotPrims)
+{
+    char sTemp[1024], sExpected[1024];
+    float fTemp;
+    int dTemp;
+    int totalNumofActions = 0;
+
+    SBPL_INFO("Reading in motion primitives...");
+    fflush(stdout);
+
+    //read in the resolution
+    strcpy(sExpected, "resolution_m:");
+    if (fscanf(fMotPrims, "%s", sTemp) == 0) {
+        return false;
+    }
+    if (strcmp(sTemp, sExpected) != 0) {
+        ROS_ERROR("SBPL:ERROR: expected %s but got %s\n", sExpected, sTemp);
+        fflush(stdout);
+        return false;
+    }
+    if (fscanf(fMotPrims, "%f", &fTemp) == 0) {
+        return false;
+    }
+    if (fabs(fTemp - EnvNAVXYTHETALATCfg.cellsize_m) > ERR_EPS) {
+        ROS_ERROR("SBPL:ERROR: invalid resolution %f (instead of %f) in the dynamics file\n", fTemp, EnvNAVXYTHETALATCfg.cellsize_m);
+        fflush(stdout);
+        return false;
+    }
+    SBPL_INFO("resolution_m: %f\n", fTemp);
+
+    if (fscanf(fMotPrims, "%s", sTemp) == 0) {
+        return false;
+    }
+    SBPL_INFO("sTemp: %s\n", sTemp);
+    if (strncmp(sTemp, "min_turning_radius_m:", 21) == 0) {
+        bUseNonUniformAngles = true;
+    }
+    SBPL_INFO("bUseNonUniformAngles = %d", bUseNonUniformAngles);
+
+    if (bUseNonUniformAngles) {
+        float min_turn_rad;
+        strcpy(sExpected, "min_turning_radius_m:");
+        if (strcmp(sTemp, sExpected) != 0) {
+            ROS_ERROR("SBPL:ERROR: expected %s but got %s\n", sExpected, sTemp);
+            fflush(stdout);
+            return false;
+        }
+        if (fscanf(fMotPrims, "%f", &min_turn_rad) == 0) {
+            return false;
+        }
+        ROS_INFO("SBPL:min_turn_rad: %f\n", min_turn_rad);
+        fflush(stdout);
+        if (fscanf(fMotPrims, "%s", sTemp) == 0) {
+            return false;
+        }
+    }
+
+    // read in the angular resolution
+    strcpy(sExpected, "numberofangles:");
+    if (strcmp(sTemp, sExpected) != 0) {
+       ROS_ERROR("SBPL:ERROR: expected %s but got %s\n", sExpected, sTemp);
+       return false;
+    }
+    if (fscanf(fMotPrims, "%d", &dTemp) == 0) {
+        return false;
+    }
+    if (dTemp != EnvNAVXYTHETALATCfg.NumThetaDirs) {
+        ROS_ERROR("SBPL:ERROR: invalid angular resolution %d angles (instead of %d angles) in the motion primitives file\n", dTemp, EnvNAVXYTHETALATCfg.NumThetaDirs);
+        return false;
+    }
+    ROS_INFO("SBPL:numberofangles: %d\n", dTemp);
+    EnvNAVXYTHETALATCfg.NumThetaDirs = dTemp;
+
+    if (bUseNonUniformAngles) {
+        // read in angles
+        EnvNAVXYTHETALATCfg.ThetaDirs.clear();
+        for (int i = 0; i < EnvNAVXYTHETALATCfg.NumThetaDirs; i++)
+        {
+            std::ostringstream string_angle_index;
+            string_angle_index << i;
+            std::string angle_string = "angle:" + string_angle_index.str();
+
+            float angle;
+            strcpy(sExpected, angle_string.c_str());
+            if (fscanf(fMotPrims, "%s", sTemp) == 0) {
+                return false;
+            }
+            if (strcmp(sTemp, sExpected) != 0) {
+                ROS_ERROR("SBPL:ERROR: expected %s but got %s\n", sExpected, sTemp);
+                return false;
+            }
+            if (fscanf(fMotPrims, "%f", &angle) == 0) {
+                return false;
+            }
+            ROS_INFO("SBPL:%s %f\n", angle_string.c_str(), angle);
+            EnvNAVXYTHETALATCfg.ThetaDirs.push_back(angle);
+        }
+        EnvNAVXYTHETALATCfg.ThetaDirs.push_back(2.0 * M_PI); // Add 2 PI at end for overlap
+    }
+
+    // read in the total number of actions
+    strcpy(sExpected, "totalnumberofprimitives:");
+    if (fscanf(fMotPrims, "%s", sTemp) == 0) {
+        return false;
+    }
+    if (strcmp(sTemp, sExpected) != 0) {
+        ROS_ERROR("SBPL:ERROR: expected %s but got %s\n", sExpected, sTemp);
+        return false;
+    }
+    if (fscanf(fMotPrims, "%d", &totalNumofActions) == 0) {
+        return false;
+    }
+    ROS_INFO("SBPL:totalnumberofprimitives: %d\n", totalNumofActions);
+
+    // Read in motion primitive for each action
+    for (int i = 0; i < totalNumofActions; i++) {
+        SBPL_xytheta_mprimitive motprim;
+
+        if (!EnvironmentNAVXYTHETALATTICE::ReadinMotionPrimitive(&motprim, fMotPrims)) {
+            return false;
+        }
+
+        EnvNAVXYTHETALATCfg.mprimV.push_back(motprim);
+    }
+    ROS_INFO("SBPL:done");
+    SBPL_FFLUSH(stdout);
+    return true;
+}
+
+bool EnvironmentNAVXYTHETAMLEVLAT::ReadinMotionPrimitive(SBPL_xytheta_mprimitive* pMotPrim, FILE* fIn)
+{
+    char sTemp[1024];
+    int dTemp;
+    char sExpected[1024];
+    int numofIntermPoses;
+    float fTemp;
+
+    // read in actionID
+    strcpy(sExpected, "primID:");
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    if (strcmp(sTemp, sExpected) != 0) {
+        ROS_ERROR("SBPL:ERROR: expected %s but got %s\n", sExpected, sTemp);
+        fflush(stdout);
+        return false;
+    }
+    if (fscanf(fIn, "%d", &pMotPrim->motprimID) != 1) {
+        return false;
+    }
+
+    // read in start angle
+    strcpy(sExpected, "startangle_c:");
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    if (strcmp(sTemp, sExpected) != 0) {
+        ROS_ERROR("SBPL:ERROR: expected %s but got %s\n", sExpected, sTemp);
+        return false;
+    }
+    if (fscanf(fIn, "%d", &dTemp) == 0) {
+        ROS_ERROR("SBPL:ERROR reading startangle\n");
+        return false;
+    }
+    pMotPrim->starttheta_c = dTemp;
+
+    // read in end pose
+    strcpy(sExpected, "endpose_c:");
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    if (strcmp(sTemp, sExpected) != 0) {
+        ROS_ERROR("SBPL:ERROR: expected %s but got %s\n", sExpected, sTemp);
+        return false;
+    }
+
+    if (ReadinCell(&pMotPrim->endcell, fIn) == false) {
+        ROS_ERROR("SBPL:ERROR: failed to read in endsearchpose\n");
+        return false;
+    }
+
+    // read in action cost
+    strcpy(sExpected, "additionalactioncostmult:");
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    if (strcmp(sTemp, sExpected) != 0) {
+        ROS_ERROR("SBPL:ERROR: expected %s but got %s\n", sExpected, sTemp);
+        return false;
+    }
+    if (fscanf(fIn, "%d", &dTemp) != 1) {
+        return false;
+    }
+    pMotPrim->additionalactioncostmult = dTemp;
+
+    if (bUseNonUniformAngles) {
+        // read in action turning radius
+        strcpy(sExpected, "turning_radius:");
+        if (fscanf(fIn, "%s", sTemp) == 0) {
+            return false;
+        }
+        if (strcmp(sTemp, sExpected) != 0) {
+            ROS_ERROR("SBPL:ERROR: expected %s but got %s\n", sExpected, sTemp);
+            return false;
+        }
+        if (fscanf(fIn, "%f", &fTemp) != 1) {
+            return false;
+        }
+        pMotPrim->turning_radius = fTemp;
+    }
+
+    // read in intermediate poses
+    strcpy(sExpected, "intermediateposes:");
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    if (strcmp(sTemp, sExpected) != 0) {
+        ROS_ERROR("SBPL:ERROR: expected %s but got %s\n", sExpected, sTemp);
+        return false;
+    }
+    if (fscanf(fIn, "%d", &numofIntermPoses) != 1) {
+        return false;
+    }
+    // all intermposes should be with respect to 0,0 as starting pose since it
+    // will be added later and should be done after the action is rotated by
+    // initial orientation
+    for (int i = 0; i < numofIntermPoses; i++) {
+        sbpl_xy_theta_pt_t intermpose;
+        if (ReadinPose(&intermpose, fIn) == false) {
+            ROS_ERROR("SBPL:ERROR: failed to read in intermediate poses\n");
+            return false;
+        }
+        pMotPrim->intermptV.push_back(intermpose);
+    }
+
+    // Check that the last pose of the motion matches (within lattice
+    // resolution) the designated end pose of the primitive
+    sbpl_xy_theta_pt_t sourcepose;
+    sourcepose.x = DISCXY2CONT(0, EnvNAVXYTHETALATCfg.cellsize_m);
+    sourcepose.y = DISCXY2CONT(0, EnvNAVXYTHETALATCfg.cellsize_m);
+    sourcepose.z = DISCXY2CONT(0, EnvNAVXYTHETALATCfg.cellsize_m);
+    sourcepose.theta = DiscTheta2ContNew(pMotPrim->starttheta_c);
+    double mp_endx_m = sourcepose.x + pMotPrim->intermptV[pMotPrim->intermptV.size() - 1].x;
+    double mp_endy_m = sourcepose.y + pMotPrim->intermptV[pMotPrim->intermptV.size() - 1].y;
+    double mp_endz_m = sourcepose.z + pMotPrim->intermptV[pMotPrim->intermptV.size() - 1].z;
+    double mp_endtheta_rad = pMotPrim->intermptV[pMotPrim->intermptV.size() - 1].theta;
+
+    int endtheta_c;
+    int endx_c = CONTXY2DISC(mp_endx_m, EnvNAVXYTHETALATCfg.cellsize_m);
+    int endz_c = CONTXY2DISC(mp_endz_m, EnvNAVXYTHETALATCfg.cellsize_m);
+    int endy_c = CONTXY2DISC(mp_endy_m, EnvNAVXYTHETALATCfg.cellsize_m);
+    endtheta_c = ContTheta2DiscNew(mp_endtheta_rad);
+    if (endx_c != pMotPrim->endcell.x ||
+        endy_c != pMotPrim->endcell.y ||
+        endtheta_c != pMotPrim->endcell.theta ||
+        endz_c != pMotPrim->endcell.z)
+    {
+        SBPL_ERROR( "ERROR: incorrect primitive %d with startangle=%d "
+                   "last interm point %f %f %f %f does not match end pose %d %d %d %d\n",
+                   pMotPrim->motprimID, pMotPrim->starttheta_c,
+                   pMotPrim->intermptV[pMotPrim->intermptV.size() - 1].x,
+                   pMotPrim->intermptV[pMotPrim->intermptV.size() - 1].y,
+                   pMotPrim->intermptV[pMotPrim->intermptV.size() - 1].theta,
+                   pMotPrim->intermptV[pMotPrim->intermptV.size() - 1].z,
+                   pMotPrim->endcell.x, pMotPrim->endcell.y,
+                   pMotPrim->endcell.theta,
+                   pMotPrim->endcell.z);
+        SBPL_FFLUSH(stdout);
+        return false;
+    }
+
+    return true;
+}
+
+bool EnvironmentNAVXYTHETAMLEVLAT::ReadinCell(sbpl_xy_theta_cell_t* cell, FILE* fIn)
+{
+    char sTemp[60];
+
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    cell->x = atoi(sTemp);
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    cell->y = atoi(sTemp);
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    cell->theta = atoi(sTemp);
+
+    // normalize the angle
+    cell->theta = normalizeDiscAngle(cell->theta);
+    // cell->theta = NORMALIZEDISCTHETA(cell->theta, EnvNAVXYTHETALATCfg.NumThetaDirs);
+
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    cell->z = atoi(sTemp);
+
+    return true;
+}
+
+bool EnvironmentNAVXYTHETAMLEVLAT::ReadinPose(sbpl_xy_theta_pt_t* pose, FILE* fIn)
+{
+    char sTemp[60];
+
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    pose->x = atof(sTemp);
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    pose->y = atof(sTemp);
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    pose->theta = atof(sTemp);
+
+    pose->theta = normalizeAngle(pose->theta);
+
+    if (fscanf(fIn, "%s", sTemp) == 0) {
+        return false;
+    }
+    pose->z = atof(sTemp);
+
+    return true;
+}
 //------------------------------------------------------------------------------

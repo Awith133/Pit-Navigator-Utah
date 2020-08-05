@@ -13,8 +13,8 @@ turnEnergyOut  = rospy.get_param('/battery/turn_energy_out' ,25) #per second
 arcEnergyOut   = rospy.get_param('/battery/arc_energy_out'  ,10) #per second
 driveEnergyOut = rospy.get_param('/battery/drive_energy_out', 5) #per second
 batterySolar   = rospy.get_param('/battery/solar_peak'      ,50) #per second in sun
-nominalVelocity= rospy.get_param('/nominalvel_mpersecs',    0.4) #meter per second
-turnangleTime  = rospy.get_param('/timetoturn45degsinplace_secs',0.6)/45*22.5 #time to turn 1 angle
+nominalVelocity= rospy.get_param('/move_base/SBPLLatticePlanner/nominalvel_mpersecs', 0.4) #meter per second
+turnangleTime  = rospy.get_param('/move_base/SBPLLatticePlanner/timetoturn45degsinplace_secs',0.6)/45*22.5 #time to turn 1 angle
 sun_direction = np.array([1,0,0])
 
 def newMotionPrimitives(outfilename):
@@ -284,7 +284,7 @@ def newMotionPrimitives(outfilename):
                     intermcells_m[:,1] = intermcells_m[:,1] + errorxy[1]*interpfactor.transpose() 
                                                          
             #write out
-            fout.write('endpose_c: %d %d %d\n'% (endpose_c[0], endpose_c[1], endpose_c[2])) 
+            fout.write('endpose_c: %d %d %d %d\n'% (endpose_c[0], endpose_c[1], endpose_c[2], endpose_c[3])) 
             fout.write('additionalactioncostmult: %d\n'% additionalactioncostmult) 
             fout.write('intermediateposes: %d\n'% len(intermcells_m[:,0])) 
             for interind in range(len(intermcells_m[:,0])):

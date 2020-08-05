@@ -1,23 +1,26 @@
-file_around_pit: /home/hash/catkin_ws/src/path_location_mapping.csv
-file_to_pit: /home/hash/catkin_ws/src/lander_to_pit_trajectory.csv
-lunar_env_path: /home/hash/Documents/lunar-env
+file_around_pit: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/path_location_mapping.csv
+file_to_pit: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/lander_to_pit_trajectory_2.csv
+lunar_env_path: /home/alex/pit-navigator-utah/Simulation/Documents/lunar-env
 manual_override: false
-map_location: /home/ayush not used /catkin_ws/src/waypoint_pit_planner/src/mapp.csv
+map_location: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/waypoint_pit_planner/src/mapp.csv
 map_server: {frame_id: map}
 move_base:
+  SBPLLatticePlanner: {allocated_time: 10.0, environment_type: XYThetaMLevLattice,
+    lethal_obstacle: 200, nominalvel_mpersecs: 0.3, planner_type: ARAPlanner, primitive_filename: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/matlab/mprim/pit_nav.mprim,
+    timetoturn45degsinplace_secs: 0.6}
   TebLocalPlannerROS:
-    acc_lim_theta: 0.5
-    acc_lim_x: 0.5
-    allow_init_with_backwards_motion: false
+    acc_lim_theta: 1.2
+    acc_lim_x: 0.11
+    allow_init_with_backwards_motion: true
     costmap_converter:
       CostmapToLinesDBSRANSAC: {cluster_max_distance: 0.4, cluster_min_pts: 2, convex_hull_min_pt_separation: 0.1,
         ransac_convert_outlier_pts: true, ransac_filter_remaining_outlier_pts: false,
         ransac_inlier_distance: 0.15, ransac_min_inliers: 10, ransac_no_iterations: 1500,
         ransac_remainig_outliers: 3}
-    costmap_converter_plugin: costmap_converter::CostmapToLinesDBSRANSAC
+    costmap_converter_plugin: ''
     costmap_converter_rate: 5
     costmap_converter_spin_thread: true
-    costmap_obstacles_behind_robot_dist: 1.5
+    costmap_obstacles_behind_robot_dist: 0
     delete_detours_backwards: true
     dt_hysteresis: 0.1
     dt_ref: 0.3
@@ -28,7 +31,7 @@ move_base:
     feasibility_check_no_poses: 5
     footprint_model: {type: point}
     free_goal_vel: false
-    global_plan_overwrite_orientation: true
+    global_plan_overwrite_orientation: false
     global_plan_prune_distance: 1
     global_plan_viapoint_sep: -1
     h_signature_prescaler: 0.5
@@ -40,15 +43,15 @@ move_base:
     max_number_classes: 4
     max_ratio_detours_duration_best_duration: 3.0
     max_samples: 500
-    max_vel_theta: 3.036
-    max_vel_x: 0.7
-    max_vel_x_backwards: 0.7
+    max_vel_theta: 1.2
+    max_vel_x: 0.11
+    max_vel_x_backwards: 0.11
     max_vel_y: 0
-    min_obstacle_dist: 0.5
-    min_turning_radius: 0.01
+    min_obstacle_dist: 0.3
+    min_turning_radius: 0.0
     no_inner_iterations: 5
     no_outer_iterations: 4
-    obstacle_cost_exponent: 4
+    obstacle_cost_exponent: 6
     obstacle_heading_threshold: 0.45
     obstacle_poses_affected: 15
     odom_topic: odometry_ground_truth
@@ -79,29 +82,55 @@ move_base:
     weight_acc_lim_x: 1
     weight_adapt_factor: 2
     weight_dynamic_obstacle: 10
-    weight_dynamic_obstacle_inflation: 0.2
-    weight_inflation: 0.2
+    weight_dynamic_obstacle_inflation: 0.6
+    weight_inflation: 0.5
     weight_kinematics_forward_drive: 1
     weight_kinematics_nh: 1000
-    weight_kinematics_turning_radius: 1
-    weight_max_vel_theta: 1
+    weight_kinematics_turning_radius: 0
+    weight_max_vel_theta: 2
     weight_max_vel_x: 2
     weight_obstacle: 100
     weight_optimaltime: 1
-    weight_shortest_path: 0
+    weight_shortest_path: 1
     weight_viapoint: 1
     wheelbase: 0.266
-    xy_goal_tolerance: 0.3
+    xy_goal_tolerance: 0.1
+    yaw_goal_tolerance: 0.06
+  TrajectoryPlannerROS:
+    acc_lim_theta: 0.5
+    acc_lim_x: 0.5
+    allow_init_with_backwards_motion: false
+    dt_hysteresis: 0.1
+    dt_ref: 0.3
+    exact_arc_length: false
+    feasibility_check_no_poses: 5
+    footprint_model: {type: point}
+    free_goal_vel: false
+    global_plan_overwrite_orientation: true
+    global_plan_prune_distance: 1
+    global_plan_viapoint_sep: -1
+    holonomic_robot: true
+    max_global_plan_lookahead_dist: 1
+    max_samples: 500
+    max_vel_theta: 3.036
+    max_vel_x: 0.7
+    max_vel_x_backwards: 0.7
+    max_vel_y: 0
+    min_turning_radius: 0.01
+    publish_feedback: false
+    teb_autosize: true
+    wheelbase: 0.266
+    xy_goal_tolerance: 0.25
     yaw_goal_tolerance: 0.16
-  base_global_planner: global_planner/GlobalPlanner
-  base_local_planner: base_local_planner/TrajectoryPlannerROS
+  base_global_planner: SBPLLatticePlanner
+  base_local_planner: teb_local_planner/TebLocalPlannerROS
   controller_frequency: 5.0
   controller_patience: 15.0
   global_costmap:
     always_send_full_costmap: true
     footprint_padding: 0.0
     global_frame: map
-    inflation_layer: {cost_scaling_factor: 10.0, enabled: true, inflation_radius: 0.5}
+    inflation_layer: {cost_scaling_factor: 1.1, enabled: true, inflation_radius: 0.7}
     map_type: costmap
     obstacle_layer:
       combination_method: 1
@@ -117,19 +146,19 @@ move_base:
     - {name: static_layer, type: 'costmap_2d::StaticLayer'}
     - {name: obstacle_layer, type: 'costmap_2d::VoxelLayer'}
     - {name: inflation_layer, type: 'costmap_2d::InflationLayer'}
-    publish_frequency: 0.5
+    publish_frequency: 0.01
     robot_base_frame: base_link
     robot_radius: 0.25
     static_layer: {enabled: true, map_topic: /map}
     static_map: true
     transform_tolerance: 0.5
-    update_frequency: 1.0
+    update_frequency: 0.01
   local_costmap:
     always_send_full_costmap: true
     footprint_padding: 0.0
     global_frame: map
     height: 5
-    inflation_layer: {cost_scaling_factor: 10.0, enabled: true, inflation_radius: 0.5}
+    inflation_layer: {cost_scaling_factor: 1.1, enabled: true, inflation_radius: 0.7}
     map_type: costmap
     obstacle_layer:
       combination_method: 1
@@ -166,11 +195,12 @@ rosdistro: 'kinetic
 
   '
 roslaunch:
-  uris: {host_hash_sys__38021: 'http://hash-sys:38021/'}
+  uris: {host_alex_aurora_r4__36339: 'http://alex-Aurora-R4:36339/', host_hash_sys__38021: 'http://hash-sys:38021/'}
 rosversion: '1.12.14
 
   '
 run_id: a0d236fe-6470-11ea-a721-7cdd909f965b
-system_name: hash
+system_name: /home/alex/pit-navigator-utah/Simulation
+tackSize: 20
 use_sim_time: true
-visualization_path: /home/hash/catkin_ws/src/visualization
+visualization_path: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/visualization
