@@ -138,7 +138,7 @@ void SBPLLatticePlanner::initialize(std::string name, costmap_2d::Costmap2DROS* 
       env_ = new EnvironmentNAVXYTHETAMLEVLAT();
     }
     else{
-      ROS_ERROR("XYThetaLattice is currently the only supported environment!\n");
+      ROS_ERROR("XYThetaMLevLattice is currently the only supported environment!\n");
       exit(1);
     }
 
@@ -328,8 +328,14 @@ bool SBPLLatticePlanner::makePlan(const geometry_msgs::PoseStamped& start,
   double theta_start = 2 * atan2(start.pose.orientation.z, start.pose.orientation.w);
   double theta_goal = 2 * atan2(goal.pose.orientation.z, goal.pose.orientation.w);
 
+
+
+  ros::NodeHandle private_nh("~/"+name_);
+  double battery_status;
+  private_nh.param("/battery/charge",battery_status,1.0);
+
   try{ //set start
-    int ret = env_->SetStart(start.pose.position.x - costmap_ros_->getCostmap()->getOriginX(), start.pose.position.y - costmap_ros_->getCostmap()->getOriginY(), theta_start);
+    int ret = env_->SetStart(start.pose.position.x - costmap_ros_->getCostmap()->getOriginX(), start.pose.position.y - costmap_ros_->getCostmap()->getOriginY(),int((1-battery_status)*numofadditionalzlevs), theta_start );
     if(ret < 0 || planner_->set_start(ret) == 0){
       ROS_ERROR("ERROR: failed to set start state\n");
       return false;
@@ -440,6 +446,7 @@ bool SBPLLatticePlanner::makePlan(const geometry_msgs::PoseStamped& start,
     EnvNAVXYTHETALAT3Dpt_t s(
         start.pose.position.x - costmap_ros_->getCostmap()->getOriginX(),
         start.pose.position.y - costmap_ros_->getCostmap()->getOriginY(),
+        start.pose.position.z,
         theta_start);
     sbpl_path.push_back(s);
   }
@@ -459,7 +466,7 @@ bool SBPLLatticePlanner::makePlan(const geometry_msgs::PoseStamped& start,
 
     pose.pose.position.x = sbpl_path[i].x + costmap_ros_->getCostmap()->getOriginX();
     pose.pose.position.y = sbpl_path[i].y + costmap_ros_->getCostmap()->getOriginY();
-    pose.pose.position.z = start.pose.position.z;
+    pose.pose.position.z = sbpl_path[i].z;
 
     tf2::Quaternion temp;
     temp.setRPY(0,0,sbpl_path[i].theta);

@@ -377,6 +377,8 @@ sbpl/utils/mdp.h
 -
 sbpl/utils/mdpconfig.h
 -
+inttypes.h
+-
 
 /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_robarm.cpp
 cmath

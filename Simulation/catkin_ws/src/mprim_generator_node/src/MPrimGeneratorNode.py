@@ -8,13 +8,13 @@ from std_msgs.msg import String
 from geometry_msgs.msg import Point, Pose, Quaternion
 
 system_path    = rospy.get_param('/system_name','/home/alex/pit-navigator-utah/Simulation')
-hotelEnergyOut = rospy.get_param('/battery/hotel_energy_out',25) #per second
-turnEnergyOut  = rospy.get_param('/battery/turn_energy_out' ,25) #per second
-arcEnergyOut   = rospy.get_param('/battery/arc_energy_out'  ,10) #per second
-driveEnergyOut = rospy.get_param('/battery/drive_energy_out', 5) #per second
-batterySolar   = rospy.get_param('/battery/solar_peak'      ,50) #per second in sun
-nominalVelocity= rospy.get_param('/move_base/SBPLLatticePlanner/nominalvel_mpersecs', 0.4) #meter per second
-turnangleTime  = rospy.get_param('/move_base/SBPLLatticePlanner/timetoturn45degsinplace_secs',0.6)/45*22.5 #time to turn 1 angle
+hotelEnergyOut = rospy.get_param('/battery/hotel_energy_out', default=25) #per second
+turnEnergyOut  = rospy.get_param('/battery/turn_energy_out' , default=25) #per second
+arcEnergyOut   = rospy.get_param('/battery/arc_energy_out'  , default=10) #per second
+driveEnergyOut = rospy.get_param('/battery/drive_energy_out', default= 5) #per second
+batterySolar   = rospy.get_param('/battery/solar_peak'      , default=50) #per second in sun
+nominalVelocity= rospy.get_param('/move_base/SBPLLatticePlanner/nominalvel_mpersecs', default= 0.4) #meter per second
+turnangleTime  = rospy.get_param('/move_base/SBPLLatticePlanner/timetoturn45degsinplace_secs', default= 0.6)/45*22.5 #time to turn 1 angle
 sun_direction = np.array([1,0,0])
 
 def newMotionPrimitives(outfilename):
@@ -201,14 +201,17 @@ def newMotionPrimitives(outfilename):
             if (math.acos(np.dot(sun_direction,verticalUnitVector)/1) < math.pi/2.0):
                 battery_in = np.dot(sun_direction,verticalUnitVector)/1
             else: 
-                sun_error = endtheta_c-sun_direction[2]
+                angle1 = endtheta_c*2*math.pi/numberofangles
+                sun_error = (angle1-sun_direction[2])%math.pi
                 sun_error = abs(sun_error)
                 if sun_error > math.pi/2.0:
                     sun_error = math.pi-sun_error
-                battery_in = batterySolar*math.cos(sun_error)*seconds
+                battery_in = abs(batterySolar*math.cos(sun_error)*seconds)
 
             # finish endpose
-            endbattery_c = round(battery_in) - round(battery_out)
+            endbattery_c = -round(battery_in) + round(battery_out)
+            if endbattery_c<0:
+                endbattery_c = 0
             endpose_c = [endx_c, endy_c, endtheta_c, endbattery_c] 
             
             print( 'rotation angle=%f\n'% (angle*180/math.pi)) 
@@ -311,5 +314,4 @@ def listener():
     rospy.spin()
 
 if __name__ == '__main__':
-    newMotionPrimitives("/home/alex/pit-navigator-utah/Simulation/outfilename.mprim")
     listener()

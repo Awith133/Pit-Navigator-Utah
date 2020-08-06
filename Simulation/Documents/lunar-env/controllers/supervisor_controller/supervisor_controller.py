@@ -239,6 +239,12 @@ num_motors           = 4.5 #number of motors
 arc_multiplier       = motor_power/1.5*num_motors*4/4.5
 point_multiplier     = motor_power*num_motors
 straight_multiplier  = motor_power/2.25*num_motors*4/4.5
+battery_use          = rospy.get_param('/battery/hotel_energy_out',25) #per second
+total_battery_charge = rospy.get_param('/battery/capacity'        ,4000) #Wattseconds
+point_multiplier     = rospy.get_param('/battery/turn_energy_out' ,25) #per second
+arc_multiplier       = rospy.get_param('/battery/arc_energy_out'  ,10) #per second
+straight_multiplier  = rospy.get_param('/battery/drive_energy_out', 5) #per second
+battery_solar        = rospy.get_param('/battery/solar_peak'      ,50) #per second in sun
 #review data on charge vs drive
 total_sun_in = 0
 total_drive_energy = 0
@@ -344,6 +350,7 @@ while(supervisor.step(TIME_STEP)!=-1):
         msg.temperature = battery_charge/total_battery_charge*100
         msg.variance = 0
         battery_charge_publisher.publish(msg)
+        rospy.set_param("/battery/charge",battery_charge/total_battery_charge)
         
         prev_second = time
         #print("published",battery_charge/total_battery_charge)
