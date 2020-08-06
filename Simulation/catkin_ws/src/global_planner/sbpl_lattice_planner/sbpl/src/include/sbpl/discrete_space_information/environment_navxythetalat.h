@@ -741,6 +741,7 @@ public:
     virtual bool ReadinMotionPrimitive(SBPL_xytheta_mprimitive* pMotPrim, FILE* fIn);
     virtual bool ReadinPose(sbpl_xy_theta_pt_t* pose, FILE* fIn);
     virtual bool ReadinCell(sbpl_xy_theta_cell_t* cell, FILE* fIn);
+    virtual void ConvertStateIDPathintoXYThetaPath(std::vector<int>* stateIDPath, std::vector<sbpl_xy_theta_pt_t>* xythetaPath);
     
     /**
      * \brief setting 2D map for the additional level at levind index
@@ -882,6 +883,7 @@ protected:
     virtual EnvNAVXYTHETALATHashEntry_t* CreateNewHashEntry_hash(int X, int Y, int Z, int Theta);
     virtual EnvNAVXYTHETALATHashEntry_t* GetHashEntry_lookup(int X, int Y, int Z, int Theta);
     virtual EnvNAVXYTHETALATHashEntry_t* CreateNewHashEntry_lookup(int X, int Y, int Z, int Theta);
+    virtual void GetCoordFromState(int stateID, int& x, int& y, int& z, int& theta) const;
 
     EnvNAVXYTHETALATHashEntry_t* (EnvironmentNAVXYTHETAMLEVLAT::*GetHashEntry)(int X, int Y, int Z, int Theta);
     EnvNAVXYTHETALATHashEntry_t* (EnvironmentNAVXYTHETAMLEVLAT::*CreateNewHashEntry)(int X, int Y, int Z, int Theta);

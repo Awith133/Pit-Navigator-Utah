@@ -37,6 +37,7 @@
 #include <sbpl/utils/key.h>
 #include <sbpl/utils/mdp.h>
 #include <sbpl/utils/mdpconfig.h>
+#include <inttypes.h>
 
 #if TIME_DEBUG
 static clock_t time3_addallout = 0;
@@ -3988,6 +3989,14 @@ EnvNAVXYTHETALATHashEntry_t* EnvironmentNAVXYTHETAMLEVLAT::CreateNewHashEntry_ha
     return HashEntry;
 }
 
+void EnvironmentNAVXYTHETAMLEVLAT::GetCoordFromState(int stateID, int& x, int& y, int& z, int& theta) const
+{
+    EnvNAVXYTHETALATHashEntry_t* HashEntry = StateID2CoordTable[stateID];
+    x = HashEntry->X;
+    y = HashEntry->Y;
+    z = HashEntry->Z;
+    theta = HashEntry->Theta;
+}
 
 //---------------------------------------------------------------------
 
@@ -4007,11 +4016,12 @@ void EnvironmentNAVXYTHETAMLEVLAT::InitializeEnvironment()
 {
     EnvNAVXYTHETALATHashEntry_t* HashEntry;
 
-    int maxsize = EnvNAVXYTHETALATCfg.EnvWidth_c * EnvNAVXYTHETALATCfg.EnvHeight_c * EnvNAVXYTHETALATCfg.NumThetaDirs * EnvNAVXYTHETALATCfg.EnvDepth_c;
-
+    long long int maxsize = (long long int)(EnvNAVXYTHETALATCfg.EnvWidth_c * EnvNAVXYTHETALATCfg.EnvHeight_c * EnvNAVXYTHETALATCfg.NumThetaDirs) * (long long int)EnvNAVXYTHETALATCfg.EnvDepth_c;
+    ROS_INFO("SBPL:env: max node size: %" PRId64 "",maxsize);
     if (maxsize <= SBPL_XYTHETALAT_MAXSTATESFORLOOKUP) {
         ROS_INFO("SBPL:environment stores states in lookup table\n");
         Coord2StateIDHashTable_lookup = new EnvNAVXYTHETALATHashEntry_t*[maxsize];
+        ROS_INFO("yup");
         for (int i = 0; i < maxsize; i++) {
             Coord2StateIDHashTable_lookup[i] = NULL;
         }
@@ -4100,8 +4110,7 @@ bool EnvironmentNAVXYTHETAMLEVLAT::InitializeAdditionalLevels(int numofadditiona
         footprint.clear();
         get_2d_footprint_cells(AddLevelFootprintPolygonV[levelind], &footprint, temppose,
                                EnvNAVXYTHETALATCfg.cellsize_m);
-        ROS_INFO("SBPL:number of cells in footprint for additional level %d = %d\n", levelind,
-                    (unsigned int)footprint.size());
+        //ROS_INFO("SBPL:number of cells in footprint for additional level %d = %d\n", levelind,(unsigned int)footprint.size());
     }
 
     //compute additional levels action info
@@ -4212,7 +4221,7 @@ int EnvironmentNAVXYTHETAMLEVLAT::SetGoal(double x_m, double y_m, double theta_r
     double z_m = 0;
     int x = CONTXY2DISC(x_m, EnvNAVXYTHETALATCfg.cellsize_m);
     int y = CONTXY2DISC(y_m, EnvNAVXYTHETALATCfg.cellsize_m);
-    int z = CONTXY2DISC(z_m, EnvNAVXYTHETALATCfg.cellsize_m);
+    int z = CONTXY2DISC(z_m, 1);
     int theta = ContTheta2DiscNew(theta_rad);
 
     ROS_INFO("SBPL:env: setting goal to %.3f %.3f %.3f %.3f (%d %d %d %d)\n", x_m, y_m, z_m, theta_rad, x, y, z, theta);
@@ -4255,7 +4264,7 @@ int EnvironmentNAVXYTHETAMLEVLAT::SetStart(double x_m, double y_m, double theta_
 {
     double z_m = 0;
     int x = CONTXY2DISC(x_m, EnvNAVXYTHETALATCfg.cellsize_m);
-    int z = CONTXY2DISC(z_m, EnvNAVXYTHETALATCfg.cellsize_m);
+    int z = CONTXY2DISC(z_m, 1);
     int y = CONTXY2DISC(y_m, EnvNAVXYTHETALATCfg.cellsize_m);
     int theta = ContTheta2DiscNew(theta_rad);
 
@@ -4296,7 +4305,7 @@ int EnvironmentNAVXYTHETAMLEVLAT::SetGoal(double x_m, double y_m, double z_m, do
 {
     int x = CONTXY2DISC(x_m, EnvNAVXYTHETALATCfg.cellsize_m);
     int y = CONTXY2DISC(y_m, EnvNAVXYTHETALATCfg.cellsize_m);
-    int z = CONTXY2DISC(z_m, EnvNAVXYTHETALATCfg.cellsize_m);
+    int z = CONTXY2DISC(z_m, 1);
     int theta = ContTheta2DiscNew(theta_rad);
 
     ROS_INFO("SBPL:env: setting goal to %.3f %.3f %.3f %.3f (%d %d %d %d)\n", x_m, y_m, z_m, theta_rad, x, y, z, theta);
@@ -4338,7 +4347,7 @@ int EnvironmentNAVXYTHETAMLEVLAT::SetGoal(double x_m, double y_m, double z_m, do
 int EnvironmentNAVXYTHETAMLEVLAT::SetStart(double x_m, double y_m, double z_m, double theta_rad)
 {
     int x = CONTXY2DISC(x_m, EnvNAVXYTHETALATCfg.cellsize_m);
-    int z = CONTXY2DISC(z_m, EnvNAVXYTHETALATCfg.cellsize_m);
+    int z = CONTXY2DISC(z_m, 1);
     int y = CONTXY2DISC(y_m, EnvNAVXYTHETALATCfg.cellsize_m);
     int theta = ContTheta2DiscNew(theta_rad);
 
@@ -4525,7 +4534,6 @@ bool EnvironmentNAVXYTHETAMLEVLAT::UpdateCost(int x, int y, unsigned char newcos
         }
     }
 }
-
 
 bool EnvironmentNAVXYTHETAMLEVLAT::ReadMotionPrimitives(FILE* fMotPrims)
 {
@@ -4856,4 +4864,98 @@ bool EnvironmentNAVXYTHETAMLEVLAT::ReadinPose(sbpl_xy_theta_pt_t* pose, FILE* fI
 
     return true;
 }
+
+void EnvironmentNAVXYTHETAMLEVLAT::ConvertStateIDPathintoXYThetaPath(std::vector<int>* stateIDPath, std::vector<sbpl_xy_theta_pt_t>* xythetaPath)
+{
+    std::vector<EnvNAVXYTHETALATAction_t*> actionV;
+    std::vector<int> CostV;
+    std::vector<int> SuccIDV;
+    int targetx_c, targety_c, targettheta_c, targetz_c;
+    int sourcex_c, sourcey_c, sourcetheta_c, sourcez_c;
+
+    ROS_INFO("SBPL:checks=%ld\n", checks);
+
+    xythetaPath->clear();
+
+#if DEBUG
+    SBPL_FPRINTF(fDeb, "converting stateid path into coordinates:\n");
+#endif
+
+    for (int pind = 0; pind < (int)(stateIDPath->size()) - 1; pind++) {
+        int sourceID = stateIDPath->at(pind);
+        int targetID = stateIDPath->at(pind + 1);
+
+#if DEBUG
+        GetCoordFromState(sourceID, sourcex_c, sourcey_c, sourcetheta_c);
+#endif
+
+        // get successors and pick the target via the cheapest action
+        SuccIDV.clear();
+        CostV.clear();
+        actionV.clear();
+        GetSuccs(sourceID, &SuccIDV, &CostV, &actionV);
+
+        int bestcost = INFINITECOST;
+        int bestsind = -1;
+
+#if DEBUG
+        GetCoordFromState(sourceID, sourcex_c, sourcey_c, sourcetheta_c);
+        GetCoordFromState(targetID, targetx_c, targety_c, targettheta_c);
+        SBPL_FPRINTF(fDeb, "looking for %d %d %d -> %d %d %d (numofsuccs=%d)\n", sourcex_c, sourcey_c, sourcetheta_c, targetx_c, targety_c, targettheta_c, (int)SuccIDV.size());
+#endif
+
+        for (int sind = 0; sind < (int)SuccIDV.size(); sind++) {
+#if DEBUG
+            int x_c, y_c, theta_c;
+            GetCoordFromState(SuccIDV[sind], x_c, y_c, theta_c);
+            SBPL_FPRINTF(fDeb, "succ: %d %d %d\n", x_c, y_c, theta_c);
+#endif
+            if (SuccIDV[sind] == targetID && CostV[sind] <= bestcost) {
+                bestcost = CostV[sind];
+                bestsind = sind;
+            }
+        }
+        if (bestsind == -1) {
+            ROS_ERROR("SBPL:ERROR: successor not found for transition");
+            GetCoordFromState(sourceID, sourcex_c, sourcey_c, sourcez_c, sourcetheta_c);
+            GetCoordFromState(targetID, targetx_c, targety_c, sourcez_c, targettheta_c);
+            ROS_INFO("SBPL:%d %d %d %d -> %d %d %d %d\n", sourcex_c, sourcey_c, sourcez_c, sourcetheta_c, targetx_c, targety_c, targetz_c, targettheta_c);
+            throw SBPL_Exception("ERROR: successor not found for transition");
+        }
+
+        // now push in the actual path
+        GetCoordFromState(sourceID, sourcex_c, sourcey_c, sourcez_c, sourcetheta_c);
+        double sourcex, sourcey, sourcez;
+        sourcex = DISCXY2CONT(sourcex_c, EnvNAVXYTHETALATCfg.cellsize_m);
+        sourcey = DISCXY2CONT(sourcey_c, EnvNAVXYTHETALATCfg.cellsize_m);
+        sourcez = DISCXY2CONT(sourcez_c, EnvNAVXYTHETALATCfg.cellsize_m);
+        // TODO - when there are no motion primitives we should still print source state
+        for (int ipind = 0; ipind < ((int)actionV[bestsind]->intermptV.size()) - 1; ipind++) {
+            // translate appropriately
+            sbpl_xy_theta_pt_t intermpt = actionV[bestsind]->intermptV[ipind];
+            intermpt.x += sourcex;
+            intermpt.y += sourcey;
+            intermpt.z += sourcez;
+
+#if DEBUG
+            int nx = CONTXY2DISC(intermpt.x, EnvNAVXYTHETALATCfg.cellsize_m);
+            int ny = CONTXY2DISC(intermpt.y, EnvNAVXYTHETALATCfg.cellsize_m);
+            int ntheta;
+            ntheta = ContTheta2DiscNew(intermpt.theta);
+
+            SBPL_FPRINTF(fDeb, "%.3f %.3f %.3f (%d %d %d cost=%d) ", intermpt.x, intermpt.y, intermpt.theta, nx, ny, ntheta,  EnvNAVXYTHETALATCfg.Grid2D[nx][ny]);
+
+            if (ipind == 0) {
+                SBPL_FPRINTF(fDeb, "first (heur=%d)\n", GetStartHeuristic(sourceID));
+            }
+            else {
+                SBPL_FPRINTF(fDeb, "\n");
+            }
+#endif
+            // store
+            xythetaPath->push_back(intermpt);
+        }
+    }
+}
+
 //------------------------------------------------------------------------------
