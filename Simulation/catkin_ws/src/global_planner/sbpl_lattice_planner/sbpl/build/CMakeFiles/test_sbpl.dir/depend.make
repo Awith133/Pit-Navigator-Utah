@@ -32,6 +32,7 @@ CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: ../src/include/sbpl/utils/sbpl_bfs
 CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: ../src/include/sbpl/utils/sbpl_fifo.h
 CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: ../src/include/sbpl/utils/utils.h
 CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: ../src/test/main.cpp
+CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Point.h
 CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: /opt/ros/kinetic/include/ros/advertise_options.h
 CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: /opt/ros/kinetic/include/ros/advertise_service_options.h
 CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: /opt/ros/kinetic/include/ros/assert.h
@@ -50,6 +51,7 @@ CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: /opt/ros/kinetic/include/ros/maste
 CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: /opt/ros/kinetic/include/ros/message.h
 CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: /opt/ros/kinetic/include/ros/message_event.h
 CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: /opt/ros/kinetic/include/ros/message_forward.h
+CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: /opt/ros/kinetic/include/ros/message_operations.h
 CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: /opt/ros/kinetic/include/ros/message_traits.h
 CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: /opt/ros/kinetic/include/ros/names.h
 CMakeFiles/test_sbpl.dir/src/test/main.cpp.o: /opt/ros/kinetic/include/ros/node_handle.h

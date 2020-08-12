@@ -1,10 +1,12 @@
 #!/usr/bin/env python 
 import rospy
 import numpy as np
+import time
 import math
 import os
 import tf
 from std_msgs.msg import String
+from nav_msgs.msg import *
 from geometry_msgs.msg import Point, Pose, Quaternion
 
 system_path    = rospy.get_param('/system_name','/home/alex/pit-navigator-utah/Simulation')
@@ -15,21 +17,25 @@ driveEnergyOut = rospy.get_param('/battery/drive_energy_out', default= 5) #per s
 batterySolar   = rospy.get_param('/battery/solar_peak'      , default=50) #per second in sun
 nominalVelocity= rospy.get_param('/move_base/SBPLLatticePlanner/nominalvel_mpersecs', default= 0.4) #meter per second
 turnangleTime  = rospy.get_param('/move_base/SBPLLatticePlanner/timetoturn45degsinplace_secs', default= 0.6)/45*22.5 #time to turn 1 angle
+resolution     = rospy.get_param('/move_base/global_costmap/resolution', default=0.1)
 sun_direction = np.array([1,0,0])
+searchercount =0
+basemap = OccupancyGrid()
+mapsearched = np.zeros((1000,1000),dtype='int32')
+publish_count = 0
 
 def newMotionPrimitives(outfilename):
     UNICYCLE_MPRIM_16DEGS = 1
     if (UNICYCLE_MPRIM_16DEGS == 1):
-        resolution = rospy.get_param('/move_base/global_costmap/resolution', default=0.1)
         numberofangles = 16  #preferably a power of 2, definitely multiple of 8
         numberofprimsperangle = 11 
 
         #multipliers (multiplier is used as costmult*cost)
         forwardcostmult = 2 
         backwardcostmult = 2 
-        forwardandturncostmult = 4 
-        stopinplacecostmult = 1 
-        turninplacecostmult = 8 
+        forwardandturncostmult = 2 
+        stopinplacecostmult = 4 
+        turninplacecostmult = 2 
         
         #note, what is shown x,y,theta *changes* (that is, dx,dy,dtheta and not absolute numbers)
         
@@ -176,6 +182,8 @@ def newMotionPrimitives(outfilename):
             endx_c = round(baseendpose_c[0]*math.cos(angle) - baseendpose_c[1]*math.sin(angle))         
             endy_c = round(baseendpose_c[0]*math.sin(angle) + baseendpose_c[1]*math.cos(angle)) 
             endtheta_c = (angleind + baseendpose_c[2])% numberofangles 
+
+            #**************Calculate Power Model****************
             #assign type of movement to batteryout
             movementError = (math.sqrt(endx_c**2+endy_c**2))
             angleError = abs(currentangle-endtheta_c)
@@ -194,8 +202,6 @@ def newMotionPrimitives(outfilename):
             elif (movementError==0 and angleError==0):
                 battery_out =                                       hotelEnergyOut * secondsperWait
                 seconds = secondsperWait
-
-
             # if there is high sun
             verticalUnitVector = np.array([0,0,1])
             if (math.acos(np.dot(sun_direction,verticalUnitVector)/1) < math.pi/2.0):
@@ -207,11 +213,12 @@ def newMotionPrimitives(outfilename):
                 if sun_error > math.pi/2.0:
                     sun_error = math.pi-sun_error
                 battery_in = abs(batterySolar*math.cos(sun_error)*seconds)
-
             # finish endpose
             endbattery_c = -round(battery_in) + round(battery_out)
             if endbattery_c<0:
                 endbattery_c = 0
+
+
             endpose_c = [endx_c, endy_c, endtheta_c, endbattery_c] 
             
             print( 'rotation angle=%f\n'% (angle*180/math.pi)) 
@@ -295,7 +302,7 @@ def newMotionPrimitives(outfilename):
     fout.close()
 
 
-def callback(data):
+def SunCallback(data):
     global sun_direction
     tempx=data.x
     tempy=data.y
@@ -306,11 +313,42 @@ def callback(data):
     if (error>np.math.pi/8):
         sun_direction = direction
         path = system_path+'/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/matlab/mprim/pit_nav.mprim'
+        time.sleep(3)
         newMotionPrimitives(path)
-    
+
+def searcherCallback(data):
+    global searchercount
+    global mapsearched
+    global basemap, publish_count
+    x = int(data.x)
+    y = int(data.y)
+    mapsearched[x][y] = 255
+    # mapsearched = mapsearched-np.ones((1000,1000))
+    # mapsearched = np.where(mapsearched<0,0,mapsearched)
+    if publish_count <1000:
+        publish_count +=1
+    else:
+        publish_count=0
+        testmap = basemap
+        print(np.array(testmap.data,dtype=np.uint8).resize((1000,1000)))
+        temp = np.array(testmap.data,dtype='int32') + mapsearched.flatten('F')
+        temp = np.where(temp>255,255,temp)
+        temp = np.where(temp>127, -256+temp,temp)
+        temp = np.array(temp,dtype='int8')
+        testmap.data = np.ndarray.tolist(temp)
+        map_pub = rospy.Publisher('/map2', OccupancyGrid)
+        map_pub.publish(testmap)
+        
+def mapCallback(data):
+    global basemap
+    basemap = data
+
 def listener():
     rospy.init_node('MPrimGeneratorNode', anonymous=True)
-    rospy.Subscriber("sun_direction", Quaternion, callback)
+    rospy.Subscriber("sun_direction", Quaternion, SunCallback)
+    
+    rospy.Subscriber("map", OccupancyGrid, mapCallback)
+    rospy.Subscriber("searcher", Point, searcherCallback)
     rospy.spin()
 
 if __name__ == '__main__':

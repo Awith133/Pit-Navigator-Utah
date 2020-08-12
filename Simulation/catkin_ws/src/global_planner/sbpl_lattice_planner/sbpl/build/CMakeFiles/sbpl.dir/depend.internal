@@ -213,6 +213,7 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp
  ../src/include/sbpl/utils/mdpconfig.h
  ../src/include/sbpl/utils/utils.h
  /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_navxythetalat.cpp
+ /opt/ros/kinetic/include/geometry_msgs/Point.h
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -231,6 +232,7 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp
  /opt/ros/kinetic/include/ros/message.h
  /opt/ros/kinetic/include/ros/message_event.h
  /opt/ros/kinetic/include/ros/message_forward.h
+ /opt/ros/kinetic/include/ros/message_operations.h
  /opt/ros/kinetic/include/ros/message_traits.h
  /opt/ros/kinetic/include/ros/names.h
  /opt/ros/kinetic/include/ros/node_handle.h
@@ -639,6 +641,7 @@ CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o
  ../src/include/sbpl/utils/sbpl_fifo.h
  ../src/include/sbpl/utils/utils.h
  /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/lazyARA.cpp
+ /opt/ros/kinetic/include/geometry_msgs/Point.h
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -657,6 +660,7 @@ CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o
  /opt/ros/kinetic/include/ros/message.h
  /opt/ros/kinetic/include/ros/message_event.h
  /opt/ros/kinetic/include/ros/message_forward.h
+ /opt/ros/kinetic/include/ros/message_operations.h
  /opt/ros/kinetic/include/ros/message_traits.h
  /opt/ros/kinetic/include/ros/names.h
  /opt/ros/kinetic/include/ros/node_handle.h

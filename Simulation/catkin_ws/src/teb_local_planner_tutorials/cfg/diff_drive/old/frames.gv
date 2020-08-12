@@ -1,9 +1,0 @@
-digraph G {
-"map" -> "odom"[label="Broadcaster: /odom_map_publisher\nAverage rate: 933.434 Hz\nMost recent transform: 1574310520.653 ( -0.000 sec old)\nBuffer length: 4.991 sec\n"];
-"base_link" -> "apnapioneer3at/MultiSense_S21_meta_range_finder"[label="Broadcaster: /camera_base_link_publisher\nAverage rate: 932.840 Hz\nMost recent transform: 1574310520.651 ( 0.002 sec old)\nBuffer length: 4.989 sec\n"];
-"odom" -> "base_link"[label="Broadcaster: /supervisor_controller_22801_1574310173826\nAverage rate: 31.457 Hz\nMost recent transform: 1574310520.638 ( 0.015 sec old)\nBuffer length: 4.800 sec\n"];
-edge [style=invis];
- subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
-"Recorded at time: 1574310520.652"[ shape=plaintext ] ;
- }->"map";
-}

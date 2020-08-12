@@ -63,6 +63,10 @@ vector
 -
 sstream
 -
+ros/ros.h
+-
+geometry_msgs/Point.h
+-
 sbpl/discrete_space_information/environment.h
 -
 sbpl/utils/utils.h
@@ -324,6 +328,22 @@ string
 sbpl/headers.h
 -
 
+/opt/ros/kinetic/include/geometry_msgs/Point.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
 /opt/ros/kinetic/include/ros/advertise_options.h
 ros/forwards.h
 /opt/ros/kinetic/include/ros/ros/forwards.h
@@ -530,6 +550,10 @@ boost/make_shared.hpp
 cstddef
 -
 memory
+-
+
+/opt/ros/kinetic/include/ros/message_operations.h
+ostream
 -
 
 /opt/ros/kinetic/include/ros/message_traits.h

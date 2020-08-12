@@ -33,6 +33,7 @@ CMakeFiles/test_sbpl.dir/src/test/main.cpp.o
  ../src/include/sbpl/utils/sbpl_fifo.h
  ../src/include/sbpl/utils/utils.h
  /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/test/main.cpp
+ /opt/ros/kinetic/include/geometry_msgs/Point.h
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -51,6 +52,7 @@ CMakeFiles/test_sbpl.dir/src/test/main.cpp.o
  /opt/ros/kinetic/include/ros/message.h
  /opt/ros/kinetic/include/ros/message_event.h
  /opt/ros/kinetic/include/ros/message_forward.h
+ /opt/ros/kinetic/include/ros/message_operations.h
  /opt/ros/kinetic/include/ros/message_traits.h
  /opt/ros/kinetic/include/ros/names.h
  /opt/ros/kinetic/include/ros/node_handle.h

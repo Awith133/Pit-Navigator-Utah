@@ -289,7 +289,7 @@ protected:
     ARASearchStateSpace_t* pSearchStateSpace_;
 
     unsigned int searchexpands;
-    int MaxMemoryCounter;
+    long long int MaxMemoryCounter;
     clock_t TimeStarted;
     FILE *fDeb;
 
