@@ -375,16 +375,16 @@ while(supervisor.step(TIME_STEP)!=-1):
             charging = False
         
         
-    #print("time",rospy.get_rostime().secs)
-    
-    rospy.set_param("/sun_orientation", {'x':direction_[0]-math.pi/2,'y':direction_[2],'z':direction_[1]})
-    msg = Quaternion()
-    msg.x, msg.y, msg.z, msg.w = tf.transformations.quaternion_from_euler(direction_[0]-math.pi/2,direction_[2],direction_[1])
-    sun_dir_publisher.publish(msg)
-    #/alex
+        #print("time",rospy.get_rostime().secs)
+        
+        rospy.set_param("/sun_orientation", {'x':direction_[0]-math.pi/2,'y':direction_[2],'z':direction_[1]})
+        msg = Quaternion()
+        msg.x, msg.y, msg.z, msg.w = tf.transformations.quaternion_from_euler(direction_[0]-math.pi/2,direction_[2],direction_[1])
+        sun_dir_publisher.publish(msg)
+        #/alex
 
-    
-    publish_where_to_see(direction_)
+        
+        publish_where_to_see(direction_)
 
 
 

@@ -60,17 +60,17 @@
 
 		<!-- *************** GLOBAL PLANNER ***************  -->
 		<!-- different planners : "carrot_planner/CarrotPlanner","global_planner/GlobalPlanner","navfn/NavfnROS", "RAstar_planner/RAstarPlannerROS"-->
-		<param name="base_global_planner"                                      value= "SBPLLatticePlanner"/>
+		<param name="base_global_planner"                                      value="SBPLLatticePlanner"/>
 		<param name="planner_frequency"                                        value="1.0" />
 		<param name="planner_patience"                                         value="5.0" />
 		<!-- if SBPLlattice planner-->
 		<param name="SBPLLatticePlanner/primitive_filename"      type="string" value="$(arg SYSTEM_NAME)/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/matlab/mprim/pit_nav.mprim" />
 		<param name="SBPLLatticePlanner/environment_type"        type="string" value="XYThetaMLevLattice"/> 
-		<param name="SBPLLatticePlanner/allocated_time"                        value="10.0"/>
-		<param name="SBPLLatticePlanner/planner_type"            type="string" value="ARAPlanner"/>
+		<param name="SBPLLatticePlanner/allocated_time"                        value="30.0"/>
+		<param name="SBPLLatticePlanner/planner_type"            type="string" value="ARAPlanner"/> <!--ARAPlanner, ADPlanner-->
 		<param name="SBPLLatticePlanner/nominalvel_mpersecs"                   value="0.3"/>
 		<param name="SBPLLatticePlanner/timetoturn45degsinplace_secs"          value="0.6"/>
-		<param name="SBPLLatticePlanner/lethal_obstacle"                       value="200"/>
+		<param name="SBPLLatticePlanner/lethal_obstacle"                       value="250"/>
 		<!-- if SBPLlattice AD* planner-->
 		<!--param name="SBPLLatticePlanner/force_scratch_limit"     type="int"    value="500"/-->
 		<!--param name="SBPLLatticePlanner/forward_search"          type="bool"   value="false"/-->
@@ -123,7 +123,7 @@
     <arg name="no-gui" default="false," doc="Start Webots with minimal GUI"/>
     <include file="$(find webots_ros)/launch/webots.launch">
       <!--    starting sim mode v pause real-time run-->
-	  <arg name="mode" value="pause"/> 
+	  <arg name="mode" value="real-time"/> 
       <arg name="no-gui" value="$(arg no-gui)"/>
 	  <!--                                                   v WEBOTS WORLD FILE-->
       <arg name="world" value="$(arg LUNAR_ENV_PATH)/worlds/pitcrew_terrain_utah_camera.wbt"/>

@@ -212,6 +212,7 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: ../src/include/sbpl/utils/mdpconfig.h
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: ../src/include/sbpl/utils/utils.h
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: ../src/discrete_space_information/environment_navxythetalat.cpp
+CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Point.h
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: /opt/ros/kinetic/include/ros/advertise_options.h
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: /opt/ros/kinetic/include/ros/advertise_service_options.h
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: /opt/ros/kinetic/include/ros/assert.h
@@ -230,6 +231,7 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: /opt/ros/kinetic/include/ros/message.h
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: /opt/ros/kinetic/include/ros/message_event.h
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: /opt/ros/kinetic/include/ros/message_forward.h
+CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: /opt/ros/kinetic/include/ros/message_operations.h
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: /opt/ros/kinetic/include/ros/message_traits.h
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: /opt/ros/kinetic/include/ros/names.h
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: /opt/ros/kinetic/include/ros/node_handle.h
@@ -638,6 +640,7 @@ CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: ../src/include/sbpl/utils/sbpl_b
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: ../src/include/sbpl/utils/sbpl_fifo.h
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: ../src/include/sbpl/utils/utils.h
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: ../src/planners/lazyARA.cpp
+CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Point.h
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: /opt/ros/kinetic/include/ros/advertise_options.h
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: /opt/ros/kinetic/include/ros/advertise_service_options.h
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: /opt/ros/kinetic/include/ros/assert.h
@@ -656,6 +659,7 @@ CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: /opt/ros/kinetic/include/ros/mas
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: /opt/ros/kinetic/include/ros/message.h
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: /opt/ros/kinetic/include/ros/message_event.h
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: /opt/ros/kinetic/include/ros/message_forward.h
+CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: /opt/ros/kinetic/include/ros/message_operations.h
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: /opt/ros/kinetic/include/ros/message_traits.h
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: /opt/ros/kinetic/include/ros/names.h
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: /opt/ros/kinetic/include/ros/node_handle.h

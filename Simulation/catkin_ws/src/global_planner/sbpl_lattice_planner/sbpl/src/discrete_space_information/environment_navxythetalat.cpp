@@ -3444,6 +3444,9 @@ EnvironmentNAVXYTHETAMLEVLAT::EnvironmentNAVXYTHETAMLEVLAT()
     AddLevelGrid2D = NULL;
     AddLevel_cost_possibly_circumscribed_thresh = NULL;
     AddLevel_cost_inscribed_thresh = NULL;
+    int argc = 0;
+    char ** argv;
+    ros::init(argc, argv, "abc");
 }
 
 EnvironmentNAVXYTHETAMLEVLAT::~EnvironmentNAVXYTHETAMLEVLAT()
@@ -4163,6 +4166,8 @@ bool EnvironmentNAVXYTHETAMLEVLAT::InitializeAdditionalLevels(int numofadditiona
         }
     }
 
+
+
     //create inscribed and circumscribed cost thresholds
     AddLevel_cost_possibly_circumscribed_thresh = new unsigned char[numofadditionalzlevs];
     AddLevel_cost_inscribed_thresh = new unsigned char[numofadditionalzlevs];
@@ -4225,6 +4230,7 @@ int EnvironmentNAVXYTHETAMLEVLAT::SetGoal(double x_m, double y_m, double theta_r
     int theta = ContTheta2DiscNew(theta_rad);
 
     ROS_INFO("SBPL:env: setting goal to %.3f %.3f %.3f %.3f (%d %d %d %d)\n", x_m, y_m, z_m, theta_rad, x, y, z, theta);
+
 
     if (!IsWithinMapCell(x, y)) {
         ROS_ERROR("SBPL:ERROR: trying to set a goal cell %d %d %d that is outside of map\n", x, y, z);
@@ -4309,7 +4315,7 @@ int EnvironmentNAVXYTHETAMLEVLAT::SetGoal(double x_m, double y_m, double z_m, do
     int theta = ContTheta2DiscNew(theta_rad);
 
     ROS_INFO("SBPL:env: setting goal to %.3f %.3f %.3f %.3f (%d %d %d %d)\n", x_m, y_m, z_m, theta_rad, x, y, z, theta);
-
+    
     if (!IsWithinMapCell(x, y)) {
         ROS_ERROR("SBPL:ERROR: trying to set a goal cell %d %d %d that is outside of map\n", x, y, z);
         return -1;
@@ -4408,6 +4414,13 @@ void EnvironmentNAVXYTHETAMLEVLAT::GetSuccs(int SourceStateID, std::vector<int>*
     // get X, Y for the state
     EnvNAVXYTHETALATHashEntry_t* HashEntry = StateID2CoordTable[SourceStateID];
 
+    geometry_msgs::Point abc;
+    abc.x = HashEntry->X;
+    abc.y = HashEntry->Y;
+    abc.z = HashEntry->Z;
+    pub.publish(abc);
+    ros::spinOnce(); 
+
     // iterate through actions
     for (aind = 0; aind < EnvNAVXYTHETALATCfg.actionwidth; aind++) {
         EnvNAVXYTHETALATAction_t* nav3daction = &EnvNAVXYTHETALATCfg.ActionsV[(unsigned int)HashEntry->Theta][aind];
@@ -4459,6 +4472,14 @@ void EnvironmentNAVXYTHETAMLEVLAT::GetPreds(int TargetStateID, std::vector<int>*
 
     // get X, Y for the state
     EnvNAVXYTHETALATHashEntry_t* HashEntry = StateID2CoordTable[TargetStateID];
+
+    geometry_msgs::Point abc;
+    abc.x = HashEntry->X;
+    abc.y = HashEntry->Y;
+    abc.z = HashEntry->Z;
+    pub.publish(abc);
+    ros::spinOnce();  
+
 
     // clear the successor array
     PredIDV->clear();
@@ -4529,7 +4550,9 @@ bool EnvironmentNAVXYTHETAMLEVLAT::UpdateCost(int x, int y, unsigned char newcos
 
         if ((int)cost + (int)ceil(250.0/zlevs*iz) > 255){
             UpdateCostinAddLev(x, y, (unsigned char) 255, iz);
-        } else{
+        //} else if ((cost+(unsigned char) ceil(250.0/zlevs*iz)) < 10){
+        //    UpdateCostinAddLev(x, y, (unsigned char) 10, iz);
+        } else {
             UpdateCostinAddLev(x, y, cost+(unsigned char) ceil(250.0/zlevs*iz), iz);
         }
     }

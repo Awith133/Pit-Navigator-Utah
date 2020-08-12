@@ -117,9 +117,9 @@ void SBPLLatticePlanner::initialize(std::string name, costmap_2d::Costmap2DROS* 
     private_nh.param("timetoturn45degsinplace_secs", timetoturn45degsinplace_secs, 0.6);
 
     int lethal_obstacle;
-    private_nh.param("lethal_obstacle",lethal_obstacle,20);
+    private_nh.param("lethal_obstacle",lethal_obstacle,250);
     lethal_obstacle_ = (unsigned char) lethal_obstacle;
-    inscribed_inflated_obstacle_ = lethal_obstacle_-1;
+    inscribed_inflated_obstacle_ = lethal_obstacle_-20;
     sbpl_cost_multiplier_ = (unsigned char) (costmap_2d::INSCRIBED_INFLATED_OBSTACLE/inscribed_inflated_obstacle_ + 1);
     ROS_DEBUG("SBPL: lethal: %uz, inscribed inflated: %uz, multiplier: %uz",lethal_obstacle,inscribed_inflated_obstacle_,sbpl_cost_multiplier_);
 
@@ -205,7 +205,6 @@ void SBPLLatticePlanner::initialize(std::string name, costmap_2d::Costmap2DROS* 
     for (ssize_t ix(0); ix < costmap_ros_->getCostmap()->getSizeInCellsX(); ++ix)
       for (ssize_t iy(0); iy < costmap_ros_->getCostmap()->getSizeInCellsY(); ++iy)
         env_->UpdateCost(ix, iy, costMapCostToSBPLCost(costmap_ros_->getCostmap()->getCost(ix,iy)),numofadditionalzlevs);
-        
 
     if ("ARAPlanner" == planner_type_){
       ROS_INFO("Planning with ARA*");
@@ -241,7 +240,7 @@ unsigned char SBPLLatticePlanner::costMapCostToSBPLCost(unsigned char newcost){
     unsigned char sbpl_cost = newcost / sbpl_cost_multiplier_;
     if (sbpl_cost == 0)
       sbpl_cost = 1;
-    return sbpl_cost;
+    return sbpl_cost; //sbpl_cost
   }
 }
 

@@ -34,6 +34,9 @@
 #include <vector>
 #include <sstream>
 
+#include <ros/ros.h>
+#include <geometry_msgs/Point.h>
+
 #include <sbpl/discrete_space_information/environment.h>
 #include <sbpl/utils/utils.h>
 
@@ -833,10 +836,16 @@ public:
      */
     unsigned char GetMapCost(int X, int Y, int levind);
 
+    
+
     EnvironmentNAVXYTHETAMLEVLAT();
     ~EnvironmentNAVXYTHETAMLEVLAT();
 
 protected:
+
+    ros::NodeHandle nh;
+    ros::Publisher pub = nh.advertise<geometry_msgs::Point>("searcher", 999);
+
     /**
      * \brief number of additional levels. If it is 0, then there is only one level - base level
      */

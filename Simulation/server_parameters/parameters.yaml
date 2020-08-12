@@ -2,7 +2,6 @@ file_around_pit: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/path_loc
 file_to_pit: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/lander_to_pit_trajectory_2.csv
 lunar_env_path: /home/alex/pit-navigator-utah/Simulation/Documents/lunar-env
 manual_override: false
-map_location: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/waypoint_pit_planner/src/mapp.csv
 map_server: {frame_id: map}
 move_base:
   SBPLLatticePlanner: {allocated_time: 10.0, environment_type: XYThetaMLevLattice,

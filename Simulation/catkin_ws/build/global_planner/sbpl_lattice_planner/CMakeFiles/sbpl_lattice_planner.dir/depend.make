@@ -123,6 +123,7 @@ global_planner/sbpl_lattice_planner/CMakeFiles/sbpl_lattice_planner.dir/src/sbpl
 global_planner/sbpl_lattice_planner/CMakeFiles/sbpl_lattice_planner.dir/src/sbpl_lattice_planner.cpp.o: /opt/ros/kinetic/include/sensor_msgs/PointCloud.h
 global_planner/sbpl_lattice_planner/CMakeFiles/sbpl_lattice_planner.dir/src/sbpl_lattice_planner.cpp.o: /opt/ros/kinetic/include/std_msgs/Empty.h
 global_planner/sbpl_lattice_planner/CMakeFiles/sbpl_lattice_planner.dir/src/sbpl_lattice_planner.cpp.o: /opt/ros/kinetic/include/std_msgs/Header.h
+global_planner/sbpl_lattice_planner/CMakeFiles/sbpl_lattice_planner.dir/src/sbpl_lattice_planner.cpp.o: /opt/ros/kinetic/include/std_msgs/Int32.h
 global_planner/sbpl_lattice_planner/CMakeFiles/sbpl_lattice_planner.dir/src/sbpl_lattice_planner.cpp.o: /opt/ros/kinetic/include/tf/FrameGraph.h
 global_planner/sbpl_lattice_planner/CMakeFiles/sbpl_lattice_planner.dir/src/sbpl_lattice_planner.cpp.o: /opt/ros/kinetic/include/tf/FrameGraphRequest.h
 global_planner/sbpl_lattice_planner/CMakeFiles/sbpl_lattice_planner.dir/src/sbpl_lattice_planner.cpp.o: /opt/ros/kinetic/include/tf/FrameGraphResponse.h
