@@ -1686,22 +1686,6 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/opt/ros/kinetic/include/std_msgs/Int32.h
-string
--
-vector
--
-map
--
-ros/types.h
--
-ros/serialization.h
--
-ros/builtin_message_traits.h
--
-ros/message_operations.h
--
-
 /opt/ros/kinetic/include/tf/FrameGraph.h
 ros/service_traits.h
 -
@@ -2201,7 +2185,7 @@ sstream
 -
 ros/ros.h
 -
-std_msgs/Int32.h
+geometry_msgs/Point.h
 -
 sbpl/discrete_space_information/environment.h
 -
