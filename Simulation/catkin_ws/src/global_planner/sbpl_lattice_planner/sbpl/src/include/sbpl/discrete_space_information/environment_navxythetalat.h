@@ -69,7 +69,7 @@ struct EnvNAVXYTHETALATAction_t //TODOADDZ
     char starttheta;
     char dX;
     char dY;
-    char dZ;
+    int dZ;
     char endtheta;
     unsigned int cost;
     std::vector<sbpl_2Dcell_t> intersectingcellsV;
@@ -723,179 +723,191 @@ protected:
  */
 class EnvironmentNAVXYTHETAMLEVLAT : public EnvironmentNAVXYTHETALAT
 {
-public:
-    /**
-     * \brief initialization of additional levels. 0 is the original one. All additional ones will start with index 1
-     *        For each level, it also takes cost thresholds for cells lying
-     *        within inner radius of the robot (inscribed) and outside of the
-     *        inner circle but within outer radius (possibly_circumscribed).
-     *        See environment_navxythetalat.h for the explanation of these
-     *        parameters.
-     */
-    bool InitializeAdditionalLevels(int numofadditionalzlevs, const std::vector<sbpl_2Dpt_t>* perimeterptsV,
-                                    unsigned char* cost_inscribed_thresh,
-                                    unsigned char* cost_possibly_circumscribed_thresh);
-    
-    virtual void InitializeEnvironment();
-    
-    void SetDepth(int depth);
+    public:
+        /**
+         * \brief initialization of additional levels. 0 is the original one. All additional ones will start with index 1
+         *        For each level, it also takes cost thresholds for cells lying
+         *        within inner radius of the robot (inscribed) and outside of the
+         *        inner circle but within outer radius (possibly_circumscribed).
+         *        See environment_navxythetalat.h for the explanation of these
+         *        parameters.
+         */
+        bool InitializeAdditionalLevels(int numofadditionalzlevs, const std::vector<sbpl_2Dpt_t>* perimeterptsV,
+                                        unsigned char* cost_inscribed_thresh,
+                                        unsigned char* cost_possibly_circumscribed_thresh);
+        
+        virtual bool InitializeEnv(int width,int height,const std::vector<sbpl_2Dpt_t>& perimeterptsV,double cellsize_m,double nominalvel_mpersecs,double timetoturn45degsinplace_secs,unsigned char obsthresh,const char* sMotPrimFile,EnvNAVXYTHETALAT_InitParms params);
+        virtual bool InitializeEnv(const char* sEnvFile);
+        virtual bool InitializeEnv(    const char* sEnvFile,    const std::vector<sbpl_2Dpt_t>& perimeterptsV,    const char* sMotPrimFile);
 
-    virtual bool ReadMotionPrimitives(FILE* fMotPrims);
-    virtual bool ReadinMotionPrimitive(SBPL_xytheta_mprimitive* pMotPrim, FILE* fIn);
-    virtual bool ReadinPose(sbpl_xy_theta_pt_t* pose, FILE* fIn);
-    virtual bool ReadinCell(sbpl_xy_theta_cell_t* cell, FILE* fIn);
-    virtual void ConvertStateIDPathintoXYThetaPath(std::vector<int>* stateIDPath, std::vector<sbpl_xy_theta_pt_t>* xythetaPath);
-    
-    /**
-     * \brief setting 2D map for the additional level at levind index
-     *        (indices are zero-based and are only used to index the additional levels)
-     *        you can not use this function to set 2D map for the base level
-     *        transform from linear array mapdata to the 2D matrix used internally: Grid2D[x][y] = mapdata[x+y*width]
-     */
-    bool Set2DMapforAddLev(const unsigned char* mapdata, int levind);
+        virtual bool InitializeEnv(int width,int height,const unsigned char* mapdata,double startx, double starty, double starttheta,double goalx, double goaly, double goaltheta,double goaltol_x, double goaltol_y, double goaltol_theta,const std::vector<sbpl_2Dpt_t> & perimeterptsV,double cellsize_m,double nominalvel_mpersecs,double timetoturn45degsinplace_secs,unsigned char obsthresh,const char* sMotPrimFile);
+        
+        virtual void InitializeEnvironment();
+        
+        void SetDepth(int depth);
 
-    /**
-     * \brief set 2D map for the additional level levind
-     *        The version of Set2DMapforAddLev that takes newmap as 2D array instead of one linear array
-     */
-    bool Set2DMapforAddLev(const unsigned char** NewGrid2D, int levind);
+        virtual bool ReadMotionPrimitives(FILE* fMotPrims);
+        virtual bool ReadinMotionPrimitive(SBPL_xytheta_mprimitive* pMotPrim, FILE* fIn);
+        virtual bool ReadinPose(sbpl_xy_theta_pt_t* pose, FILE* fIn);
+        virtual bool ReadinCell(sbpl_xy_theta_cell_t* cell, FILE* fIn);
+        virtual void ConvertStateIDPathintoXYThetaPath(std::vector<int>* stateIDPath, std::vector<sbpl_xy_theta_pt_t>* xythetaPath);
+        
+        /**
+         * \brief setting 2D map for the additional level at levind index
+         *        (indices are zero-based and are only used to index the additional levels)
+         *        you can not use this function to set 2D map for the base level
+         *        transform from linear array mapdata to the 2D matrix used internally: Grid2D[x][y] = mapdata[x+y*width]
+         */
+        bool Set2DMapforAddLev(const unsigned char* mapdata, int levind);
 
-    /**
-     * \brief update the traversability of a cell<x,y> in level zlev
-     */
-    bool UpdateCostinAddLev(int x, int y, unsigned char newcost, int zlev);
+        /**
+         * \brief set 2D map for the additional level levind
+         *        The version of Set2DMapforAddLev that takes newmap as 2D array instead of one linear array
+         */
+        bool Set2DMapforAddLev(const unsigned char** NewGrid2D, int levind);
 
-    /**
-     * \brief update the traversability of a cell<x,y> in level zlev
-     */
-    bool UpdateCost(int x, int y, unsigned char newcost, int zlevs);
+        /**
+         * \brief update the traversability of a cell<x,y> in level zlev
+         */
+        bool UpdateCostinAddLev(int x, int y, unsigned char newcost, int zlev);
 
-    /**
-     * \brief incremental planning not supported
-     */
-    virtual void GetPredsofChangedEdges(std::vector<nav2dcell_t> const * changedcellsV,
-                                        std::vector<int> *preds_of_changededgesIDV)
-    {
-        throw SBPL_Exception("ERROR: GetPredsofChangedEdges function not supported");
-    }
+        /**
+         * \brief update the traversability of a cell<x,y> in level zlev
+         */
+        bool UpdateCost(int x, int y, unsigned char newcost, int zlevs);
 
-    int SetGoal(double x_m, double y_m, double theta_rad);
-    int SetStart(double x_m, double y_m, double theta_rad);
-    int SetGoal(double x_m, double y_m, double z_m, double theta_rad);
-    int SetStart(double x_m, double y_m, double z_m, double theta_rad);
+        /**
+         * \brief incremental planning not supported
+         */
+        virtual void GetPredsofChangedEdges(std::vector<nav2dcell_t> const * changedcellsV,
+                                            std::vector<int> *preds_of_changededgesIDV)
+        {
+            throw SBPL_Exception("ERROR: GetPredsofChangedEdges function not supported");
+        }
 
-    virtual void GetPreds(int TargetStateID, std::vector<int>* PredIDV, std::vector<int>* CostV);
-    virtual void GetSuccs(int SourceStateID, std::vector<int>* SuccIDV, std::vector<int>* CostV,std::vector<EnvNAVXYTHETALATAction_t*>* actionindV = NULL);
-    // virtual void GetLazySuccs(int SourceStateID, std::vector<int>* SuccIDV, std::vector<int>* CostV, std::vector<bool>* isTrueCost, std::vector<EnvNAVXYTHETALATAction_t*>* actionindV = NULL);
-    // virtual void GetSuccsWithUniqueIds(int SourceStateID, std::vector<int>* SuccIDV, std::vector<int>* CostV, std::vector<EnvNAVXYTHETALATAction_t*>* actionindV = NULL);
-    // virtual void GetLazySuccsWithUniqueIds(int SourceStateID, std::vector<int>* SuccIDV, std::vector<int>* CostV, std::vector<bool>* isTrueCost, std::vector<EnvNAVXYTHETALATAction_t*>* actionindV = NULL);
-    /**
-     * \brief incremental planning not supported
-     */
-    virtual void GetSuccsofChangedEdges(std::vector<nav2dcell_t> const * changedcellsV,
-                                        std::vector<int> *succs_of_changededgesIDV)
-    {
-        throw SBPL_Exception("ERROR: GetSuccsofChangedEdges function not supported");
-    }
+        int SetGoal(double x_m, double y_m, double theta_rad);
+        int SetStart(double x_m, double y_m, double theta_rad);
+        int SetGoal(double x_m, double y_m, double z_m, double theta_rad);
+        int SetStart(double x_m, double y_m, double z_m, double theta_rad);
 
-    /**
-     * returns true if cell is traversable and within map limits - it checks against all levels including the base one
-     */
-    bool IsValidCell(int X, int Y);
+        virtual void GetPreds(int TargetStateID, std::vector<int>* PredIDV, std::vector<int>* CostV);
+        virtual void GetSuccs(int SourceStateID, std::vector<int>* SuccIDV, std::vector<int>* CostV,std::vector<EnvNAVXYTHETALATAction_t*>* actionindV = NULL);
+        // virtual void GetLazySuccs(int SourceStateID, std::vector<int>* SuccIDV, std::vector<int>* CostV, std::vector<bool>* isTrueCost, std::vector<EnvNAVXYTHETALATAction_t*>* actionindV = NULL);
+        // virtual void GetSuccsWithUniqueIds(int SourceStateID, std::vector<int>* SuccIDV, std::vector<int>* CostV, std::vector<EnvNAVXYTHETALATAction_t*>* actionindV = NULL);
+        // virtual void GetLazySuccsWithUniqueIds(int SourceStateID, std::vector<int>* SuccIDV, std::vector<int>* CostV, std::vector<bool>* isTrueCost, std::vector<EnvNAVXYTHETALATAction_t*>* actionindV = NULL);
+        /**
+         * \brief incremental planning not supported
+         */
+        virtual void GetSuccsofChangedEdges(std::vector<nav2dcell_t> const * changedcellsV,
+                                            std::vector<int> *succs_of_changededgesIDV)
+        {
+            throw SBPL_Exception("ERROR: GetSuccsofChangedEdges function not supported");
+        }
 
-    /**
-     * returns true if cell is traversable and within map limits for a particular level
-     */
-    bool IsValidCell(int X, int Y, int levind);
+        /**
+         * returns true if cell is traversable and within map limits - it checks against all levels including the base one
+         */
+        bool IsValidCell(int X, int Y);
 
-    /**
-     * returns true if cell is untraversable at any level
-     */
-    bool IsObstacle(int x, int y);
+        /**
+         * returns true if cell is traversable and within map limits for a particular level
+         */
+        bool IsValidCell(int X, int Y, int levind);
 
-    /**
-     * returns true if cell is untraversable at level levelnum.
-     */
-    bool IsObstacle(int x, int y, int levind);
+        /**
+         * returns true if cell is untraversable at any level
+         */
+        bool IsObstacle(int x, int y);
 
-    /**
-     * \brief returns false if robot intersects obstacles or lies outside of the map.
-     *        Note this is pretty expensive operation since it computes the footprint
-     *        of the robot based on its x,y,theta
-     */
-    bool IsValidConfiguration(int X, int Y, int Theta);
-    bool IsValidConfiguration(int X, int Y, int Z, int Theta);
+        /**
+         * returns true if cell is untraversable at level levelnum.
+         */
+        bool IsObstacle(int x, int y, int levind);
 
-    /**
-     * \brief returns the maximum over all levels of the cost corresponding to the cell <x,y>
-     */
-    unsigned char GetMapCost(int X, int Y);
+        /**
+         * \brief returns false if robot intersects obstacles or lies outside of the map.
+         *        Note this is pretty expensive operation since it computes the footprint
+         *        of the robot based on its x,y,theta
+         */
+        bool IsValidConfiguration(int X, int Y, int Theta);
+        bool IsValidConfiguration(int X, int Y, int Z, int Theta);
 
-    /**
-     * \brief returns the cost corresponding to the cell <x,y> at level levind
-     */
-    unsigned char GetMapCost(int X, int Y, int levind);
+        /**
+         * \brief returns the maximum over all levels of the cost corresponding to the cell <x,y>
+         */
+        unsigned char GetMapCost(int X, int Y);
 
-    
+        /**
+         * \brief returns the cost corresponding to the cell <x,y> at level levind
+         */
+        unsigned char GetMapCost(int X, int Y, int levind);
 
-    EnvironmentNAVXYTHETAMLEVLAT();
-    ~EnvironmentNAVXYTHETAMLEVLAT();
+        
 
-protected:
+        EnvironmentNAVXYTHETAMLEVLAT();
+        ~EnvironmentNAVXYTHETAMLEVLAT();
 
-    ros::NodeHandle nh;
-    ros::Publisher pub = nh.advertise<geometry_msgs::Point>("searcher", 999);
+    protected:
 
-    /**
-     * \brief number of additional levels. If it is 0, then there is only one level - base level
-     */
-    int numofadditionalzlevs;
+        ros::NodeHandle nh;
+        ros::Publisher pub = nh.advertise<geometry_msgs::Point>("searcher", 999);
 
-    /**
-     * \brief footprints for the additional levels
-     */
-    std::vector<sbpl_2Dpt_t>* AddLevelFootprintPolygonV;
+        /**
+         * \brief number of additional levels. If it is 0, then there is only one level - base level
+         */
+        int numofadditionalzlevs;
 
-    /**
-     * \brief array of additional info in actions,
-     *        AdditionalInfoinActionsV[i][j] - jth action for sourcetheta = i
-     *        basically, each Additional info structure will contain numofadditionalzlevs additional intersecting
-     *        cells vector<sbpl_2Dcell_t> intersectingcellsV
-     */
-    EnvNAVXYTHETAMLEVLATAddInfoAction_t** AdditionalInfoinActionsV;
+        /**
+         * \brief footprints for the additional levels
+         */
+        std::vector<sbpl_2Dpt_t>* AddLevelFootprintPolygonV;
 
-    /**
-     * \brief 2D maps for additional levels.
-     *        AddLevelGrid2D[lind][x][y] refers to <x,y> cell on the additional level lind
-     */
-    unsigned char*** AddLevelGrid2D;
+        /**
+         * \brief array of additional info in actions,
+         *        AdditionalInfoinActionsV[i][j] - jth action for sourcetheta = i
+         *        basically, each Additional info structure will contain numofadditionalzlevs additional intersecting
+         *        cells vector<sbpl_2Dcell_t> intersectingcellsV
+         */
+        EnvNAVXYTHETAMLEVLATAddInfoAction_t** AdditionalInfoinActionsV;
 
-    /**
-     * \brief inscribed cost thresholds for additional levels
-     *        see environment_navxythetalat.h file for the explanation of this threshold
-     */
-    unsigned char* AddLevel_cost_inscribed_thresh;
-    /**
-     * \brief possibly_circumscribed cost thresholds for additional levels
-     *        see environment_navxythetalat.h file for the explanation of this threshold
-     */
-    unsigned char* AddLevel_cost_possibly_circumscribed_thresh;
+        /**
+         * \brief 2D maps for additional levels.
+         *        AddLevelGrid2D[lind][x][y] refers to <x,y> cell on the additional level lind
+         */
+        unsigned char*** AddLevelGrid2D;
 
-    virtual int GetActionCost(int SourceX, int SourceY, int SourceZ, int SourceTheta, EnvNAVXYTHETALATAction_t* action);
+        /**
+         * \brief inscribed cost thresholds for additional levels
+         *        see environment_navxythetalat.h file for the explanation of this threshold
+         */
+        unsigned char* AddLevel_cost_inscribed_thresh;
+        /**
+         * \brief possibly_circumscribed cost thresholds for additional levels
+         *        see environment_navxythetalat.h file for the explanation of this threshold
+         */
+        unsigned char* AddLevel_cost_possibly_circumscribed_thresh;
 
-    virtual int GetActionCostacrossAddLevels(int SourceX, int SourceY, int SourceZ, int SourceTheta,
-                                             EnvNAVXYTHETALATAction_t* action);
+        virtual int GetActionCost(int SourceX, int SourceY, int SourceZ, int SourceTheta, EnvNAVXYTHETALATAction_t* action);
 
-    virtual unsigned int GETHASHBIN(unsigned int X, unsigned int Y, unsigned int Z, unsigned int Theta);
+        virtual void ComputeReplanningData();
+        virtual void ComputeReplanningDataforAction(    EnvNAVXYTHETALATAction_t* action);
+        virtual void PrecomputeActionswithCompleteMotionPrimitive(    std::vector<SBPL_xytheta_mprimitive>* motionprimitiveV);
+        virtual void InitializeEnvConfig(std::vector<SBPL_xytheta_mprimitive>* motionprimitiveV);
+        virtual bool InitGeneral(    std::vector<SBPL_xytheta_mprimitive>* motionprimitiveV);
 
-    virtual EnvNAVXYTHETALATHashEntry_t* GetHashEntry_hash(int X, int Y, int Z, int Theta);
-    virtual EnvNAVXYTHETALATHashEntry_t* CreateNewHashEntry_hash(int X, int Y, int Z, int Theta);
-    virtual EnvNAVXYTHETALATHashEntry_t* GetHashEntry_lookup(int X, int Y, int Z, int Theta);
-    virtual EnvNAVXYTHETALATHashEntry_t* CreateNewHashEntry_lookup(int X, int Y, int Z, int Theta);
-    virtual void GetCoordFromState(int stateID, int& x, int& y, int& z, int& theta) const;
+        virtual int GetActionCostacrossAddLevels(int SourceX, int SourceY, int SourceZ, int SourceTheta,
+                                                EnvNAVXYTHETALATAction_t* action);
 
-    EnvNAVXYTHETALATHashEntry_t* (EnvironmentNAVXYTHETAMLEVLAT::*GetHashEntry)(int X, int Y, int Z, int Theta);
-    EnvNAVXYTHETALATHashEntry_t* (EnvironmentNAVXYTHETAMLEVLAT::*CreateNewHashEntry)(int X, int Y, int Z, int Theta);
+        virtual unsigned int GETHASHBIN(unsigned int X, unsigned int Y, unsigned int Z, unsigned int Theta);
+
+        virtual EnvNAVXYTHETALATHashEntry_t* GetHashEntry_hash(int X, int Y, int Z, int Theta);
+        virtual EnvNAVXYTHETALATHashEntry_t* CreateNewHashEntry_hash(int X, int Y, int Z, int Theta);
+        virtual EnvNAVXYTHETALATHashEntry_t* GetHashEntry_lookup(int X, int Y, int Z, int Theta);
+        virtual EnvNAVXYTHETALATHashEntry_t* CreateNewHashEntry_lookup(int X, int Y, int Z, int Theta);
+        virtual void GetCoordFromState(int stateID, int& x, int& y, int& z, int& theta) const;
+
+        EnvNAVXYTHETALATHashEntry_t* (EnvironmentNAVXYTHETAMLEVLAT::*GetHashEntry)(int X, int Y, int Z, int Theta);
+        EnvNAVXYTHETALATHashEntry_t* (EnvironmentNAVXYTHETAMLEVLAT::*CreateNewHashEntry)(int X, int Y, int Z, int Theta);
 
     
 

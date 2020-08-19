@@ -120,7 +120,7 @@ def newMotionPrimitives(outfilename):
         
         #iterate over primitives    
         for primind in range(numberofprimsperangle):
-            fout.write('primID: %d\n'% (primind)) 
+            fout.write('primID: %d\n'% (primind+angleind*numberofprimsperangle)) 
             fout.write('startangle_c: %d\n'% (angleind)) 
 
             #current angle
@@ -189,7 +189,7 @@ def newMotionPrimitives(outfilename):
             angleError = abs(currentangle-endtheta_c)
             secondsperTurn = turnangleTime
             secondsperDrive = movementError/nominalVelocity
-            secondsperWait = 1 #TODO
+            secondsperWait = 10 #TODO
             if   (movementError >0 and angleError >0):
                 battery_out = arcEnergyOut  * secondsperDrive     + hotelEnergyOut * secondsperDrive 
                 seconds = secondsperDrive
@@ -207,7 +207,7 @@ def newMotionPrimitives(outfilename):
             if (math.acos(np.dot(sun_direction,verticalUnitVector)/1) < math.pi/2.0):
                 battery_in = np.dot(sun_direction,verticalUnitVector)/1
             else: 
-                angle1 = endtheta_c*2*math.pi/numberofangles
+                angle1 = (angleind+endtheta_c)/2.0*2*math.pi/numberofangles
                 sun_error = (angle1-sun_direction[2])%math.pi
                 sun_error = abs(sun_error)
                 if sun_error > math.pi/2.0:
@@ -215,8 +215,6 @@ def newMotionPrimitives(outfilename):
                 battery_in = abs(batterySolar*math.cos(sun_error)*seconds)
             # finish endpose
             endbattery_c = -round(battery_in) + round(battery_out)
-            if endbattery_c<0:
-                endbattery_c = 0
 
 
             endpose_c = [endx_c, endy_c, endtheta_c, endbattery_c] 
@@ -301,7 +299,6 @@ def newMotionPrimitives(outfilename):
                 fout.write('%.4f %.4f %.4f %.4f\n'% (intermcells_m[interind,0], intermcells_m[interind,1], intermcells_m[interind,2], intermcells_m[interind,3])) 
     fout.close()
 
-
 def SunCallback(data):
     global sun_direction
     tempx=data.x
@@ -322,7 +319,7 @@ def searcherCallback(data):
     global basemap, publish_count
     x = int(data.x)
     y = int(data.y)
-    mapsearched[x][y] = 255
+    mapsearched[x][y] = int(data.z/4000.00*255)
     # mapsearched = mapsearched-np.ones((1000,1000))
     # mapsearched = np.where(mapsearched<0,0,mapsearched)
     if publish_count <1000:
@@ -330,7 +327,7 @@ def searcherCallback(data):
     else:
         publish_count=0
         testmap = basemap
-        print(np.array(testmap.data,dtype=np.uint8).resize((1000,1000)))
+        #print(np.array(testmap.data,dtype=np.uint8).resize((1000,1000)))
         temp = np.array(testmap.data,dtype='int32') + mapsearched.flatten('F')
         temp = np.where(temp>255,255,temp)
         temp = np.where(temp>127, -256+temp,temp)
