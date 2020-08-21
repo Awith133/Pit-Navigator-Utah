@@ -889,6 +889,9 @@ class EnvironmentNAVXYTHETAMLEVLAT : public EnvironmentNAVXYTHETALAT
 
         virtual int GetActionCost(int SourceX, int SourceY, int SourceZ, int SourceTheta, EnvNAVXYTHETALATAction_t* action);
 
+        virtual int GetGoalHeuristic(int stateID);
+        virtual double EuclideanDistance_m(int X1, int Y1, int Z1, int X2, int Y2, int Z2);
+
         virtual void ComputeReplanningData();
         virtual void ComputeReplanningDataforAction(    EnvNAVXYTHETALATAction_t* action);
         virtual void PrecomputeActionswithCompleteMotionPrimitive(    std::vector<SBPL_xytheta_mprimitive>* motionprimitiveV);

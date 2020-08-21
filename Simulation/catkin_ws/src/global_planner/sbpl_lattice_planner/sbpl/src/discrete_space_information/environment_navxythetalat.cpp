@@ -3002,6 +3002,7 @@ void EnvironmentNAVXYTHETALAT::PrintHashTableHist(FILE* fOut)
 
 int EnvironmentNAVXYTHETALAT::GetFromToHeuristic(int FromStateID, int ToStateID)
 {
+    ROS_ERROR("GetFromToHeuristic called");
 #if USE_HEUR==0
     return 0;
 #endif
@@ -3029,6 +3030,7 @@ int EnvironmentNAVXYTHETALAT::GetFromToHeuristic(int FromStateID, int ToStateID)
 
 int EnvironmentNAVXYTHETALAT::GetGoalHeuristic(int stateID)
 {
+
 #if USE_HEUR==0
     return 0;
 #endif
@@ -3051,6 +3053,8 @@ int EnvironmentNAVXYTHETALAT::GetGoalHeuristic(int stateID)
 
 int EnvironmentNAVXYTHETALAT::GetStartHeuristic(int stateID)
 {
+    ROS_ERROR("GetSTARTHeuristic called");
+
 #if USE_HEUR==0
     return 0;
 #endif
@@ -3353,6 +3357,36 @@ EnvironmentNAVXYTHETAMLEVLAT::~EnvironmentNAVXYTHETAMLEVLAT()
 
 //-------------------problem specific and local functions---------------------
 
+int EnvironmentNAVXYTHETAMLEVLAT::GetGoalHeuristic(int stateID)
+{
+    //costROS_WARN("           RIGHT GetGoalHeuristic called");
+    
+#if USE_HEUR==0
+    return 0;
+#endif
+
+#if DEBUG
+    if (stateID >= (int)StateID2CoordTable.size()) {
+        throw SBPL_Exception("ERROR in EnvNAVXYTHETALAT... function: stateID illegal");
+    }
+#endif
+
+    EnvNAVXYTHETALATHashEntry_t* HashEntry = StateID2CoordTable[stateID];
+    // computes distances from start state that is grid2D, so it is EndX_c EndY_c
+    int h2D = grid2Dsearchfromgoal->getlowerboundoncostfromstart_inmm(HashEntry->X, HashEntry->Y);
+    int hEuclid = (int)(NAVXYTHETALAT_COSTMULT_MTOMM *
+            EuclideanDistance_m(HashEntry->X, HashEntry->Y, HashEntry->Z, EnvNAVXYTHETALATCfg.EndX_c, EnvNAVXYTHETALATCfg.EndY_c, EnvNAVXYTHETALATCfg.EndZ_c)*2);
+
+    // define this function if it is used in the planner (heuristic backward search would use it)
+    return (int)(((double)__max(h2D, hEuclid)) / EnvNAVXYTHETALATCfg.nominalvel_mpersecs);
+}
+
+double EnvironmentNAVXYTHETAMLEVLAT::EuclideanDistance_m(int X1, int Y1, int Z1, int X2, int Y2, int Z2)
+{
+    int sqdist = ((X1 - X2) * (X1 - X2) + (Y1 - Y2) * (Y1 - Y2) + (Z1 - Z2) * (Z1 - Z2) * EnvNAVXYTHETALATCfg.nominalvel_mpersecs);
+    return EnvNAVXYTHETALATCfg.cellsize_m * sqrt((double)sqdist);
+}
+
 //returns true if cell is traversable and within map limits (base level only) - it checks against all levels including the base one
 bool EnvironmentNAVXYTHETAMLEVLAT::IsValidCell(int X, int Y)
 {
@@ -3531,6 +3565,7 @@ int EnvironmentNAVXYTHETAMLEVLAT::GetActionCost(int SourceX, int SourceY, int So
 
     int addcost = GetActionCostacrossAddLevels(SourceX, SourceY, SourceZ, SourceTheta, action);
 
+    //costROS_WARN("X: %i, \t Y: %i, \t Z: %i, \t T: %i, \t A: %i \t Cost: %i",SourceX,SourceY,SourceZ,SourceTheta,action->motprimID%11,__max(basecost, addcost));
     return __max(basecost, addcost);
 }
 int EnvironmentNAVXYTHETAMLEVLAT::GetActionCostacrossAddLevels(int SourceX, int SourceY, int SourceZ, int SourceTheta, EnvNAVXYTHETALATAction_t* action)
@@ -3542,7 +3577,7 @@ int EnvironmentNAVXYTHETAMLEVLAT::GetActionCostacrossAddLevels(int SourceX, int 
     // TODO - go over bounding box (minpt and maxpt) to test validity and skip
     // testing boundaries below, also order intersect cells so that the four
     // farthest pts go first
-
+    
     if (!IsValidCell(SourceX, SourceY,SourceZ)) {
         return INFINITECOST;
     }
@@ -3574,7 +3609,7 @@ int EnvironmentNAVXYTHETAMLEVLAT::GetActionCostacrossAddLevels(int SourceX, int 
 
         // add over 100%
         if (interm3Dcell.x < 0 || interm3Dcell.x >= EnvNAVXYTHETALATCfg.EnvWidth_c ||
-            interm3Dcell.y < 0 || interm3Dcell.y >= EnvNAVXYTHETALATCfg.EnvHeight_c || interm3Dcell.z >= EnvNAVXYTHETALATCfg.EnvDepth_c)
+            interm3Dcell.y < 0 || interm3Dcell.y >= EnvNAVXYTHETALATCfg.EnvHeight_c || interm3Dcell.z < 0 || interm3Dcell.z >= EnvNAVXYTHETALATCfg.EnvDepth_c)
         {
             return INFINITECOST;
         }
@@ -3600,8 +3635,8 @@ int EnvironmentNAVXYTHETAMLEVLAT::GetActionCostacrossAddLevels(int SourceX, int 
             cell.y = cell.y + SourceY;
             cell.z = cell.z + SourceZ;
             // add over 100%
-            if (interm3Dcell.z<0)
-                interm3Dcell.z=0;
+            if (cell.z<0)
+                cell.z=0;
 
             // check validity
             if (!IsValidCell(cell.x, cell.y, cell.z)) {
@@ -3621,7 +3656,7 @@ int EnvironmentNAVXYTHETAMLEVLAT::GetActionCostacrossAddLevels(int SourceX, int 
     int currentmaxcost = (int)__max(
             maxcellcost,
             AddLevelGrid2D[newZ][SourceX + action->dX][SourceY + action->dY]);
-
+    //costROS_WARN("X: %i, \t Y: %i, \t Z: %i, \t T: %i, \t A: %i \t CellCost: %i",SourceX,SourceY,SourceZ,SourceTheta,action->motprimID%11,currentmaxcost);
     // use cell cost as multiplicative factor
     return action->cost * (currentmaxcost + 1);
 
@@ -4133,6 +4168,7 @@ void EnvironmentNAVXYTHETAMLEVLAT::InitializeEnvConfig(std::vector<SBPL_xytheta_
     PrecomputeActionswithCompleteMotionPrimitive(motionprimitiveV);
 }
 
+//where mprims are transated into actions
 void EnvironmentNAVXYTHETAMLEVLAT::PrecomputeActionswithCompleteMotionPrimitive(    std::vector<SBPL_xytheta_mprimitive>* motionprimitiveV)
 {
     //ROS_WARN("PrecomputeActionswithCompleteMotionPrimitive called");
@@ -4240,8 +4276,8 @@ void EnvironmentNAVXYTHETAMLEVLAT::PrecomputeActionswithCompleteMotionPrimitive(
                 double z1 = EnvNAVXYTHETALATCfg.ActionsV[tind][aind].intermptV[i].z;
                 double dx = x1 - x0;
                 double dy = y1 - y0;
-                double dz = (z1 - z0);//*EnvNAVXYTHETALATCfg.nominalvel_mpersecs; //TODO Maybe here?
-                linear_distance += sqrt(dx * dx + dy * dy + dz * dz);
+                double dz = (z1 - z0)*EnvNAVXYTHETALATCfg.nominalvel_mpersecs; //TODO Maybe here?
+                linear_distance += sqrt(dx * dx + dy * dy);// + dz * dz);
             }
             double linear_time = linear_distance / EnvNAVXYTHETALATCfg.nominalvel_mpersecs;
             double angular_distance;
@@ -4838,7 +4874,7 @@ void EnvironmentNAVXYTHETAMLEVLAT::GetSuccs(int SourceStateID, std::vector<int>*
 #if TIME_DEBUG
     clock_t currenttime = clock();
 #endif
-    ROS_DEBUG("RIGHT GetSuccs called");
+    //ROS_WARN("RIGHT GetSuccs called");
     // clear the successor array
     SuccIDV->clear();
     CostV->clear();
@@ -4855,12 +4891,13 @@ void EnvironmentNAVXYTHETAMLEVLAT::GetSuccs(int SourceStateID, std::vector<int>*
     // get X, Y for the state
     EnvNAVXYTHETALATHashEntry_t* HashEntry = StateID2CoordTable[SourceStateID];
 
-    geometry_msgs::Point abc;
-    abc.x = HashEntry->X;
-    abc.y = HashEntry->Y;
-    abc.z = HashEntry->Z;
-    pub.publish(abc);
-    ros::spinOnce(); 
+    //ROS MAP2 MESSAGE
+    // geometry_msgs::Point abc;
+    // abc.x = HashEntry->X;
+    // abc.y = HashEntry->Y;
+    // abc.z = HashEntry->Z;
+    // pub.publish(abc);
+    // ros::spinOnce(); 
 
     // iterate through actions
     for (aind = 0; aind < EnvNAVXYTHETALATCfg.actionwidth; aind++) {
@@ -4887,7 +4924,7 @@ void EnvironmentNAVXYTHETAMLEVLAT::GetSuccs(int SourceStateID, std::vector<int>*
         // get cost
         int cost = GetActionCost(HashEntry->X, HashEntry->Y, HashEntry->Z, HashEntry->Theta, nav3daction);
         if (cost >= INFINITECOST) {
-        //    ROS_WARN("           cost: %i",cost);
+            //ROS_WARN("           cost: %i",cost);
             continue;
         }
         
@@ -4995,7 +5032,7 @@ bool EnvironmentNAVXYTHETAMLEVLAT::UpdateCost(int x, int y, unsigned char newcos
         // if (iz*1.0 < zlevs*.8){
         //     UpdateCostinAddLev(x, y, (unsigned char) 0, iz);
         // } else if (iz*1.0 < zlevs*.95){
-        //     UpdateCostinAddLev(x, y, (unsigned char) 240, iz);
+        //     UpdateCostinAddLev(x, y, (unsigned char) 230, iz);
         // } else {
         //     UpdateCostinAddLev(x, y, (unsigned char) 255, iz);
         // }
@@ -5418,6 +5455,10 @@ void EnvironmentNAVXYTHETAMLEVLAT::ConvertStateIDPathintoXYThetaPath(std::vector
             intermpt.x += sourcex;
             intermpt.y += sourcey;
             intermpt.z += sourcez;
+
+            // over 100%
+            if (intermpt.z<0)
+                intermpt.z=0;
 
 #if DEBUG
             int nx = CONTXY2DISC(intermpt.x, EnvNAVXYTHETALATCfg.cellsize_m);
