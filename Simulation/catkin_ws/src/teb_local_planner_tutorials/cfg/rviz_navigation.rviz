@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /Map1
         - /Local Planner1
         - /Global Planner1
         - /Global Planner1/GlobalPath1
@@ -128,7 +127,7 @@ Visualization Manager:
           Unreliable: false
           Use Timestamp: false
           Value: true
-      Enabled: true
+      Enabled: false
       Name: Local Planner
     - Class: rviz/Group
       Displays:
@@ -322,11 +321,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 22.9652576
+      Scale: 20.4492264
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
-      X: 15.5683479
-      Y: -23.0878181
+      X: 15.5182152
+      Y: -25.0742874
     Saved: ~
 Window Geometry:
   Displays:
@@ -345,4 +344,4 @@ Window Geometry:
     collapsed: true
   Width: 696
   X: 65
-  Y: 465
+  Y: 464

@@ -34,8 +34,8 @@ def newMotionPrimitives(outfilename):
         forwardcostmult = 2 
         backwardcostmult = 2 
         forwardandturncostmult = 2 
-        stopinplacecostmult = 4 
-        turninplacecostmult = 2 
+        stopinplacecostmult = 32 
+        turninplacecostmult = 16 
         
         #note, what is shown x,y,theta *changes* (that is, dx,dy,dtheta and not absolute numbers)
         
@@ -189,7 +189,7 @@ def newMotionPrimitives(outfilename):
             angleError = abs(currentangle-endtheta_c)
             secondsperTurn = turnangleTime
             secondsperDrive = movementError/nominalVelocity
-            secondsperWait = 10 #TODO
+            secondsperWait = 1 #TODO
             if   (movementError >0 and angleError >0):
                 battery_out = arcEnergyOut  * secondsperDrive     + hotelEnergyOut * secondsperDrive 
                 seconds = secondsperDrive
@@ -216,6 +216,8 @@ def newMotionPrimitives(outfilename):
             # finish endpose
             endbattery_c = -round(battery_in) + round(battery_out)
 
+            #COST CHECKING
+            #print('P: %d \t T: %d \t S: %f \t E: %f \t I: %f \t B: %f'%(primind,angleind,sun_direction[2],sun_error,battery_in, endbattery_c))
 
             endpose_c = [endx_c, endy_c, endtheta_c, endbattery_c] 
             

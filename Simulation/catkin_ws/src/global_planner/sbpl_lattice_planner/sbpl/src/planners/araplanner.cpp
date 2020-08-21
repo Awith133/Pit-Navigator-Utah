@@ -342,6 +342,7 @@ int ARAPlanner::GetGVal(int StateID, ARASearchStateSpace_t* pSearchStateSpace)
 }
 
 //returns 1 if the solution is found, 0 if the solution does not exist and 2 if it ran out of time
+//improve or construct path
 int ARAPlanner::ImprovePath(ARASearchStateSpace_t* pSearchStateSpace, double MaxNumofSecs)
 {
     int expands;
@@ -396,7 +397,7 @@ int ARAPlanner::ImprovePath(ARASearchStateSpace_t* pSearchStateSpace, double Max
         }
         oldkey = minkey;
 #endif
-
+        //consistent state is being expanded
         if (state->v == state->g) {
             ROS_ERROR("SBPL:PLANNER:ERROR: consistent state is being expanded\n");
 #if DEBUG

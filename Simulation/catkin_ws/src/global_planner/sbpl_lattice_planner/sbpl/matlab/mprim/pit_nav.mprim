@@ -79,7 +79,7 @@ intermediateposes: 10
 primID: 5
 startangle_c: 0
 endpose_c: 0 0 1 1
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 0.0000 0.0000
 0.0000 0.0000 0.0436 0.1111
@@ -94,7 +94,7 @@ intermediateposes: 10
 primID: 6
 startangle_c: 0
 endpose_c: 0 0 15 0
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 0.0000 0.0000
 0.0000 0.0000 6.2396 0.0000
@@ -123,19 +123,19 @@ intermediateposes: 10
 -0.8000 0.0000 0.0000 -523.0000
 primID: 8
 startangle_c: 0
-endpose_c: 0 0 0 -246
-additionalactioncostmult: 4
+endpose_c: 0 0 0 -25
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 0.0000 0.0000
-0.0000 0.0000 0.0000 -27.3333
-0.0000 0.0000 0.0000 -54.6667
-0.0000 0.0000 0.0000 -82.0000
-0.0000 0.0000 0.0000 -109.3333
-0.0000 0.0000 0.0000 -136.6667
-0.0000 0.0000 0.0000 -164.0000
-0.0000 0.0000 0.0000 -191.3333
-0.0000 0.0000 0.0000 -218.6667
-0.0000 0.0000 0.0000 -246.0000
+0.0000 0.0000 0.0000 -2.7778
+0.0000 0.0000 0.0000 -5.5556
+0.0000 0.0000 0.0000 -8.3333
+0.0000 0.0000 0.0000 -11.1111
+0.0000 0.0000 0.0000 -13.8889
+0.0000 0.0000 0.0000 -16.6667
+0.0000 0.0000 0.0000 -19.4444
+0.0000 0.0000 0.0000 -22.2222
+0.0000 0.0000 0.0000 -25.0000
 primID: 9
 startangle_c: 0
 endpose_c: -8 -1 1 -334
@@ -244,7 +244,7 @@ intermediateposes: 10
 primID: 16
 startangle_c: 1
 endpose_c: 0 0 2 4
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 0.3927 0.0000
 0.0000 0.0000 0.4363 0.4444
@@ -259,7 +259,7 @@ intermediateposes: 10
 primID: 17
 startangle_c: 1
 endpose_c: 0 0 0 1
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 0.3927 0.0000
 0.0000 0.0000 0.3491 0.1111
@@ -289,7 +289,7 @@ intermediateposes: 10
 primID: 19
 startangle_c: 1
 endpose_c: 0 0 1 2
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 0.3927 0.0000
 0.0000 0.0000 0.3927 0.2222
@@ -409,7 +409,7 @@ intermediateposes: 10
 primID: 27
 startangle_c: 2
 endpose_c: 0 0 3 8
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 0.7854 0.0000
 0.0000 0.0000 0.8290 0.8889
@@ -424,7 +424,7 @@ intermediateposes: 10
 primID: 28
 startangle_c: 2
 endpose_c: 0 0 1 4
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 0.7854 0.0000
 0.0000 0.0000 0.7418 0.4444
@@ -454,7 +454,7 @@ intermediateposes: 10
 primID: 30
 startangle_c: 2
 endpose_c: 0 0 2 6
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 0.7854 0.0000
 0.0000 0.0000 0.7854 0.6667
@@ -574,7 +574,7 @@ intermediateposes: 10
 primID: 38
 startangle_c: 3
 endpose_c: 0 0 2 8
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 1.1781 0.0000
 0.0000 0.0000 1.1345 0.8889
@@ -589,7 +589,7 @@ intermediateposes: 10
 primID: 39
 startangle_c: 3
 endpose_c: 0 0 4 14
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 1.1781 0.0000
 0.0000 0.0000 1.2217 1.5556
@@ -619,7 +619,7 @@ intermediateposes: 10
 primID: 41
 startangle_c: 3
 endpose_c: 0 0 3 11
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 1.1781 0.0000
 0.0000 0.0000 1.1781 1.2222
@@ -739,7 +739,7 @@ intermediateposes: 10
 primID: 49
 startangle_c: 4
 endpose_c: 0 0 5 10
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 1.5708 0.0000
 0.0000 0.0000 1.6144 1.1111
@@ -754,7 +754,7 @@ intermediateposes: 10
 primID: 50
 startangle_c: 4
 endpose_c: 0 0 3 14
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 1.5708 0.0000
 0.0000 0.0000 1.5272 1.5556
@@ -784,7 +784,7 @@ intermediateposes: 10
 primID: 52
 startangle_c: 4
 endpose_c: 0 0 4 13
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 1.5708 0.0000
 0.0000 0.0000 1.5708 1.4444
@@ -904,7 +904,7 @@ intermediateposes: 10
 primID: 60
 startangle_c: 5
 endpose_c: 0 0 6 5
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 1.9635 0.0000
 0.0000 0.0000 2.0071 0.5556
@@ -919,7 +919,7 @@ intermediateposes: 10
 primID: 61
 startangle_c: 5
 endpose_c: 0 0 4 10
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 1.9635 0.0000
 0.0000 0.0000 1.9199 1.1111
@@ -949,7 +949,7 @@ intermediateposes: 10
 primID: 63
 startangle_c: 5
 endpose_c: 0 0 5 8
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 1.9635 0.0000
 0.0000 0.0000 1.9635 0.8889
@@ -1069,7 +1069,7 @@ intermediateposes: 10
 primID: 71
 startangle_c: 6
 endpose_c: 0 0 7 2
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 2.3562 0.0000
 0.0000 0.0000 2.3998 0.2222
@@ -1084,7 +1084,7 @@ intermediateposes: 10
 primID: 72
 startangle_c: 6
 endpose_c: 0 0 5 5
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 2.3562 0.0000
 0.0000 0.0000 2.3126 0.5556
@@ -1114,7 +1114,7 @@ intermediateposes: 10
 primID: 74
 startangle_c: 6
 endpose_c: 0 0 6 3
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 2.3562 0.0000
 0.0000 0.0000 2.3562 0.3333
@@ -1234,7 +1234,7 @@ intermediateposes: 10
 primID: 82
 startangle_c: 7
 endpose_c: 0 0 6 2
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 2.7489 0.0000
 0.0000 0.0000 2.7053 0.2222
@@ -1249,7 +1249,7 @@ intermediateposes: 10
 primID: 83
 startangle_c: 7
 endpose_c: 0 0 8 0
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 2.7489 0.0000
 0.0000 0.0000 2.7925 0.0000
@@ -1279,7 +1279,7 @@ intermediateposes: 10
 primID: 85
 startangle_c: 7
 endpose_c: 0 0 7 1
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 2.7489 0.0000
 0.0000 0.0000 2.7489 0.1111
@@ -1399,7 +1399,7 @@ intermediateposes: 10
 primID: 93
 startangle_c: 8
 endpose_c: 0 0 9 1
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 3.1416 0.0000
 0.0000 0.0000 3.1852 0.1111
@@ -1414,7 +1414,7 @@ intermediateposes: 10
 primID: 94
 startangle_c: 8
 endpose_c: 0 0 7 0
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 3.1416 0.0000
 0.0000 0.0000 3.0980 0.0000
@@ -1444,7 +1444,7 @@ intermediateposes: 10
 primID: 96
 startangle_c: 8
 endpose_c: 0 0 8 0
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 3.1416 0.0000
 0.0000 0.0000 3.1416 0.0000
@@ -1564,7 +1564,7 @@ intermediateposes: 10
 primID: 104
 startangle_c: 9
 endpose_c: 0 0 10 4
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 3.5343 0.0000
 0.0000 0.0000 3.5779 0.4444
@@ -1579,7 +1579,7 @@ intermediateposes: 10
 primID: 105
 startangle_c: 9
 endpose_c: 0 0 8 1
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 3.5343 0.0000
 0.0000 0.0000 3.4907 0.1111
@@ -1609,7 +1609,7 @@ intermediateposes: 10
 primID: 107
 startangle_c: 9
 endpose_c: 0 0 9 2
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 3.5343 0.0000
 0.0000 0.0000 3.5343 0.2222
@@ -1729,7 +1729,7 @@ intermediateposes: 10
 primID: 115
 startangle_c: 10
 endpose_c: 0 0 11 8
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 3.9270 0.0000
 0.0000 0.0000 3.9706 0.8889
@@ -1744,7 +1744,7 @@ intermediateposes: 10
 primID: 116
 startangle_c: 10
 endpose_c: 0 0 9 4
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 3.9270 0.0000
 0.0000 0.0000 3.8834 0.4444
@@ -1774,7 +1774,7 @@ intermediateposes: 10
 primID: 118
 startangle_c: 10
 endpose_c: 0 0 10 6
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 3.9270 0.0000
 0.0000 0.0000 3.9270 0.6667
@@ -1894,7 +1894,7 @@ intermediateposes: 10
 primID: 126
 startangle_c: 11
 endpose_c: 0 0 10 8
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 4.3197 0.0000
 0.0000 0.0000 4.2761 0.8889
@@ -1909,7 +1909,7 @@ intermediateposes: 10
 primID: 127
 startangle_c: 11
 endpose_c: 0 0 12 14
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 4.3197 0.0000
 0.0000 0.0000 4.3633 1.5556
@@ -1939,7 +1939,7 @@ intermediateposes: 10
 primID: 129
 startangle_c: 11
 endpose_c: 0 0 11 11
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 4.3197 0.0000
 0.0000 0.0000 4.3197 1.2222
@@ -2059,7 +2059,7 @@ intermediateposes: 10
 primID: 137
 startangle_c: 12
 endpose_c: 0 0 13 10
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 4.7124 0.0000
 0.0000 0.0000 4.7560 1.1111
@@ -2074,7 +2074,7 @@ intermediateposes: 10
 primID: 138
 startangle_c: 12
 endpose_c: 0 0 11 14
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 4.7124 0.0000
 0.0000 0.0000 4.6688 1.5556
@@ -2104,7 +2104,7 @@ intermediateposes: 10
 primID: 140
 startangle_c: 12
 endpose_c: 0 0 12 13
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 4.7124 0.0000
 0.0000 0.0000 4.7124 1.4444
@@ -2224,7 +2224,7 @@ intermediateposes: 10
 primID: 148
 startangle_c: 13
 endpose_c: 0 0 14 5
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 5.1051 0.0000
 0.0000 0.0000 5.1487 0.5556
@@ -2239,7 +2239,7 @@ intermediateposes: 10
 primID: 149
 startangle_c: 13
 endpose_c: 0 0 12 10
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 5.1051 0.0000
 0.0000 0.0000 5.0615 1.1111
@@ -2269,7 +2269,7 @@ intermediateposes: 10
 primID: 151
 startangle_c: 13
 endpose_c: 0 0 13 8
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 5.1051 0.0000
 0.0000 0.0000 5.1051 0.8889
@@ -2389,7 +2389,7 @@ intermediateposes: 10
 primID: 159
 startangle_c: 14
 endpose_c: 0 0 15 2
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 5.4978 0.0000
 0.0000 0.0000 5.5414 0.2222
@@ -2404,7 +2404,7 @@ intermediateposes: 10
 primID: 160
 startangle_c: 14
 endpose_c: 0 0 13 5
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 5.4978 0.0000
 0.0000 0.0000 5.4542 0.5556
@@ -2434,7 +2434,7 @@ intermediateposes: 10
 primID: 162
 startangle_c: 14
 endpose_c: 0 0 14 3
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 5.4978 0.0000
 0.0000 0.0000 5.4978 0.3333
@@ -2554,7 +2554,7 @@ intermediateposes: 10
 primID: 170
 startangle_c: 15
 endpose_c: 0 0 14 2
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 5.8905 0.0000
 0.0000 0.0000 5.8469 0.2222
@@ -2569,7 +2569,7 @@ intermediateposes: 10
 primID: 171
 startangle_c: 15
 endpose_c: 0 0 0 0
-additionalactioncostmult: 2
+additionalactioncostmult: 16
 intermediateposes: 10
 0.0000 0.0000 5.8905 0.0000
 0.0000 0.0000 5.9341 0.0000
@@ -2599,7 +2599,7 @@ intermediateposes: 10
 primID: 173
 startangle_c: 15
 endpose_c: 0 0 15 1
-additionalactioncostmult: 4
+additionalactioncostmult: 32
 intermediateposes: 10
 0.0000 0.0000 5.8905 0.0000
 0.0000 0.0000 5.8905 0.1111

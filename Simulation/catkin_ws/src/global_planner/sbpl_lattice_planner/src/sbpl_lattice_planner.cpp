@@ -119,7 +119,7 @@ void SBPLLatticePlanner::initialize(std::string name, costmap_2d::Costmap2DROS* 
     int lethal_obstacle;
     private_nh.param("lethal_obstacle",lethal_obstacle,250);
     lethal_obstacle_ = (unsigned char) lethal_obstacle;
-    inscribed_inflated_obstacle_ = lethal_obstacle_-20;
+    inscribed_inflated_obstacle_ = lethal_obstacle_-3; //subtract radius of robot/resolution
     sbpl_cost_multiplier_ = (unsigned char) (costmap_2d::INSCRIBED_INFLATED_OBSTACLE/inscribed_inflated_obstacle_ + 1);
     ROS_DEBUG("SBPL: lethal: %uz, inscribed inflated: %uz, multiplier: %uz",lethal_obstacle,inscribed_inflated_obstacle_,sbpl_cost_multiplier_);
 
