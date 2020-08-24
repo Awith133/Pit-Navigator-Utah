@@ -11,8 +11,13 @@ from smach import CBState
 from nav_msgs.msg import Odometry
 from std_msgs.msg import Empty
 from geometry_msgs.msg import PoseStamped, PolygonStamped
+from move_base_msgs.msg import MoveBaseActionGoal
+from actionlib_msgs.msg import GoalID
 from tf.transformations import quaternion_from_euler
 from geometry_msgs.msg import Quaternion
+
+
+from playsound import playsound
 
 from std_msgs.msg import Float32
 from std_msgs.msg import Float64
@@ -23,10 +28,10 @@ import tf
 import smach_helper
 
 
-GLOBAL_RADIUS = 0.45
+GLOBAL_RADIUS = .45
 GLOBAL_RADIUS2 = 1
 YAW_THRESH = 0.16 #10 deg
-TIME_OUT = 2200*1.3
+TIME_OUT = 2200*1.3 #normal = 1.3 big = 1
 file_locations = {
 	'file_to_pit':rospy.get_param("file_to_pit"),
 	'file_around_pit':rospy.get_param("file_around_pit"),
@@ -39,13 +44,15 @@ pit_edge_dist_pub = rospy.Publisher('/robot_at_edge_position', Odometry, queue_s
 
 sub_where_to_see = rospy.Subscriber('where_to_see',Float32,smach_helper.update_sun)
 
+current_goal = 0
+
 listener = None
 pose ={	'x':0.0,
 	    'y':0.0,	
 	    'yaw':0.0,}
 
 
-#CLASS 1 
+#CLASS 1 from lander to pit
 class Lander2Pit(smach.State):
 	def __init__(self):
 		smach.State.__init__(self,input_keys=['wp_2_pit','counter_wp_2_pit','illumination_start_time','current_wp_cords'],
@@ -76,6 +83,7 @@ class Lander2Pit(smach.State):
 			self.wp = self.global_wp_nav(userdata,waypoint_pub)
 
 	def global_wp_nav(self,userdata,waypoint_pub):
+			
 		#publish points from csv and get x,y
 		msg = PoseStamped()
 		msg.pose.position.x = userdata.wp_2_pit[userdata.counter_wp_2_pit][0]#x
@@ -84,11 +92,10 @@ class Lander2Pit(smach.State):
 		yaw = 0
 		msg.pose.orientation.w = 1
 		msg.header.frame_id = 'map'
-		print('Publishing wp', msg.pose.position.x , msg.pose.position.y )
+		print('Publishing wp', msg.pose.position.x , msg.pose.position.y)
 		waypoint_pub.publish(msg)
 		userdata.current_wp_cords = (msg.pose.position.x,msg.pose.position.y,yaw)
 		return msg
-
 
 	def execute(self,userdata):
 		self.start_time = rospy.get_rostime().secs
@@ -125,7 +132,6 @@ class circum_wp_cb(smach.State):
 		self.count_visited = 0
 		self.risk_safe = 9
 		self.first_waypoint = True
-
 
 	def position_cb(self,msg,argc):
 		if self.success_flag == True:
@@ -193,6 +199,7 @@ class circum_wp_cb(smach.State):
 				self.wp = self.global_wp_nav(userdata,waypoint_pub)
 
 	def global_wp_nav(self,userdata, waypoint_pub): #publishes the next waypoint in the list and gives it to TEB algorithm to navigate to
+		
 		msg = PoseStamped()
 		msg.pose.position.x = userdata.wp_around_pit[userdata.counter_wp_around_pit][1]#x
 		msg.pose.position.y = userdata.wp_around_pit[userdata.counter_wp_around_pit][2]#y
@@ -205,7 +212,9 @@ class circum_wp_cb(smach.State):
 		msg.pose.orientation.w = q[3]
 
 		msg.header.frame_id = 'map'
-		print('Publishing Waypoints', msg.pose.position.x , msg.pose.position.y )
+		
+		
+		print('Publishing Waypoints', msg.pose.position.x , msg.pose.position.y)
 		waypoint_pub.publish(msg)
 		userdata.current_wp_cords = (msg.pose.position.x,msg.pose.position.y,yaw)
 		self.success_flag = False
@@ -235,7 +244,7 @@ class circum_wp_cb(smach.State):
 			return 'save_data'
 		return 'mission_ongoing'
 
-#CLASS 3 
+#CLASS 3 from pit to lander
 class Pit2Lander(smach.State):
 
 	def __init__(self):
@@ -268,6 +277,11 @@ class Pit2Lander(smach.State):
 			self.wp = self.global_wp_nav(userdata,waypoint_pub)
 
 	def global_wp_nav(self,userdata,waypoint_pub):
+		
+		
+		
+		
+
 		msg = PoseStamped()
 		num_waypoints = len(userdata.wp_2_pit)-1       #v reversed waypoint path
 		msg.pose.position.x = userdata.wp_2_pit[num_waypoints - userdata.counter_wp_2_pit][0]#x
@@ -276,10 +290,12 @@ class Pit2Lander(smach.State):
 		msg.pose.orientation.w = 0
 		msg.pose.orientation.z = 1
 		msg.header.frame_id = 'map'
-		print('Publishing wp', msg.pose.position.x , msg.pose.position.y )
+		
+		
+		print('Publishing wp', msg.pose.position.x , msg.pose.position.y)
 		waypoint_pub.publish(msg)
 		userdata.current_wp_cords = (msg.pose.position.x,msg.pose.position.y,yaw)
-		return msg
+		return msg		
 
 	def execute(self,userdata):
 		self.start_time = rospy.get_rostime().secs
@@ -305,8 +321,7 @@ class Pit2Lander(smach.State):
 			return 'reached_lander'
 		return 'mission_ongoing'
 
-
-#CLASS 4 
+#CLASS 4 highway around pit
 class Highway(smach.State):
 
 	def __init__(self):
@@ -341,6 +356,11 @@ class Highway(smach.State):
 			self.wp = self.global_wp_nav(userdata,waypoint_pub)
 
 	def global_wp_nav(self,userdata,waypoint_pub):
+		
+		
+		
+		
+		
 		msg = PoseStamped()
 
 		if userdata.direction == 'save_data' and userdata.alternative_point > halfway_point :
@@ -373,7 +393,9 @@ class Highway(smach.State):
 		msg.pose.orientation.w = 0
 		msg.pose.orientation.z = 1
 		msg.header.frame_id = 'map'
-		print('Publishing wp', msg.pose.position.x , msg.pose.position.y )
+		
+		
+		print('Publishing wp', msg.pose.position.x , msg.pose.position.y, current_goal )
 		waypoint_pub.publish(msg)
 		userdata.current_wp_cords = (msg.pose.position.x,msg.pose.position.y,yaw)
 		return msg
@@ -442,7 +464,12 @@ def main():
 	# Execute the state machine
 	outcome = sm.execute()
 
-	
+	import subprocess
+	viewer = subprocess.Popen(['totem', '/home/alex/Downloads/Europe_-_The Final Countdown(with).mp3'])
+	import time
+	time.sleep(60)
+	viewer.terminate()
+	viewer.kill()
 
 	# Wait for ctrl-c to stop the application
 	rospy.spin()

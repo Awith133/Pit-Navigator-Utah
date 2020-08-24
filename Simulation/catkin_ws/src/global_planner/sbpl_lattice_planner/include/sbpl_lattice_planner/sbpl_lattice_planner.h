@@ -90,6 +90,7 @@ private:
   unsigned char inscribed_inflated_obstacle_;
   unsigned char circumscribed_cost_;
   unsigned char sbpl_cost_multiplier_;
+  ros::Time delay = ros::Time::now();
 
   std::string name_;
   costmap_2d::Costmap2DROS* costmap_ros_; /**< manages the cost map for us */

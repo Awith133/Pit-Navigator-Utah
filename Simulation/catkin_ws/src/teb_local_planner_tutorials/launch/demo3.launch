@@ -35,7 +35,7 @@
 	<node name="map_server" pkg="map_server" type="map_server" args="$(find teb_local_planner_tutorials)/maps/maze.yaml" output="log">
         <param name="frame_id" value="map"/>
 	</node>
-	<!--node name="waypoint_pit_planner" pkg="waypoint_pit_planner" type="waypoint_pit_planner_node" output="screen"/-->
+	
 	<!-- *************** WAYPOINT LOCATION FILES *************** -->
 	<param name="file_to_pit"                                    type="string" value="$(arg SYSTEM_NAME)/catkin_ws/src/lander_to_pit_trajectory_2.csv"/>
 	<param name="file_around_pit"                                type="string" value="$(arg SYSTEM_NAME)/catkin_ws/src/path_location_mapping.csv"/>
@@ -61,8 +61,8 @@
 		<!-- *************** GLOBAL PLANNER ***************  -->
 		<!-- different planners : "carrot_planner/CarrotPlanner","global_planner/GlobalPlanner","navfn/NavfnROS", "RAstar_planner/RAstarPlannerROS"-->
 		<param name="base_global_planner"                                      value="SBPLLatticePlanner"/>
-		<param name="planner_frequency"                                        value="1.0" />
-		<param name="planner_patience"                                         value="5.0" />
+		<param name="planner_frequency"                                        value="0.0250" />
+		<param name="planner_patience"                                         value="50.0" />
 		<!-- if SBPLlattice planner-->
 		<param name="SBPLLatticePlanner/primitive_filename"      type="string" value="$(arg SYSTEM_NAME)/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/matlab/mprim/pit_nav.mprim" />
 		<param name="SBPLLatticePlanner/environment_type"        type="string" value="XYThetaMLevLattice"/> 
@@ -95,7 +95,7 @@
 
 
 	<!-- *************** LOCALIZATION ***************  -->
-	<!--node pkg="amcl" type="amcl" name="amcl" output="screen">
+	<!--node pkg="amcl" type="amcl" name="amcl" output="log">
 		<rosparam file="$(find teb_local_planner_tutorials)/cfg/amcl_params.yaml" command="load" />
 
 	    <param name="initial_pose_x"            value="1"/>
@@ -144,7 +144,7 @@
 		<remap from="image_rect" to="/apnapioneer3at/MultiSense_S21_meta_range_finder/range_image"/>
 	</node >
 
-	<!--node pkg="nodelet" type="nodelet" name="passthrough" args="load pcl/PassThrough pcl_manager" output="screen">
+	<!--node pkg="nodelet" type="nodelet" name="passthrough" args="load pcl/PassThrough pcl_manager" output="log">
 		<remap from="~input" to="/points" />
 		<remap from="~output" to="/points/filtered" />
         <rosparam>
@@ -155,7 +155,7 @@
         </rosparam>
 	</node-->
 
-	<!--node pkg="nodelet" type="nodelet" name="passthrough_inverse" args="load pcl/PassThrough pcl_manager" output="screen">
+	<!--node pkg="nodelet" type="nodelet" name="passthrough_inverse" args="load pcl/PassThrough pcl_manager" output="log">
 		<remap from="~input" to="/points" />
 		<remap from="~output" to="/points/filtered_inverse" />
         <rosparam>
@@ -166,7 +166,7 @@
         </rosparam>
 	</node-->
 
-	<!--node pkg="nodelet" type="nodelet" name="passthrough_below_ground" args="load pcl/PassThrough pcl_manager" output="screen">
+	<!--node pkg="nodelet" type="nodelet" name="passthrough_below_ground" args="load pcl/PassThrough pcl_manager" output="log">
 		<remap from="~input" to="/points/filtered_inverse" />
 		<remap from="~output" to="/points/filtered_inverse_negetive" />
         <rosparam>

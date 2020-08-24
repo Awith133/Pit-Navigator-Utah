@@ -32,8 +32,9 @@ def newMotionPrimitives(outfilename):
 
         #multipliers (multiplier is used as costmult*cost)
         forwardcostmult = 2 
-        backwardcostmult = 2 
+        backwardcostmult = 8 
         forwardandturncostmult = 2 
+        backwardandturncostmult = 8 
         stopinplacecostmult = 32 
         turninplacecostmult = 16 
         
@@ -56,8 +57,8 @@ def newMotionPrimitives(outfilename):
         #stop maintaining the same heading
         basemprimendpts0_c[8,:] =  [ 0, 0, 0, stopinplacecostmult] 
         #1/16 theta change going backward
-        basemprimendpts0_c[9,:] = [-8,-1, 1, backwardcostmult] 
-        basemprimendpts0_c[10,:] = [-8, 1,-1, backwardcostmult] 
+        basemprimendpts0_c[9,:] = [-8,-1, 1, backwardandturncostmult] 
+        basemprimendpts0_c[10,:] = [-8, 1,-1, backwardandturncostmult] 
         
         #45 degrees
         basemprimendpts45_c = np.zeros((numberofprimsperangle, 4))  #x,y,theta,costmult (multiplier is used as costmult*cost)
@@ -76,8 +77,8 @@ def newMotionPrimitives(outfilename):
         #stop maintaining the same heading
         basemprimendpts45_c[8,:] =  [ 0, 0, 0, stopinplacecostmult] 
         #1/16 theta change going back
-        basemprimendpts45_c[9,:] = [-5,-7, 1, backwardcostmult] 
-        basemprimendpts45_c[10,:] = [-7,-5,-1, backwardcostmult]     
+        basemprimendpts45_c[9,:] = [-5,-7, 1, backwardandturncostmult] 
+        basemprimendpts45_c[10,:] = [-7,-5,-1, backwardandturncostmult]     
         
         #22.5 degrees
         basemprimendpts22p5_c = np.zeros((numberofprimsperangle, 4))  #x,y,theta,costmult (multiplier is used as costmult*cost)
@@ -96,8 +97,8 @@ def newMotionPrimitives(outfilename):
         #stops maintaining the same heading
         basemprimendpts22p5_c[8,:] =  [ 0, 0, 0, stopinplacecostmult] 
         #1/16 theta change going back
-        basemprimendpts22p5_c[9,:] = [-5,-4, 1, backwardcostmult] 
-        basemprimendpts22p5_c[10,:] = [-7,-2,-1, backwardcostmult]     
+        basemprimendpts22p5_c[9,:] = [-5,-4, 1, backwardandturncostmult] 
+        basemprimendpts22p5_c[10,:] = [-7,-2,-1, backwardandturncostmult]     
 
         
     else:

@@ -3375,7 +3375,7 @@ int EnvironmentNAVXYTHETAMLEVLAT::GetGoalHeuristic(int stateID)
     // computes distances from start state that is grid2D, so it is EndX_c EndY_c
     int h2D = grid2Dsearchfromgoal->getlowerboundoncostfromstart_inmm(HashEntry->X, HashEntry->Y);
     int hEuclid = (int)(NAVXYTHETALAT_COSTMULT_MTOMM *
-            EuclideanDistance_m(HashEntry->X, HashEntry->Y, HashEntry->Z, EnvNAVXYTHETALATCfg.EndX_c, EnvNAVXYTHETALATCfg.EndY_c, EnvNAVXYTHETALATCfg.EndZ_c)*2);
+            EuclideanDistance_m(HashEntry->X, HashEntry->Y, HashEntry->Z, EnvNAVXYTHETALATCfg.EndX_c, EnvNAVXYTHETALATCfg.EndY_c, EnvNAVXYTHETALATCfg.EndZ_c)*5);
 
     // define this function if it is used in the planner (heuristic backward search would use it)
     return (int)(((double)__max(h2D, hEuclid)) / EnvNAVXYTHETALATCfg.nominalvel_mpersecs);
