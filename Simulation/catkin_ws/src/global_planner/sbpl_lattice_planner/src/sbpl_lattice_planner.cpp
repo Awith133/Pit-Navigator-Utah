@@ -39,7 +39,6 @@
 #include <pluginlib/class_list_macros.hpp>
 #include <nav_msgs/Path.h>
 #include <sbpl_lattice_planner/SBPLLatticePlannerStats.h>
-
 #include <costmap_2d/inflation_layer.h>
 #include <tf2/LinearMath/Quaternion.h>
 
@@ -289,6 +288,10 @@ unsigned char SBPLLatticePlanner::computeCircumscribedCost() {
 bool SBPLLatticePlanner::makePlan(const geometry_msgs::PoseStamped& start,
                                  const geometry_msgs::PoseStamped& goal,
                                  std::vector<geometry_msgs::PoseStamped>& plan){
+  // if (ros::Time::now()<delay){
+  //   ROS_INFO("delay planning");
+  //   return false;
+  // }
   if(!initialized_){
     ROS_ERROR("Global planner is not initialized");
     return false;
@@ -480,7 +483,8 @@ bool SBPLLatticePlanner::makePlan(const geometry_msgs::PoseStamped& start,
   }
   plan_pub_.publish(gui_path);
   publishStats(solution_cost, sbpl_path.size(), start, goal);
-
+  // ros::Duration d(10.000);
+  // delay =ros::Time::now()+d;
   return true;
 }
 

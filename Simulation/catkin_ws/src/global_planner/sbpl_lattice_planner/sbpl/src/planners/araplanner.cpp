@@ -710,11 +710,11 @@ int ARAPlanner::ReconstructPath(ARASearchStateSpace_t* pSearchStateSpace)
             predstateinfo->bestnextstate = MDPstate;
 
             //check the decrease of g-values along the path
-            if (predstateinfo->v >= stateinfo->g) {
-                ROS_ERROR("SBPL:PLANNER:ERROR in ReconstructPath: g-values are non-decreasing\n");
-                PrintSearchState(predstateinfo, fDeb);
-                throw SBPL_Exception("ERROR in ReconstructPath: g-values are non-decreasing");
-            }
+            // if (predstateinfo->v >= stateinfo->g) {
+            //     ROS_ERROR("SBPL:PLANNER:ERROR in ReconstructPath: g-values are non-decreasing\n");
+            //     PrintSearchState(predstateinfo, fDeb);
+            //     throw SBPL_Exception("ERROR in ReconstructPath: g-values are non-decreasing");
+            // }
 
             //transition back
             MDPstate = PredMDPstate;
