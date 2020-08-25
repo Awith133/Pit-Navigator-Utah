@@ -8,3 +8,6 @@ Highway,553,680
 Lander2Pit,0,553
 Highway,553,687
 navAROUNDPIT,687,730
+Lander2Pit,0,553
+Highway,553,697
+navAROUNDPIT,697,784
