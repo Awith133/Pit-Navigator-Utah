@@ -11,13 +11,14 @@ from smach import CBState
 from nav_msgs.msg import Odometry
 from std_msgs.msg import Empty
 from geometry_msgs.msg import PoseStamped, PolygonStamped
-from move_base_msgs.msg import MoveBaseActionGoal
-from actionlib_msgs.msg import GoalID
+
 from tf.transformations import quaternion_from_euler
+from tf.transformations import euler_from_quaternion
 from geometry_msgs.msg import Quaternion
 
-
-from playsound import playsound
+import actionlib
+from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+from actionlib_msgs.msg import GoalStatus
 
 from std_msgs.msg import Float32
 from std_msgs.msg import Float64
@@ -35,24 +36,19 @@ TIME_OUT = 2200*1.3 #normal = 1.3 big = 1
 file_locations = {
 	'file_to_pit':rospy.get_param("file_to_pit"),
 	'file_around_pit':rospy.get_param("file_around_pit"),
-	'project_file_location':rospy.get_param("/system_name"),
-}
+	'project_file_location':rospy.get_param("/system_name"),}
 halfway_point = len(smach_helper.read_csv_around_pit(file_locations['file_around_pit']))/2
 
 waypoint_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size = 1)
 pit_edge_dist_pub = rospy.Publisher('/robot_at_edge_position', Odometry, queue_size = 1)
 
+move_base_client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
+
 sub_where_to_see = rospy.Subscriber('where_to_see',Float32,smach_helper.update_sun)
 
-current_goal = 0
-
 listener = None
-pose ={	'x':0.0,
-	    'y':0.0,	
-	    'yaw':0.0,}
 
-
-#CLASS 1 from lander to pit
+#Class 1 from lander to pit
 class Lander2Pit(smach.State):
 	def __init__(self):
 		smach.State.__init__(self,input_keys=['wp_2_pit','counter_wp_2_pit','illumination_start_time','current_wp_cords'],
@@ -62,49 +58,52 @@ class Lander2Pit(smach.State):
 		self.start_time = 0
 		self.end_time = 0
 
-	def position_cb(self,msg,argc):
-		if self.success_flag == True:
-			return
-		[pose['x'], pose['y'], pose['yaw']] = smach_helper._get_pose(msg.polygon.points)
-		userdata = argc[0]                                          #userdata contains the input_key
-
-
-		if(userdata.counter_wp_2_pit != -1):
-			error = math.sqrt((pose['x'] - self.wp.pose.position.x)**2 + (pose['y'] - self.wp.pose.position.y)**2)
+	def nextwaypoint(self,userdata,num):
+		userdata.counter_wp_2_pit += num
+		if userdata.counter_wp_2_pit < len(userdata.wp_2_pit):
+			self.global_wp_nav(userdata)
 		else:
-			error = 0
-		#print("Lander2Pit: Pursing Waypoint {0}, Distance to waypoint: {1}".format(userdata.counter_wp_2_pit, error))
-		if(error<GLOBAL_RADIUS or userdata.counter_wp_2_pit == -1):
-			userdata.counter_wp_2_pit += 1
-			if(userdata.counter_wp_2_pit >= len(userdata.wp_2_pit)):
-				userdata.counter_wp_2_pit = -1
-				self.success_flag = True
-				return
-			self.wp = self.global_wp_nav(userdata,waypoint_pub)
+			userdata.counter_wp_2_pit -= 1
+			self.success_flag = True
 
-	def global_wp_nav(self,userdata,waypoint_pub):
-			
+	def global_wp_nav(self,userdata):
 		#publish points from csv and get x,y
 		msg = PoseStamped()
 		msg.pose.position.x = userdata.wp_2_pit[userdata.counter_wp_2_pit][0]#x
 		msg.pose.position.y = userdata.wp_2_pit[userdata.counter_wp_2_pit][1]#y
-		#print(msg.pose.position.y)
-		yaw = 0
-		msg.pose.orientation.w = 1
+		if abs(smach_helper.pose['yaw']-smach_helper.sunangle)<=math.pi/2: 
+			yaw = smach_helper.sunangle
+			q = quaternion_from_euler(0, 0, smach_helper.sunangle)
+		else: 
+			yaw = smach_helper.sunangle+math.pi
+			q = quaternion_from_euler(0, 0, smach_helper.sunangle+math.pi)
+		msg.pose.orientation.x = q[0]
+		msg.pose.orientation.y = q[1]
+		msg.pose.orientation.z = q[2]
+		msg.pose.orientation.w = q[3]
 		msg.header.frame_id = 'map'
 		print('Publishing wp', msg.pose.position.x , msg.pose.position.y)
-		waypoint_pub.publish(msg)
-		userdata.current_wp_cords = (msg.pose.position.x,msg.pose.position.y,yaw)
-		return msg
-
+		userdata.current_wp_cords = (msg.pose.position.x,msg.pose.position.y,smach_helper.sunangle)
+		goal = MoveBaseGoal()
+		goal.target_pose.header.frame_id = "map"
+		goal.target_pose.header.stamp = rospy.Time.now() 
+		goal.target_pose.pose = msg.pose
+		rospy.loginfo("Sending goal pose "+str(smach_helper.current_goal)+" to Action Server")
+		move_base_client.send_goal(goal, smach_helper.done_cb, smach_helper.active_cb, smach_helper.feedback_cb)
+	
 	def execute(self,userdata):
 		self.start_time = rospy.get_rostime().secs
-		sub_odom = rospy.Subscriber("/move_base/local_costmap/footprint", PolygonStamped, self.position_cb, (userdata,self.success_flag))
-		sub_battery = rospy.Subscriber("battery_charge", Temperature, smach_helper.charge_cb, (userdata,waypoint_pub,pose))
+		sub_battery = rospy.Subscriber("battery_charge", Temperature, smach_helper.charge_cb, (userdata,move_base_client))
+		self.nextwaypoint(userdata,1)
 		rate = rospy.Rate(5)
 		while not (self.success_flag):
 			rate.sleep()
-		sub_odom.unregister()
+			if smach_helper.step_flag and not smach_helper.charging:
+				smach_helper.step_flag = False
+				self.nextwaypoint(userdata,1)
+			if smach_helper.abort_flag:
+				smach_helper.abort_flag = False
+				self.nextwaypoint(userdata,0)
 		sub_battery.unregister()
 		if self.success_flag:
 			#print("Reached waypoint. On to next waypoint: {0}".format(userdata.counter_wp_2_pit))
@@ -113,6 +112,7 @@ class Lander2Pit(smach.State):
 			userdata.illumination_start_time = rospy.get_rostime().secs
 			rospy.set_param("/start_illumination", 0) #DONT START ILLUMINATION UNTIL ITS LONGER TODO
 			userdata.direction = 'capture'
+			userdata.counter_wp_2_pit = 0
 			self.end_time = rospy.get_rostime().secs
 			smach_helper.timekeeper('Lander2Pit',self.start_time,self.end_time,file_locations)
 			return 'reached_pit'
@@ -133,109 +133,90 @@ class circum_wp_cb(smach.State):
 		self.risk_safe = 9
 		self.first_waypoint = True
 
-	def position_cb(self,msg,argc):
-		if self.success_flag == True:
+	def atThisWaypoint(self,userdata):
+		#made it and ready to move on - anything to do here?
+		if(self.vantage_return ):
+			rospy.logwarn('vantage return')
+			self.end_time = rospy.get_rostime().secs
+			smach_helper.timekeeper('navAROUNDPIT',self.start_time,self.end_time,file_locations)
+			self.start_time = rospy.get_rostime().secs
+			self.vantage_return = False
 			return
-		# drive to next waypoint
-		[pose['x'], pose['y'], pose['yaw']]= smach_helper._get_pose(msg.polygon.points)
-		userdata = argc[0]                                          #userdata contains the input_keys
+		if(userdata.wp_around_pit[userdata.counter_wp_around_pit][3] == 1 ): #is this a vantage point? yes = 1
+			rospy.logwarn('return real life pictures')
+			smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
+			self.vantage_return = True
+			self.count_visited += 1
+			return
 
-
-		if(userdata.counter_wp_around_pit != -1):
-			error = math.sqrt((pose['x'] - self.wp.pose.position.x)**2 + (pose['y'] - self.wp.pose.position.y)**2)
+	def nextwaypoint(self,userdata,num):
+		#moving on to next waypoint
+		userdata.counter_wp_around_pit += num
+		if userdata.counter_wp_around_pit >= len(userdata.wp_around_pit)-1:
+			print('MISSION SUCCESS')
+			userdata.mission_flag = True
+			self.count_visited = 0
+			userdata.counter_wp_around_pit -= 1
+			self.success_flag = True
+		elif self.count_visited >= self.risk_safe:
+			rospy.logerr("Risk too high - returning home")
+			self.count_visited = 0
+			userdata.counter_wp_around_pit -= 1
+			self.success_flag = True
 		else:
-			error = 0
-		#print("navAroundPit: Pursing Waypoint {0}, Distance to waypoint: {1}".format(userdata.counter_wp_around_pit, error))
-		
-		if (error<GLOBAL_RADIUS or userdata.counter_wp_around_pit == -1 or self.first_waypoint): #have we made it to a waypoint?
-		#end drive to next waypoint
-	
-			if(userdata.wp_around_pit[userdata.counter_wp_around_pit][3] == 1): #is this a vantage point? yes = 1
-				complete = False
-				#rotate to yaw
-				q=self.wp.pose.orientation
-				yaw_pose, yaw_goal = smach_helper.calculate_yaw(q,msg)
-				
-				
-				
-				if (abs(yaw_goal - yaw_pose) < YAW_THRESH or abs(yaw_goal+6.28218 - yaw_pose) < YAW_THRESH):   #am i looking in the right direction?
-				#end rotation to yaw
-	
-					print('return real life pictures')
-					#TODO make this an actionlib
-					smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot
-
-					complete = True
-				
-				if (complete): #finished at waypoint - publish the next waypoint
-					userdata.counter_wp_around_pit += 1
-					self.vantage_return = True 
-					self.count_visited += 1
-					if(userdata.counter_wp_around_pit >= len(userdata.wp_around_pit)-1): #have we made it to the end of the waypoints?
-						self.success_flag = True
-						userdata.mission_flag = True
-						return
-					self.wp = self.global_wp_nav(userdata,waypoint_pub)
+			self.global_wp_nav(userdata)
 			
-			
-			else: #not a vantage point - publish the next waypoint
-				if(self.vantage_return):
-					self.end_time = rospy.get_rostime().secs
-					smach_helper.timekeeper('navAROUNDPIT',self.start_time,self.end_time,file_locations)
-					self.start_time = rospy.get_rostime().secs
-					self.vantage_return = False
-				if(userdata.counter_wp_around_pit >= len(userdata.wp_around_pit)-2): #have we made it to the end of the waypoints?
-					print('MISSION SUCCESS')
-					userdata.mission_flag = True
-					self.success_flag = True
-					self.count_visited = 0
-					return
-				if(self.count_visited >= self.risk_safe):
-					self.success_flag = True
-					self.count_visited = 0
-					return
-				userdata.counter_wp_around_pit += 1
-				self.first_waypoint = False
-				self.wp = self.global_wp_nav(userdata,waypoint_pub)
-
-	def global_wp_nav(self,userdata, waypoint_pub): #publishes the next waypoint in the list and gives it to TEB algorithm to navigate to
-		
+	def global_wp_nav(self,userdata): #publishes the next waypoint in the list and gives it to local algorithm to navigate to
+		rospy.sleep(rospy.Duration(5.0))
 		msg = PoseStamped()
+		msg.header.frame_id = 'map'
+		#postion
 		msg.pose.position.x = userdata.wp_around_pit[userdata.counter_wp_around_pit][1]#x
 		msg.pose.position.y = userdata.wp_around_pit[userdata.counter_wp_around_pit][2]#y
+		#orientation
 		yaw = userdata.wp_around_pit[userdata.counter_wp_around_pit][4] #yaw
-
 		q = quaternion_from_euler(0, 0, yaw)
 		msg.pose.orientation.x = q[0]
 		msg.pose.orientation.y = q[1]
 		msg.pose.orientation.z = q[2]
 		msg.pose.orientation.w = q[3]
-
-		msg.header.frame_id = 'map'
-		
-		
-		print('Publishing Waypoints', msg.pose.position.x , msg.pose.position.y)
-		waypoint_pub.publish(msg)
+		#update params
+		print('Publishing Waypoints', msg.pose.position.x , msg.pose.position.y, userdata.counter_wp_around_pit)
 		userdata.current_wp_cords = (msg.pose.position.x,msg.pose.position.y,yaw)
-		self.success_flag = False
-		return msg
+		#self.success_flag = False
+		#send action
+		goal = MoveBaseGoal()
+		goal.target_pose.header.frame_id = "map"
+		goal.target_pose.header.stamp = rospy.Time.now() 
+		goal.target_pose.pose = msg.pose
+		rospy.loginfo("Sending goal pose "+str(smach_helper.current_goal)+" to Action Server")
+		move_base_client.send_goal(goal, smach_helper.done_cb, smach_helper.active_cb, smach_helper.feedback_cb)
 
 	def execute(self,userdata):
+		#initialize
 		self.start_time = rospy.get_rostime().secs
-		self.wp = self.global_wp_nav(userdata,waypoint_pub)
 		num_unvisited =0
 		for i in range(userdata.counter_wp_around_pit,len(userdata.wp_around_pit)):
 			if userdata.wp_around_pit[i][3]==1:
 				num_unvisited+=1
-		#num_unvisited = math.ceil((halfway_point*2-userdata.counter_wp_around_pit)/3)
 		self.risk_safe = smach_helper.calcuate_risk(self.start_time,TIME_OUT,num_unvisited,file_locations)
 		print('Time left: {0} seconds'.format(TIME_OUT-rospy.get_rostime().secs))
-		sub_odom = rospy.Subscriber("/move_base/local_costmap/footprint", PolygonStamped, self.position_cb, (userdata,self.success_flag))
-		sub_battery = rospy.Subscriber("battery_charge", Temperature, smach_helper.charge_cb, (userdata,waypoint_pub,pose))
+		sub_battery = rospy.Subscriber("battery_charge", Temperature, smach_helper.charge_cb, (userdata,move_base_client))
 		rate = rospy.Rate(5)
-		while not self.success_flag:
+		
+		#run loop
+		self.nextwaypoint(userdata,0)
+		while not (self.success_flag):
 			rate.sleep()
-		sub_odom.unregister()
+			if smach_helper.step_flag and not smach_helper.charging:
+				smach_helper.step_flag = False
+				self.atThisWaypoint(userdata)
+				self.nextwaypoint(userdata,1)
+			if smach_helper.abort_flag:
+				smach_helper.abort_flag = False
+				self.nextwaypoint(userdata,0)
+		
+		#close out and move on
 		sub_battery.unregister()
 		if self.success_flag:
 			self.success_flag = False
@@ -256,63 +237,60 @@ class Pit2Lander(smach.State):
 		self.trip_number = 0
 		self.success_flag = False
 
-	def position_cb(self,msg,argc):
-		if self.success_flag == True:
-			return
-		[pose['x'], pose['y'], pose['yaw']]= smach_helper._get_pose(msg.polygon.points)
-		userdata = argc[0]                                          #userdata contains the input_keys
-
-
-		if(userdata.counter_wp_2_pit != -1):
-			error = math.sqrt((pose['x'] - self.wp.pose.position.x)**2 + (pose['y'] - self.wp.pose.position.y)**2)
+	def nextwaypoint(self,userdata,num):
+		userdata.counter_wp_2_pit += num
+		if userdata.counter_wp_2_pit < len(userdata.wp_2_pit):
+			self.global_wp_nav(userdata)
 		else:
-			error = 0
-		#print("Pit2Lander: Pursing Waypoint {0}, Distance to waypoint: {1}".format(userdata.counter_wp_2_pit, error))
-		if(error<GLOBAL_RADIUS or userdata.counter_wp_2_pit == -1):
-			userdata.counter_wp_2_pit += 1
-			if(userdata.counter_wp_2_pit >= len(userdata.wp_2_pit)):
-				userdata.counter_wp_2_pit = -1
-				self.success_flag = True
-				return
-			self.wp = self.global_wp_nav(userdata,waypoint_pub)
+			userdata.counter_wp_2_pit -= 1
+			self.success_flag = True
 
-	def global_wp_nav(self,userdata,waypoint_pub):
-		
-		
-		
-		
-
+	def global_wp_nav(self,userdata):
 		msg = PoseStamped()
-		num_waypoints = len(userdata.wp_2_pit)-1       #v reversed waypoint path
+		num_waypoints = len(userdata.wp_2_pit) -1      #v reversed waypoint path
 		msg.pose.position.x = userdata.wp_2_pit[num_waypoints - userdata.counter_wp_2_pit][0]#x
 		msg.pose.position.y = userdata.wp_2_pit[num_waypoints - userdata.counter_wp_2_pit][1]#y
 		yaw = 3.1415
-		msg.pose.orientation.w = 0
-		msg.pose.orientation.z = 1
+		yaw = smach_helper.sunangle+math.pi
+		q = quaternion_from_euler(0, 0, smach_helper.sunangle+math.pi)
+		msg.pose.orientation.x = q[0]
+		msg.pose.orientation.y = q[1]
+		msg.pose.orientation.z = q[2]
+		msg.pose.orientation.w = q[3]
 		msg.header.frame_id = 'map'
-		
-		
+
 		print('Publishing wp', msg.pose.position.x , msg.pose.position.y)
-		waypoint_pub.publish(msg)
+		#waypoint_pub.publish(msg)
 		userdata.current_wp_cords = (msg.pose.position.x,msg.pose.position.y,yaw)
-		return msg		
+		#return msg		
+		goal = MoveBaseGoal()
+		goal.target_pose.header.frame_id = "map"
+		goal.target_pose.header.stamp = rospy.Time.now() 
+		goal.target_pose.pose = msg.pose
+		rospy.loginfo("Sending goal pose "+str(smach_helper.current_goal)+" to Action Server")
+		move_base_client.send_goal(goal, smach_helper.done_cb, smach_helper.active_cb, smach_helper.feedback_cb)
 
 	def execute(self,userdata):
 		self.start_time = rospy.get_rostime().secs
 		self.trip_number +=1
-		sub_odom = rospy.Subscriber("/move_base/local_costmap/footprint", PolygonStamped, self.position_cb, (userdata,self.success_flag))
-		sub_battery = rospy.Subscriber("battery_charge", Temperature, smach_helper.charge_cb, (userdata,waypoint_pub,pose))
+		sub_battery = rospy.Subscriber("battery_charge", Temperature, smach_helper.charge_cb, (userdata,move_base_client))
+		self.nextwaypoint(userdata,0)
 		rate = rospy.Rate(5)
 		while not (self.success_flag):
 			rate.sleep()
-		sub_odom.unregister()
+			if smach_helper.step_flag and not smach_helper.charging:
+				smach_helper.step_flag = False
+				self.nextwaypoint(userdata,1)
+			if smach_helper.abort_flag:
+				smach_helper.abort_flag = False
+				self.nextwaypoint(userdata,0)
 		sub_battery.unregister()
 		if self.success_flag:
 			#print("Reached waypoint. On to next waypoint: {0}".format(userdata.counter_wp_2_pit))
 			print("------------------------------------------------------------------------------")
 			self.success_flag = False
 			smach_helper.show_model('round_{0}.ply'.format(str(self.trip_number)),file_locations)
-
+			userdata.counter_wp_2_pit = -1
 			self.end_time = rospy.get_rostime().secs
 			smach_helper.timekeeper('Pit2Lander',self.start_time,self.end_time,file_locations)
 			if userdata.mission_flag:
@@ -332,37 +310,24 @@ class Highway(smach.State):
 		self.end_time = 0
 		self.success_flag = False
 
-	def position_cb(self,msg,argc):
-		if self.success_flag == True:
-			return
-		[pose['x'], pose['y'], pose['yaw']]= smach_helper._get_pose(msg.polygon.points)
-		userdata = argc[0]                                          #userdata contains the input_keys
+	def nextwaypoint(self,userdata,num):
+		if(userdata.counter_highway_wp == userdata.alternative_point or 
+		   userdata.alternative_point + userdata.counter_highway_wp == len(userdata.wp_around_pit)-1 or
+		   userdata.alternative_point - userdata.counter_highway_wp == 0):
+			userdata.counter_highway_wp = 0
+			self.success_flag = True
 
-
-		if(userdata.counter_highway_wp != -1):
-			error = math.sqrt((pose['x'] - self.wp.pose.position.x)**2 + (pose['y'] - self.wp.pose.position.y)**2)
+		userdata.counter_highway_wp += num
+		if userdata.counter_highway_wp < userdata.alternative_point:
+			self.global_wp_nav(userdata)
 		else:
-			error = 0
-		#print("Highway: Pursing Waypoint {0}, Distance to waypoint: {1}".format(userdata.counter_highway_wp, error))
-		if(error<GLOBAL_RADIUS or userdata.counter_highway_wp == -1):
-			if(userdata.counter_highway_wp == userdata.alternative_point or 
-			   userdata.alternative_point + userdata.counter_highway_wp == len(userdata.wp_around_pit)-1 or
-			   userdata.alternative_point - userdata.counter_highway_wp == 0):
-				userdata.counter_highway_wp = 0
-				self.success_flag = True
-				return
-			
-			userdata.counter_highway_wp += 1
-			self.wp = self.global_wp_nav(userdata,waypoint_pub)
+			userdata.counter_highway_wp -= 1
+			self.success_flag = True
 
-	def global_wp_nav(self,userdata,waypoint_pub):
-		
-		
-		
-		
-		
+	def global_wp_nav(self,userdata):
 		msg = PoseStamped()
 
+		#postion
 		if userdata.direction == 'save_data' and userdata.alternative_point > halfway_point :
 			num = userdata.alternative_point + userdata.counter_highway_wp
 			maxn = len(userdata.wp_around_pit)-1
@@ -370,45 +335,67 @@ class Highway(smach.State):
 				userdata.counter_highway_wp += 1
 			msg.pose.position.x = userdata.wp_around_pit[userdata.alternative_point + userdata.counter_highway_wp][1]#x
 			msg.pose.position.y = userdata.wp_around_pit[userdata.alternative_point + userdata.counter_highway_wp][2]#y
-
 		elif userdata.direction == 'capture' and userdata.alternative_point > halfway_point:
 			num_waypoints = len(userdata.wp_around_pit)-1
 			if (userdata.wp_around_pit[num_waypoints - userdata.counter_highway_wp][3]              == 1):
 				userdata.counter_highway_wp += 1
 			msg.pose.position.x = userdata.wp_around_pit[num_waypoints - userdata.counter_highway_wp][1]#x
 			msg.pose.position.y = userdata.wp_around_pit[num_waypoints - userdata.counter_highway_wp][2]#y
-
 		elif userdata.direction == 'save_data' and userdata.alternative_point <= halfway_point:
 			if (userdata.wp_around_pit[userdata.alternative_point - userdata.counter_highway_wp][3] == 1):
 				userdata.counter_highway_wp += 1
 			msg.pose.position.x = userdata.wp_around_pit[userdata.alternative_point - userdata.counter_highway_wp][1]#x
 			msg.pose.position.y = userdata.wp_around_pit[userdata.alternative_point - userdata.counter_highway_wp][2]#y
-
 		elif userdata.direction == 'capture' and userdata.alternative_point <= halfway_point:
 			if (userdata.wp_around_pit[userdata.counter_highway_wp][3]                              == 1):
 				userdata.counter_highway_wp += 1
 			msg.pose.position.x = userdata.wp_around_pit[userdata.counter_highway_wp][1]#x
 			msg.pose.position.y = userdata.wp_around_pit[userdata.counter_highway_wp][2]#y
+
+		#orientation
 		yaw = 3.14
-		msg.pose.orientation.w = 0
-		msg.pose.orientation.z = 1
+		if abs(smach_helper.pose['yaw']-smach_helper.sunangle)<=math.pi/2: 
+			yaw = smach_helper.sunangle
+			q = quaternion_from_euler(0, 0, smach_helper.sunangle)
+		else: 
+			yaw = smach_helper.sunangle+math.pi
+			q = quaternion_from_euler(0, 0, smach_helper.sunangle+math.pi)
+		msg.pose.orientation.x = q[0]
+		msg.pose.orientation.y = q[1]
+		msg.pose.orientation.z = q[2]
+		msg.pose.orientation.w = q[3]
 		msg.header.frame_id = 'map'
 		
-		
-		print('Publishing wp', msg.pose.position.x , msg.pose.position.y, current_goal )
-		waypoint_pub.publish(msg)
+		#update params
+		print('Publishing wp', msg.pose.position.x , msg.pose.position.y, smach_helper.current_goal )
 		userdata.current_wp_cords = (msg.pose.position.x,msg.pose.position.y,yaw)
-		return msg
+		
+		#send action
+		goal = MoveBaseGoal()
+		goal.target_pose.header.frame_id = "map"
+		goal.target_pose.header.stamp = rospy.Time.now() 
+		goal.target_pose.pose = msg.pose
+		rospy.loginfo("Sending goal pose "+str(smach_helper.current_goal)+" to Action Server")
+		move_base_client.send_goal(goal, smach_helper.done_cb, smach_helper.active_cb, smach_helper.feedback_cb)
 
 	def execute(self,userdata):
+		#initialize
 		self.start_time = rospy.get_rostime().secs
-		self.wp = self.global_wp_nav(userdata,waypoint_pub)
-		sub_odom = rospy.Subscriber("/move_base/local_costmap/footprint", PolygonStamped, self.position_cb, (userdata,self.success_flag))
-		sub_battery = rospy.Subscriber("battery_charge", Temperature, smach_helper.charge_cb, (userdata,waypoint_pub,pose))
+		sub_battery = rospy.Subscriber("battery_charge", Temperature, smach_helper.charge_cb, (userdata,move_base_client))
 		rate = rospy.Rate(5)
+		
+		#run loop
+		self.nextwaypoint(userdata,0)
 		while not (self.success_flag):
 			rate.sleep()
-		sub_odom.unregister()
+			if smach_helper.step_flag and not smach_helper.charging:
+				smach_helper.step_flag = False
+				self.nextwaypoint(userdata,1)
+			if smach_helper.abort_flag:
+				smach_helper.abort_flag = False
+				self.nextwaypoint(userdata,0)
+		
+		#close out and move on
 		sub_battery.unregister()
 		if self.success_flag:
 			#print("Reached waypoint. On to next waypoint: {0}".format(userdata.counter_highway_wp))
@@ -460,6 +447,14 @@ def main():
 
 	sis = smach_ros.IntrospectionServer('server_name', sm, '/SM_ROOT')
 	sis.start()
+	rospy.loginfo("Waiting for move_base action server...")
+	wait = move_base_client.wait_for_server(rospy.Duration(275.0))
+	if not wait:
+		rospy.logerr("Action server not available!")
+		rospy.signal_shutdown("Action server not available!")
+		return
+	rospy.loginfo("Connected to move base server")
+	rospy.loginfo("Starting goals achievements ...")
 
 	# Execute the state machine
 	outcome = sm.execute()

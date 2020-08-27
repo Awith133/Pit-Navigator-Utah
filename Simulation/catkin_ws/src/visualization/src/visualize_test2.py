@@ -241,5 +241,5 @@ if __name__ == '__main__':
 	# if raw_input("Press enter to play, anything else to exit") == '':
 	# 	movie.play()
 	while not rospy.is_shutdown():
-		plt.show()
+		#plt.show()
 		rate.sleep()
