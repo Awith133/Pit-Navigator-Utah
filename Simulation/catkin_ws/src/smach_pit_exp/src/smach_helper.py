@@ -133,30 +133,39 @@ def read_csv(filename):
 			wp.append(tmp)
 	return wp
 def read_csv_around_pit(filename):
-	wp = []
-	map_resolution = 0.1
-	time_resolution = 25
-	time_offset = 0
-	with open(filename, 'rb') as f:
-		reader = csv.reader(f, delimiter=',')
-		
-		for row in reader:
-			tmp = []
-			i = 0
-			for elem in row:
-				if   (i==0):
-					tmp.append(   int(elem) * time_resolution + time_offset) #waypoint num
-				elif (i==1):
-					tmp.append(   int(elem) * map_resolution ) #x
-				elif (i==2):
-					tmp.append(-1*int(elem) * map_resolution ) #y
-				elif (i==3 or i==5 or i==6):
-					tmp.append(   int(elem)) #vatage point y = 1, n = -1
-				elif (i==4):
-					tmp.append(  (int(elem)-90) * 3.14159/180) #yaw degrees for waypoint
-				i+=1
-			wp.append(tmp)
-	return wp
+    wp = []
+    map_resolution = 0.1
+    time_resolution = 25
+    time_offset = 0
+    with open(filename, 'rb') as f:
+        reader = csv.reader(f, delimiter=',')
+        
+        for row in reader:
+            tmp = []
+            i = 0
+            for elem in row:
+                if   (i==0):
+                    tmp.append(   int(elem) * time_resolution + time_offset) #waypoint num
+                elif (i==1):
+                    tmp.append(   int(elem) * map_resolution ) #x
+                elif (i==2):
+                    tmp.append(-1*int(elem) * map_resolution ) #y
+                elif (i==3 or i==5 or i==6):
+                    tmp.append(   int(elem)) #vatage point y = 1, n = -1
+                elif (i==4):
+                    ang = (int(elem)-90)
+                    if((ang-sunangle)<-45 and not (ang-sunangle)<-90):
+                        ang = sunangle-45
+                    elif((ang-sunangle)<-90):
+                        ang = sunangle-135
+                    elif((ang-sunangle)>45 and not (ang-sunangle)>90):
+                        ang = sunangle+45
+                    elif ((ang-sunangle)>90):
+                        ang = sunangle+135
+                    tmp.append(  ang * 3.14159/180) #yaw degrees for waypoint
+                i+=1
+            wp.append(tmp)
+    return wp
 
 
 
@@ -218,7 +227,6 @@ def time_estimations(file_locations , estimation=None):
             output[i] = average[i]*.7+estimation[i]*.3
         return output
 
-
 def calcuate_risk(time_now,time_finish,num_unvisited_waypoints,file_locations):
     [pit2lander,navAroundPit,lander2pit,highway] = time_estimations(file_locations)
     safe_time = time_finish - time_now
@@ -237,19 +245,31 @@ def calcuate_risk(time_now,time_finish,num_unvisited_waypoints,file_locations):
 
 sunangle = 0.0
 charging = False
+min_charge = 1.0
 waypoint_cords = {'x':0,'y':0,}
 from tf.transformations import quaternion_from_euler
+from tf.transformations import euler_from_quaternion
+from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+from actionlib_msgs.msg import GoalStatus
+import rospy
+import actionlib
+
 def charge_cb (msg,argc):
-    global charging
+    global charging, pose, step_flag, min_charge
     battery_charge = msg.temperature/100.0
     userdata = argc[0]
-    waypoint_pub = argc[1]
+    move_base_client = argc[1]
+    #waypoint_pub = argc[1]
+    if battery_charge <= min_charge:
+        rospy.logwarn("MIN Battery charge: %f",battery_charge)
+        min_charge=battery_charge
+    
     if battery_charge%.1 <= 0.001 or battery_charge%.1 >= 0.999 and not battery_charge == 1.0:
         print('Battery charge:',battery_charge)
         
     if battery_charge <= .2:
         if battery_charge < 0: print('DEAD - NO BATTERY POWER')
-        pose = argc[2]
+        #pose = argc[2]
         msg = PoseStamped()
         msg.pose.position.x = pose['x']
         msg.pose.position.y = pose['y']
@@ -266,11 +286,17 @@ def charge_cb (msg,argc):
             waypoint_cords['x'] = msg.pose.position.x
             waypoint_cords['y'] = msg.pose.position.y
             print('Turning to sun to charge at:', msg.pose.position.x , msg.pose.position.y )
-            waypoint_pub.publish(msg)
+            goal = MoveBaseGoal()
+            goal.target_pose.header.frame_id = "map"
+            goal.target_pose.header.stamp = rospy.Time.now() 
+            goal.target_pose.pose = msg.pose
+            rospy.loginfo("Sending goal pose "+str(current_goal)+" to Action Server")
+            move_base_client.send_goal(goal, done_cb, active_cb, feedback_cb)
             charging = True
 
     if battery_charge >.99 and charging:
         charging = False
+        step_flag = False
         msg = PoseStamped()
         msg.pose.position.x = userdata.current_wp_cords[0]
         msg.pose.position.y = userdata.current_wp_cords[1]
@@ -283,9 +309,58 @@ def charge_cb (msg,argc):
         print('Done charging returning to waypoint:', msg.pose.position.x , msg.pose.position.y)
         waypoint_cords['x'] =0
         waypoint_cords['y'] =0
-        waypoint_pub.publish(msg)
+        #waypoint_pub.publish(msg)
+        goal = MoveBaseGoal()
+        goal.target_pose.header.frame_id = "map"
+        goal.target_pose.header.stamp = rospy.Time.now() 
+        goal.target_pose.pose = msg.pose
+        rospy.loginfo("Sending goal pose "+str(current_goal)+" to Action Server")
+        move_base_client.send_goal(goal, done_cb, active_cb, feedback_cb)
 
+current_goal = 0
+def active_cb():
+    global current_goal
+    rospy.loginfo("Goal pose "+str(current_goal)+" is now being processed by the Action Server...")
+
+pose ={	'x':0.0,
+	    'y':0.0,	
+	    'yaw':0.0,}
+def feedback_cb(feedback):
+    global pose, current_goal
+    #To print current pose at each feedback:
+    #rospy.loginfo("Feedback for goal "+str(current_goal)+": "+str(feedback))
+    pose['x'] = feedback.base_position.pose.position.x
+    pose['y'] = feedback.base_position.pose.position.y
+    pose['yaw'] = euler_from_quaternion([feedback.base_position.pose.orientation.w,feedback.base_position.pose.orientation.x,feedback.base_position.pose.orientation.y,feedback.base_position.pose.orientation.z])[2]
+    #rospy.loginfo("Feedback for goal pose "+str(current_goal)+" received")
+
+step_flag = False
+abort_flag = False
+def done_cb(status, result):
+    global step_flag,abort_flag, current_goal
+    
+    # Reference for terminal status values: http://docs.ros.org/diamondback/api/actionlib_msgs/html/msg/GoalStatus.html
+    if status == 2:
+        rospy.loginfo("Goal pose "+str(current_goal)+" received a cancel request after it started executing, completed execution!")
+
+    if status == 3:
+        rospy.loginfo("Goal pose "+str(current_goal)+" reached") 
+        step_flag = True
         
+    if status == 4:
+        rospy.loginfo("Goal pose "+str(current_goal)+" was aborted by the Action Server")
+        abort_flag = True
+        #rospy.signal_shutdown("Goal pose "+str(current_goal)+" aborted, shutting down!")
+        #return
+
+    if status == 5:
+        rospy.loginfo("Goal pose "+str(current_goal)+" has been rejected by the Action Server")
+        rospy.signal_shutdown("Goal pose "+str(current_goal)+" rejected, shutting down!")
+        return
+
+    if status == 8:
+        rospy.loginfo("Goal pose "+str(current_goal)+" received a cancel request before it started executing, successfully cancelled!")
+    current_goal = current_goal + 1
 
 def update_sun(msg):
     global sunangle
