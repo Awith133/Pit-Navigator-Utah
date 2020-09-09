@@ -1,4 +1,0 @@
-file_to_pit: "/home/alex/pit-navigator/Simulation/catkin_ws/src/lander_to_pit_trajectory.csv"
-file_around_pit: "/home/alex/pit-navigator/Simulation/catkin_ws/src/path_location_mapping.csv"
-map_location: "/home/alex/pit-navigator/Simulation/catkin_ws/src/waypoint_pit_planner/src/mapp.csv"
-manual_override: false
