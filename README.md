@@ -2,7 +2,7 @@
 # INSTALL
 ##Home computer attempt - DEPENDS ubuntu 16/ ros kinetic
 from a fresh computer with nothing installed
-needs 3.6 GB of storage for everything
+needs 4 GB of storage for everything
 
 ##open a terminal and copy and paste this line by line:
 
