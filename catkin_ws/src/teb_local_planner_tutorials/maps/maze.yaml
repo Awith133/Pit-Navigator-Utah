@@ -1,0 +1,6 @@
+image: global_map_utah_pit_1.png
+resolution: .1
+origin: [0, -100, 0]
+negate: 0
+occupied_thresh: 0.90 
+free_thresh: 0.65

@@ -1,0 +1,11 @@
+<launch>
+<arg name = "visualization_path" default="$(find visualization)"/>
+<rosparam param="visualization_path" subst_value="true">$(arg visualization_path)</rosparam>
+   <group ns="Test 2 Visualisation">
+      <!-- Begin Plot_data -->
+      <node pkg="visualization" type="visualize_test2.py" name="visualize_test2">
+      <!-- <param name="visualization_path" value="$(find visualization)" /> -->
+      </node>
+      <!-- End Plot_data -->
+   </group>
+</launch>

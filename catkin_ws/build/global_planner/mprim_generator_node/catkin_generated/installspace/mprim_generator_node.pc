@@ -1,0 +1,8 @@
+prefix=/home/alex/pit-navigator-utah/catkin_ws/install
+
+Name: mprim_generator_node
+Description: Description of mprim_generator_node
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

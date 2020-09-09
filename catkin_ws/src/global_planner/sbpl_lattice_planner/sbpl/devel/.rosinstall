@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/devel/setup.sh

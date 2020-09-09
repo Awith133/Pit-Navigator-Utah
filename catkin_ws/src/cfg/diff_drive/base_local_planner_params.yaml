@@ -1,0 +1,40 @@
+TrajectoryPlannerROS:
+
+ # Trajectory
+
+ teb_autosize: True
+ dt_ref: 0.3
+ dt_hysteresis: 0.1
+ max_samples: 500
+ global_plan_overwrite_orientation: True
+ allow_init_with_backwards_motion: False
+ max_global_plan_lookahead_dist: 1
+ global_plan_viapoint_sep: -1
+ global_plan_prune_distance: 1
+ exact_arc_length: False
+ feasibility_check_no_poses: 5
+ publish_feedback: False
+
+ # Robot
+
+ max_vel_x: 0.7
+ max_vel_x_backwards: 0.7
+ max_vel_y: 0
+ max_vel_theta: 3.036
+ acc_lim_x: 0.5
+ acc_lim_theta: 0.5
+ min_turning_radius: 0.01 # diff-drive robot (can turn on place!)
+ wheelbase: 0.266
+
+ footprint_model:
+   type: "point"
+ holonomic_robot: true
+
+ # GoalTolerance
+
+ xy_goal_tolerance: 0.25
+ yaw_goal_tolerance: 0.16
+ free_goal_vel: False
+
+ # Obstacles
+    

@@ -1,0 +1,8 @@
+<launch>
+   <group ns="Test 1 Visualisation">
+      <!-- Begin Plot_data -->
+      <node pkg="visualization" type="visualize_test1.py" name="visualize_test1" >
+      </node>
+      <!-- End Plot_data -->
+   </group>
+</launch>

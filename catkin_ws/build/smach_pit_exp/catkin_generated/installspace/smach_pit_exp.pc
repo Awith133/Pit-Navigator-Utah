@@ -1,0 +1,8 @@
+prefix=/home/alex/pit-navigator-utah/catkin_ws/install
+
+Name: smach_pit_exp
+Description: Description of smach_pit_exp
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
