@@ -276,11 +276,11 @@ Visualization Manager:
       Class: rviz/Pose
       Color: 255; 25; 0
       Enabled: true
-      Head Length: 3
-      Head Radius: 4.5
+      Head Length: 0.5
+      Head Radius: 1.5
       Name: Pose
-      Shaft Length: 6
-      Shaft Radius: 3
+      Shaft Length: 2
+      Shaft Radius: 1
       Shape: Arrow
       Topic: /move_base/current_goal
       Unreliable: false
@@ -319,11 +319,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 0.644360602
+      Scale: 9.74720192
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
-      X: 904.735718
-      Y: -635.206482
+      X: 38.4023857
+      Y: -46.0308571
     Saved: ~
 Window Geometry:
   Displays:
