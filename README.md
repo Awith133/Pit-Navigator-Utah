@@ -101,7 +101,7 @@ catkin_make
 source devel/setup.bash
 
 ##not a command but in demo3.launch file:
-lines 14&15 need editing to match new file location 
+lines 5&6 need editing to match new file location 
 
 roslaunch src/demo3.launch
 
