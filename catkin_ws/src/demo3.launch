@@ -3,7 +3,7 @@
 	<env name="WEBOTS_HOME"    value="/usr/local/webots"/>
 	
 	<arg name="SYSTEM_NAME"          value="/home/alex/pit-navigator-utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
-	<arg name="ROBOT_SIMULATION_ARG" value="/home/alex/pit-navigator-utah/catkin_ws/src/Simulation_Control/Utah_Pit"/>
+	<arg name="ROBOT_SIMULATION_ARG" value="/home/alex/pit-navigator-utah/catkin_ws/src/Simulation_Control/Pit_Edge_Test"/>
 	<!--rosparam file="$(arg SYSTEM_NAME)/server_parameters/parameters.yaml" command="load" /-->
 	<param name="use_sim_time" type="bool" value="true"/>
 	<param name="system_name" type="string" value="$(arg SYSTEM_NAME)"/>
@@ -39,7 +39,7 @@
 
     <!--  *************** NAVIGATION ***************  -->
 	<node pkg="mprim_generator_node" type="MPrimGeneratorNode.py" name="MPrimGeneratorNode" output="log"/>
-	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="log">
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
 		<!-- Here we load our costmap conversion settings -->
 		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/costmap_common_params.yaml" command="load" ns="global_costmap" />
   	 	<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/costmap_common_params.yaml" command="load" ns="local_costmap" />
@@ -52,11 +52,12 @@
 		
 
 		<!-- *************** GLOBAL PLANNER ***************  -->
-		<!-- different planners : "carrot_planner/CarrotPlanner","global_planner/GlobalPlanner","navfn/NavfnROS", "RAstar_planner/RAstarPlannerROS"-->
-		<param name="base_global_planner"                                      value="SBPLLatticePlanner"/>
+		<!-- different planners : "carrot_planner/CarrotPlanner","global_planner/GlobalPlanner","navfn/NavfnROS", "RAstar_planner/RAstarPlannerROS", "SBPLLatticePlanner"-->
+		<param name="base_global_planner"                                      value="global_planner/GlobalPlanner"/>
 		<param name="planner_frequency"                                        value="0.10" />
 		<param name="planner_patience"                                         value="50.0" />
 		<!-- if SBPLlattice planner-->
+		
 		<param name="SBPLLatticePlanner/primitive_filename"      type="string" value="$(arg SYSTEM_NAME)/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/matlab/mprim/pit_nav.mprim" />
 		<param name="SBPLLatticePlanner/environment_type"        type="string" value="XYThetaMLevLattice"/> 
 		<param name="SBPLLatticePlanner/allocated_time"                        value="10.0"/>

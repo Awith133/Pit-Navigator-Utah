@@ -154,14 +154,14 @@ def read_csv_around_pit(filename, _map_resolution):
                     tmp.append(   int(elem)) #vatage point y = 1, n = -1
                 elif (i==4):
                     ang = (int(elem))
-                    if((ang-sunangle)<-45 and not (ang-sunangle)<-90):
-                        ang = sunangle-45
-                    elif((ang-sunangle)<-90):
-                        ang = sunangle-135
-                    elif((ang-sunangle)>45 and not (ang-sunangle)>90):
-                        ang = sunangle+45
-                    elif ((ang-sunangle)>90):
-                        ang = sunangle+135
+                    # if((ang-sunangle)<-45 and not (ang-sunangle)<-90):
+                    #     ang = sunangle-45
+                    # elif((ang-sunangle)<-90):
+                    #     ang = sunangle-135
+                    # elif((ang-sunangle)>45 and not (ang-sunangle)>90):
+                    #     ang = sunangle+45
+                    # elif ((ang-sunangle)>90):
+                    #     ang = sunangle+135
                     tmp.append(  ang * 3.14159/180) #yaw degrees for waypoint
                 i+=1
             wp.append(tmp)
@@ -256,6 +256,8 @@ import actionlib
 
 def charge_cb (msg,argc):
     global charging, pose, step_flag, min_charge
+    if (not 'Utah' in rospy.get_param("robot_simulation_arg")):
+        return
     battery_charge = msg.temperature/100.0
     userdata = argc[0]
     move_base_client = argc[1]
