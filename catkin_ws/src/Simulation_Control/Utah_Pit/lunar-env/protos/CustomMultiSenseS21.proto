@@ -34,7 +34,7 @@ PROTO CustomMultiSenseS21 [
 
       %{ if fields.leftCamera.value then }%
         Camera {
-          translation 0.105 0 -0.0975
+          translation 0.045 0 -0.0975
           name %{= '"' .. fields.name.value .. ' left camera"'}%
           fieldOfView IS cameraFieldOfView
           width IS cameraWidth
@@ -45,7 +45,7 @@ PROTO CustomMultiSenseS21 [
 
       %{ if fields.rightCamera.value then }%
         Camera {
-          translation -0.105 0 -0.0975
+          translation -0.045 0 -0.0975
           name %{= '"' .. fields.name.value .. ' right camera"'}%
           fieldOfView IS cameraFieldOfView
           width IS cameraWidth

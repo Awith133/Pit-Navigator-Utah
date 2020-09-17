@@ -1,5 +1,5 @@
 Webots Project File version R2020b
-perspectives: 000000ff00000000fd00000003000000000000000000000000fc0100000001fb0000001a0044006f00630075006d0065006e0074006100740069006f006e0000000000ffffffff0000006900ffffff000000010000011c000004fafc0200000001fb0000001400540065007800740045006400690074006f00720000000000000004fa0000003f00ffffff00000003000009bf00000091fc0100000001fb0000001a0043006f006e0073006f006c00650041006c006c0041006c006c0100000000000009bf0000006900ffffff000009bf000004df00000001000000020000000100000008fc00000000
+perspectives: 000000ff00000000fd00000003000000000000000000000000fc0100000001fb0000001a0044006f00630075006d0065006e0074006100740069006f006e0000000000ffffffff0000006900ffffff000000010000011c000004fafc0200000001fb0000001400540065007800740045006400690074006f00720000000000000004fa0000003f00ffffff00000003000009bf000000aafc0100000001fb0000001a0043006f006e0073006f006c00650041006c006c0041006c006c0100000000000009bf0000006900ffffff000009bf000004c600000001000000020000000100000008fc00000000
 simulationViewPerspectives: 000000ff000000010000000200000100000002c20100000002010000000100
 sceneTreePerspectives: 000000ff000000010000000200000454000000fa0100000002010000000200
 maximizedDockId: -1
@@ -7,11 +7,11 @@ centralWidgetVisible: 1
 orthographicViewHeight: 1
 textFiles: -1
 consoles: Console:All:All
-renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards left camera;1;0.6875;0;0
-renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards meta camera;1;0.6875;0;0
-renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards meta range finder;1;0.6875;0;0
-renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards right camera;1;0.6875;0;0
-renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 left camera;1;0.6875;0;0
-renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 meta camera;1;0.6875;0;0
-renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 meta range finder;1;0.6875;0;0
-renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 right camera;1;0.6875;0;0
+renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards left camera;1;0.96875;0;0
+renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards meta camera;1;0.96875;0;0
+renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards meta range finder;1;0.96875;0;0
+renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards right camera;1;0.96875;0;0
+renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 left camera;1;0.96875;0;0
+renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 meta camera;1;0.96875;0;0
+renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 meta range finder;1;0.96875;0;0
+renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 right camera;1;0.96875;0;0

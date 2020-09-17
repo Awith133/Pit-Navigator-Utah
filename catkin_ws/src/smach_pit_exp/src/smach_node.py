@@ -32,7 +32,7 @@ import smach_helper
 GLOBAL_RADIUS = .45
 GLOBAL_RADIUS2 = 1
 YAW_THRESH = 0.16 #10 deg
-TIME_OUT = 2200*1.3 #normal = 1.3 big = 1
+TIME_OUT = 2200*1 #normal = 1.3 big = 1
 file_locations = {
 	'file_to_pit':rospy.get_param("file_to_pit"),
 	'file_around_pit':rospy.get_param("file_around_pit"),
