@@ -55,6 +55,8 @@ costmap_2d/inflation_layer.h
 -
 tf2/LinearMath/Quaternion.h
 -
+math.h
+-
 
 /opt/ros/kinetic/include/boost_161_condition_variable.h
 boost/thread/detail/platform.hpp

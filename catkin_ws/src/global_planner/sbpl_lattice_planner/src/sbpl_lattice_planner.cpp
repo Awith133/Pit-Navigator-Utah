@@ -41,6 +41,7 @@
 #include <sbpl_lattice_planner/SBPLLatticePlannerStats.h>
 #include <costmap_2d/inflation_layer.h>
 #include <tf2/LinearMath/Quaternion.h>
+#include <math.h>
 
 using namespace std;
 using namespace ros;
@@ -284,6 +285,8 @@ unsigned char SBPLLatticePlanner::computeCircumscribedCost() {
   }
   return result;
 }
+
+bool tooclose = false;
 
 bool SBPLLatticePlanner::makePlan(const geometry_msgs::PoseStamped& start,
                                  const geometry_msgs::PoseStamped& goal,

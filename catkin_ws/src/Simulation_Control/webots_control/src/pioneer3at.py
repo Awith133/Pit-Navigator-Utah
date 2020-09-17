@@ -279,9 +279,9 @@ if __name__ == "__main__":
     needDepth = rospy.get_param("show_rock_distances", 0)
     #enable_sensor("meta")
     enable_sensor("left")
-    #enable_sensor("right")
+    enable_sensor("right")
     enable_sensor("left_back")
-    #enable_sensor("right_back")
+    enable_sensor("right_back")
     #enable_sensor("meta_back")
     if(needDepth):
         enable_sensor("depth")
