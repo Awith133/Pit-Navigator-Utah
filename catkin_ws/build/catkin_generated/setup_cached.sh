@@ -7,5 +7,11 @@
 # new environment variables
 
 # modified environment variables
-export PKG_CONFIG_PATH="/opt/ros/kinetic/lib/pkgconfig:/opt/ros/kinetic/lib/x86_64-linux-gnu/pkgconfig"
+export CMAKE_PREFIX_PATH="/home/alex/pit-navigator-utah/catkin_ws/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/alex/pit-navigator-utah/catkin_ws/devel/lib:$LD_LIBRARY_PATH"
+export PATH="/opt/ros/kinetic/bin:/home/alex/anaconda3/condabin:/home/alex/bin:/home/alex/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+export PKG_CONFIG_PATH="/home/alex/pit-navigator-utah/catkin_ws/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD="/home/alex/pit-navigator-utah/catkin_ws/build"
+export PYTHONPATH="/home/alex/pit-navigator-utah/catkin_ws/devel/lib/python2.7/dist-packages:$PYTHONPATH"
+export ROSLISP_PACKAGE_DIRECTORIES="/home/alex/pit-navigator-utah/catkin_ws/devel/share/common-lisp"
+export ROS_PACKAGE_PATH="/home/alex/pit-navigator-utah/catkin_ws/src:$ROS_PACKAGE_PATH"

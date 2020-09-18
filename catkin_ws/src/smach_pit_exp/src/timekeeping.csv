@@ -1,14 +1,2 @@
-Lander2Pit,202,509
-Highway,509,509
-Lander2Pit,203,507
-Highway,507,507
-navAROUNDPIT,507,929
-Highway,1290,1695
-Pit2Lander,1695,2085
-Lander2Pit,1,41
-Highway,41,41
-navAROUNDPIT,41,125
-navAROUNDPIT,125,189
-navAROUNDPIT,189,285
-Highway,320,349
-Pit2Lander,349,531
+Lander2Pit,1,43
+Highway,43,43

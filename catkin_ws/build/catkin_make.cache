@@ -1,2 +1,2 @@
-Simulation_Control/webots_control:Simulation_Control/webots_ros:executive_smach/executive_smach:executive_smach/smach:executive_smach/smach_msgs:executive_smach/smach_ros:global_planner/mprim_generator_node:global_planner/relaxed_astar:global_planner/sbpl_lattice_planner:smach_pit_exp:teb_local_planner_tutorials:visualization
+Simulation_Control/webots_control:Simulation_Control/webots_ros:global_planner/mprim_generator_node:global_planner/relaxed_astar:global_planner/sbpl_lattice_planner:smach_pit_exp:visualization
 -DCATKIN_DEVEL_PREFIX=/home/alex/pit-navigator-utah/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/alex/pit-navigator-utah/catkin_ws/install -G Unix Makefiles
