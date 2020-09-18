@@ -181,7 +181,18 @@ def timekeeper(state, start_time, end_time,file_locations):
 def time_estimations(file_locations , estimation=None):
     csvfile = open(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv','r')
     reader = csv.reader(csvfile)
-    average = [80, 78, 567, 132]
+    if ('Simulation' in file_locations['robot_simulation_env']):
+        if ('Utah_Pit' in file_locations['robot_simulation_env']):
+            average = [80, 78, 567, 132]
+        if ('Utah_BIG' in file_locations['robot_simulation_env']):
+            average = [80, 78, 567, 132]
+        if ('Lacus_Mortis_Pit' in file_locations['robot_simulation_env']):
+            average = [800, 780, 5670, 1320]
+        if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
+            average = [10, 78, 15, 25] 
+    else:
+        average = [80, 78, 567, 132]
+    
     output = average[:]
     count = [0,0,0,0]
     for row in reader:

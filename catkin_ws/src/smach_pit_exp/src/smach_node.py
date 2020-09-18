@@ -32,12 +32,23 @@ import smach_helper
 GLOBAL_RADIUS = .45
 GLOBAL_RADIUS2 = 1
 YAW_THRESH = 0.16 #10 deg
-TIME_OUT = 2200*1 #normal = 1.3 big = 1
 file_locations = {
 	'file_to_pit':rospy.get_param("file_to_pit"),
 	'file_around_pit':rospy.get_param("file_around_pit"),
 	'project_file_location':rospy.get_param("/system_name"),
 	'robot_simulation_env':rospy.get_param("/robot_simulation_arg"),}
+if ('Simulation' in file_locations['robot_simulation_env']):
+	if ('Utah_Pit' in file_locations['robot_simulation_env']):
+		TIME_OUT = 2200*1.3 #normal = 1.3 big = 1 
+	if ('Utah_BIG' in file_locations['robot_simulation_env']):
+		TIME_OUT = 2200*1 #normal = 1.3 big = 1 
+	if ('Lacus_Mortis_Pit' in file_locations['robot_simulation_env']):
+		TIME_OUT = 2200*10
+	if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
+		TIME_OUT = 6*60+60 #normal = 1.3 big = 1  
+else:
+	TIME_OUT = 100000
+
 map_resolution = rospy.get_param("/resolution")
 halfway_point = len(smach_helper.read_csv_around_pit(file_locations['file_around_pit'],map_resolution))/2
 
