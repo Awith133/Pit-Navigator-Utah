@@ -56,7 +56,7 @@ cd ~/pit-navigator-utah/catkin_ws/src
 
 rosdep update
 
-cd Simulation_Controller/webots_ros
+cd Simulation_Control/webots_ros
 
 rosdep install --from-paths src --ignore-src --rosdistro kinetic
 
