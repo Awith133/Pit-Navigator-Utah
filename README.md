@@ -78,7 +78,7 @@ make
 
 sudo make install
 
-~/pit-navigator-utah/
+cd ~/pit-navigator-utah/
 
 chmod +x catkin_ws/src/smach_pit_exp/src/smach_node.py
 
@@ -88,13 +88,7 @@ chmod +x catkin_ws/src/visualization/src/visualize_test2.py
 
 chmod +x catkin_ws/src/mprim_generator_node/src/MPrimGeneratorNode.py
 
-~/pit-navigator-utah/catkin_ws
-
-rm src/CMakeLists.txt
-
-rm build
-
-rm devel
+cd ~/pit-navigator-utah/catkin_ws
 
 catkin_make 
 
@@ -107,7 +101,7 @@ roslaunch src/demo3.launch
 
 
 # RUN
-~/pit-navigator-utah/catkin_ws/
+cd ~/pit-navigator-utah/catkin_ws/
 
 source devel/setup.bash
 
