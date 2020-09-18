@@ -14,3 +14,6 @@ catkin_ws/src/Simulation_Control/Utah_Pit/lunar-env/protos/utah_pit.proto
 catkin_ws/src/Simulation_Control/Pit_Edge_Test/lunar-env/round_1.gif
 catkin_ws/src/Simulation_Control/Pit_Edge_Test/lunar-env/round_2.gif
 catkin_ws/src/Simulation_Control/Pit_Edge_Test/lunar-env/round_3.gif
+catkin_ws/build
+catkin_ws/devel
+catkin_ws/CMakeLists.txt

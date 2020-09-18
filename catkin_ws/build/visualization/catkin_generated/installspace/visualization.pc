@@ -1,8 +1,0 @@
-prefix=/home/alex/pit-navigator-utah/catkin_ws/install
-
-Name: visualization
-Description: Description of visualization
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
