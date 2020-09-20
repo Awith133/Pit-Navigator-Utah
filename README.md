@@ -64,9 +64,9 @@ echo 'export WEBOTS_HOME=/snap/webots/current/usr/share/webots' >> ~/.bashrc
 
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WEBOTS_HOME/lib' >> ~/.bashrc
 
-~/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/
+cd ~/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/
 
-rm build/
+rm -r build/
 
 mkdir build
 
