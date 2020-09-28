@@ -6,10 +6,6 @@ needs 4 GB of storage for everything
 
 ##open a terminal and copy and paste this line by line:
 
-mkdir pit-navigator-utah
-
-cd pit-navigator-utah
-
 git clone https://github.com/Awith133/Pit-Navigator-Utah.git
 
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -30,7 +26,7 @@ source ~/.bashrc
 
 sudo apt-get install ros-kinetic-webots-ros ros-kinetic-rviz ros-kinetic-navigation ros-kinetic-image-pipeline ros-kinetic-teb-local-planner
 
-wget -q0- https://cyberbotics.com/Cyberbotics.asc | sudo apt-key add -
+wget -qO- https://cyberbotics.com/Cyberbotics.asc | sudo apt-key add -
 
 sudo apt-add-repository 'deb https://cyberbotics.com/debian/ binary-amd64/'
 
@@ -86,7 +82,7 @@ chmod +x catkin_ws/src/webots_control/src/pioneer3at.py
 
 chmod +x catkin_ws/src/visualization/src/visualize_test2.py
 
-chmod +x catkin_ws/src/mprim_generator_node/src/MPrimGeneratorNode.py
+chmod +x catkin_ws/src/global_planner/mprim_generator_node/src/MPrimGeneratorNode.py
 
 cd ~/pit-navigator-utah/catkin_ws
 
