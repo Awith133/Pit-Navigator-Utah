@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import csv
 import rospy
 import math
@@ -9,7 +8,7 @@ import pdb
 import smach_ros
 from smach import CBState
 from nav_msgs.msg import Odometry
-from std_msgs.msg import Empty
+from std_msgs.msg import Empty, String
 from geometry_msgs.msg import PoseStamped, PolygonStamped
 
 from tf.transformations import quaternion_from_euler
@@ -24,10 +23,18 @@ from std_msgs.msg import Float32
 from std_msgs.msg import Float64
 from sensor_msgs.msg import Temperature
 import tf
+import time
 
 #display image imports
 import smach_helper
+from cloud_process import CloudSubscriber
+from sim_brinkmanship import Brinkmanship
 
+
+translation = [0, 0.13, -0.18]
+rotation = [-0.3583641, 0, 0, 0.9335819]
+alert_helper = CloudSubscriber(translation, rotation)
+brink_controller = Brinkmanship()
 
 GLOBAL_RADIUS = .45
 GLOBAL_RADIUS2 = 1
@@ -60,6 +67,11 @@ move_base_client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
 sub_where_to_see = rospy.Subscriber('where_to_see',Float32,smach_helper.update_sun)
 
 listener = None
+
+# Brinkmanship Edge Alert Flag
+
+# alert_subscriber = rospy.Subscriber('/edge_alert', String ,alert_helper.edge_alert_cb)
+
 
 #Class 1 from lander to pit
 class Lander2Pit(smach.State):
@@ -157,7 +169,17 @@ class circum_wp_cb(smach.State):
 			return
 		if(userdata.wp_around_pit[userdata.counter_wp_around_pit][3] == 1 ): #is this a vantage point? yes = 1
 			rospy.logwarn('return real life pictures')
-			smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
+			# Reached vantage point
+			rospy.loginfo('Starting Brinkmanship Node')
+			while not alert_helper.alert_bool:
+				brink_controller.generate_twist_msg([0.5, 0, 0], [0, 0, 0])
+				brink_controller.publish_twist_msg()
+				rospy.loginfo(alert_helper.alert_flag)
+			while alert_helper.alert_bool:
+				brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
+				brink_controller.publish_twist_msg()
+				rospy.loginfo(alert_helper.alert_flag)
+			# smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
 			self.vantage_return = True
 			self.count_visited += 1
 			return
@@ -460,6 +482,13 @@ def main():
 	sis = smach_ros.IntrospectionServer('server_name', sm, '/SM_ROOT')
 	sis.start()
 	rospy.loginfo("Waiting for move_base action server...")
+	
+	# while(True):
+	# 	rospy.loginfo('logging info')
+	# 	rospy.logwarn('return real life pictures')
+	# 	rospy.loginfo(str(alert_helper.alert_bool))
+	# 	# time.sleep(1)
+	# 	rospy.sleep(1)
 	wait = move_base_client.wait_for_server(rospy.Duration(275.0))
 	if not wait:
 		rospy.logerr("Action server not available!")

@@ -8,6 +8,17 @@ import glob
 #from PIL import Image
 import time
 import subprocess
+
+class BrinkStatus:
+    def __init__(self):
+       self.alert_flag = 'False'
+       return
+    
+    def edge_alert_cb(self, msg):
+        self.alert_flag = 'True'
+        return
+
+
 def display_real_images(userdata, file_locations):
     time.sleep(1)
     images_folder = file_locations['robot_simulation_env'] + '/lunar-env/images/'
