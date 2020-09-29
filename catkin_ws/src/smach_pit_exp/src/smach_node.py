@@ -172,13 +172,15 @@ class circum_wp_cb(smach.State):
 			# Reached vantage point
 			rospy.loginfo('Starting Brinkmanship Node')
 			while not alert_helper.alert_bool:
-				brink_controller.generate_twist_msg([0.5, 0, 0], [0, 0, 0])
+				brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
 				brink_controller.publish_twist_msg()
-				rospy.loginfo(alert_helper.alert_flag)
+				rospy.loginfo(alert_helper.alert_bool)
+			# zero twist to stop
+			# camera functions
 			while alert_helper.alert_bool:
 				brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
 				brink_controller.publish_twist_msg()
-				rospy.loginfo(alert_helper.alert_flag)
+				rospy.loginfo(alert_helper.alert_bool)
 			# smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
 			self.vantage_return = True
 			self.count_visited += 1
