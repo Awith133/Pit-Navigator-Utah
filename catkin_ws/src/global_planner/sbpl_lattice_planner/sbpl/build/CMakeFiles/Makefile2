@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl
+CMAKE_SOURCE_DIR = /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build
+CMAKE_BINARY_DIR = /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/std_msgs_generate_messages_py.dir
@@ -66,14 +66,14 @@ CMAKE_BINARY_DIR = /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global
 CMakeFiles/std_msgs_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_py.dir/build.make CMakeFiles/std_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_py.dir/build.make CMakeFiles/std_msgs_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_py"
 .PHONY : CMakeFiles/std_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/std_msgs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_msgs_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/std_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -98,14 +98,14 @@ clean: CMakeFiles/std_msgs_generate_messages_py.dir/clean
 CMakeFiles/roscpp_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_py.dir/build.make CMakeFiles/roscpp_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_py.dir/build.make CMakeFiles/roscpp_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_py"
 .PHONY : CMakeFiles/roscpp_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/roscpp_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/roscpp_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/roscpp_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -130,14 +130,14 @@ clean: CMakeFiles/roscpp_generate_messages_py.dir/clean
 CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/all:
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/depend
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_eus"
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
@@ -162,14 +162,14 @@ clean: CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
 CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/all:
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/depend
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_nodejs"
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -194,14 +194,14 @@ clean: CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/clean
 CMakeFiles/roscpp_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_cpp.dir/build.make CMakeFiles/roscpp_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_cpp.dir/build.make CMakeFiles/roscpp_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_cpp"
 .PHONY : CMakeFiles/roscpp_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/roscpp_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/roscpp_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/roscpp_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -226,14 +226,14 @@ clean: CMakeFiles/roscpp_generate_messages_cpp.dir/clean
 CMakeFiles/roscpp_generate_messages_eus.dir/all:
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_eus.dir/build.make CMakeFiles/roscpp_generate_messages_eus.dir/depend
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_eus.dir/build.make CMakeFiles/roscpp_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_eus"
 .PHONY : CMakeFiles/roscpp_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/roscpp_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/roscpp_generate_messages_eus.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/roscpp_generate_messages_eus.dir/rule
 
 # Convenience name for target.
@@ -258,14 +258,14 @@ clean: CMakeFiles/roscpp_generate_messages_eus.dir/clean
 CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all:
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_py"
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -290,14 +290,14 @@ clean: CMakeFiles/rosgraph_msgs_generate_messages_py.dir/clean
 CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_lisp"
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -322,14 +322,14 @@ clean: CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/clean
 CMakeFiles/roscpp_generate_messages_nodejs.dir/all:
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make CMakeFiles/roscpp_generate_messages_nodejs.dir/depend
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make CMakeFiles/roscpp_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_nodejs"
 .PHONY : CMakeFiles/roscpp_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/roscpp_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/roscpp_generate_messages_nodejs.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -354,14 +354,14 @@ clean: CMakeFiles/roscpp_generate_messages_nodejs.dir/clean
 CMakeFiles/std_msgs_generate_messages_nodejs.dir/all:
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make CMakeFiles/std_msgs_generate_messages_nodejs.dir/depend
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_nodejs"
 .PHONY : CMakeFiles/std_msgs_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_msgs_generate_messages_nodejs.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -386,14 +386,14 @@ clean: CMakeFiles/std_msgs_generate_messages_nodejs.dir/clean
 CMakeFiles/roscpp_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_lisp.dir/build.make CMakeFiles/roscpp_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/roscpp_generate_messages_lisp.dir/build.make CMakeFiles/roscpp_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_lisp"
 .PHONY : CMakeFiles/roscpp_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/roscpp_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/roscpp_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/roscpp_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -418,14 +418,14 @@ clean: CMakeFiles/roscpp_generate_messages_lisp.dir/clean
 CMakeFiles/std_msgs_generate_messages_eus.dir/all:
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_eus.dir/build.make CMakeFiles/std_msgs_generate_messages_eus.dir/depend
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_eus.dir/build.make CMakeFiles/std_msgs_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_eus"
 .PHONY : CMakeFiles/std_msgs_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/std_msgs_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_msgs_generate_messages_eus.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/std_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
@@ -450,14 +450,14 @@ clean: CMakeFiles/std_msgs_generate_messages_eus.dir/clean
 CMakeFiles/std_msgs_generate_messages_lisp.dir/all:
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make CMakeFiles/std_msgs_generate_messages_lisp.dir/depend
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make CMakeFiles/std_msgs_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_lisp"
 .PHONY : CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/std_msgs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_msgs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -482,7 +482,7 @@ clean: CMakeFiles/std_msgs_generate_messages_lisp.dir/clean
 CMakeFiles/sbpl.dir/all:
 	$(MAKE) -f CMakeFiles/sbpl.dir/build.make CMakeFiles/sbpl.dir/depend
 	$(MAKE) -f CMakeFiles/sbpl.dir/build.make CMakeFiles/sbpl.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 "Built target sbpl"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 "Built target sbpl"
 .PHONY : CMakeFiles/sbpl.dir/all
 
 # Include target in all.
@@ -492,9 +492,9 @@ all: CMakeFiles/sbpl.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/sbpl.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 20
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 20
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sbpl.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/sbpl.dir/rule
 
 # Convenience name for target.
@@ -519,14 +519,14 @@ clean: CMakeFiles/sbpl.dir/clean
 CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_cpp"
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -551,14 +551,14 @@ clean: CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/clean
 CMakeFiles/std_msgs_generate_messages_cpp.dir/all:
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make CMakeFiles/std_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make CMakeFiles/std_msgs_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_cpp"
 .PHONY : CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/std_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/std_msgs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -583,7 +583,7 @@ clean: CMakeFiles/std_msgs_generate_messages_cpp.dir/clean
 CMakeFiles/test_sbpl.dir/all: CMakeFiles/sbpl.dir/all
 	$(MAKE) -f CMakeFiles/test_sbpl.dir/build.make CMakeFiles/test_sbpl.dir/depend
 	$(MAKE) -f CMakeFiles/test_sbpl.dir/build.make CMakeFiles/test_sbpl.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=23,24 "Built target test_sbpl"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=23,24 "Built target test_sbpl"
 .PHONY : CMakeFiles/test_sbpl.dir/all
 
 # Include target in all.
@@ -593,9 +593,9 @@ all: CMakeFiles/test_sbpl.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_sbpl.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 22
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 22
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test_sbpl.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_sbpl.dir/rule
 
 # Convenience name for target.
@@ -620,7 +620,7 @@ clean: CMakeFiles/test_sbpl.dir/clean
 CMakeFiles/test_adjacency_list.dir/all: CMakeFiles/sbpl.dir/all
 	$(MAKE) -f CMakeFiles/test_adjacency_list.dir/build.make CMakeFiles/test_adjacency_list.dir/depend
 	$(MAKE) -f CMakeFiles/test_adjacency_list.dir/build.make CMakeFiles/test_adjacency_list.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=21,22 "Built target test_adjacency_list"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=21,22 "Built target test_adjacency_list"
 .PHONY : CMakeFiles/test_adjacency_list.dir/all
 
 # Include target in all.
@@ -630,9 +630,9 @@ all: CMakeFiles/test_adjacency_list.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_adjacency_list.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 22
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 22
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test_adjacency_list.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_adjacency_list.dir/rule
 
 # Convenience name for target.

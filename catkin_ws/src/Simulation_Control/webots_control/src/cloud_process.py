@@ -74,6 +74,6 @@ class CloudSubscriber:
 if __name__ == '__main__':
     translation = [0, 0.13, -0.18]
     rotation = [-0.3583641, 0, 0, 0.9335819]
-    rospy.init_node('Cloud Processor')
+    rospy.init_node('Cloud_Processor')
     cs = CloudSubscriber(translation, rotation)
     rospy.spin()

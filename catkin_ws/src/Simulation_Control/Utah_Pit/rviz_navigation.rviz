@@ -11,7 +11,7 @@ Panels:
         - /Robot1/Odometry1
         - /Robot1/Odometry1/Shape1
         - /Robot1/Odometry1/Covariance1
-        - /Pose1
+        - /PointCloud21
       Splitter Ratio: 0.605095983
     Tree Height: 309
   - Class: rviz/Selection
@@ -32,7 +32,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: PointCloud2
 Toolbars:
   toolButtonStyle: 2
 Visualization Manager:
@@ -275,7 +275,7 @@ Visualization Manager:
       Axes Radius: 0.100000001
       Class: rviz/Pose
       Color: 255; 25; 0
-      Enabled: true
+      Enabled: false
       Head Length: 0.5
       Head Radius: 1.5
       Name: Pose
@@ -284,6 +284,36 @@ Visualization Manager:
       Shape: Arrow
       Topic: /move_base/current_goal
       Unreliable: false
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 0; 0
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: PointCloud2
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.00999999978
+      Style: Points
+      Topic: /processed_cloud
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
       Value: true
   Enabled: true
   Global Options:
@@ -309,7 +339,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: -0.00500015635
+      Angle: -0.0100001562
       Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
@@ -319,11 +349,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 9.74720192
+      Scale: 95.0445938
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
-      X: 38.4023857
-      Y: -46.0308571
+      X: 43.5862732
+      Y: -52.0313568
     Saved: ~
 Window Geometry:
   Displays:
@@ -341,5 +371,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 696
-  X: 65
-  Y: 464
+  X: 187
+  Y: 518
