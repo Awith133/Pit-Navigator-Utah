@@ -6,5 +6,5 @@ CXX_FLAGS = -O3 -DNDEBUG -fPIC
 
 CXX_DEFINES = -DROS -DROSCONSOLE_BACKEND_LOG4CXX -DROS_PACKAGE_NAME=\"sbpl\" -Dsbpl_EXPORTS
 
-CXX_INCLUDES = -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/include 
+CXX_INCLUDES = -I/opt/ros/kinetic/include -I/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/include 
 

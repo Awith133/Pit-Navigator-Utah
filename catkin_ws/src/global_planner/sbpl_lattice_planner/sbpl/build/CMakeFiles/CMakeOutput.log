@@ -10,7 +10,7 @@ The output was:
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
 
-The C compiler identification is GNU, found in "/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/3.5.1/CompilerIdC/a.out"
+The C compiler identification is GNU, found in "/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/3.5.1/CompilerIdC/a.out"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
 Compiler: /usr/bin/c++ 
@@ -23,33 +23,33 @@ The output was:
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
 
-The CXX compiler identification is GNU, found in "/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/3.5.1/CompilerIdCXX/a.out"
+The CXX compiler identification is GNU, found in "/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/3.5.1/CompilerIdCXX/a.out"
 
 Determining if the C compiler works passed with the following output:
-Change Dir: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_ee1bd/fast"
-/usr/bin/make -f CMakeFiles/cmTC_ee1bd.dir/build.make CMakeFiles/cmTC_ee1bd.dir/build
-make[1]: Entering directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_ee1bd.dir/testCCompiler.c.o
-/usr/bin/cc     -o CMakeFiles/cmTC_ee1bd.dir/testCCompiler.c.o   -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_ee1bd
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ee1bd.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_ee1bd.dir/testCCompiler.c.o  -o cmTC_ee1bd -rdynamic 
-make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_a77a0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a77a0.dir/build.make CMakeFiles/cmTC_a77a0.dir/build
+make[1]: Entering directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a77a0.dir/testCCompiler.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_a77a0.dir/testCCompiler.c.o   -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_a77a0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a77a0.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_a77a0.dir/testCCompiler.c.o  -o cmTC_a77a0 -rdynamic 
+make[1]: Leaving directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_f623c/fast"
-/usr/bin/make -f CMakeFiles/cmTC_f623c.dir/build.make CMakeFiles/cmTC_f623c.dir/build
-make[1]: Entering directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_f623c.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc     -o CMakeFiles/cmTC_f623c.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.5/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_f623c
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f623c.dir/link.txt --verbose=1
-/usr/bin/cc      -v CMakeFiles/cmTC_f623c.dir/CMakeCCompilerABI.c.o  -o cmTC_f623c -rdynamic  
+Run Build Command:"/usr/bin/make" "cmTC_b53ab/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b53ab.dir/build.make CMakeFiles/cmTC_b53ab.dir/build
+make[1]: Entering directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b53ab.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_b53ab.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.5/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_b53ab
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b53ab.dir/link.txt --verbose=1
+/usr/bin/cc      -v CMakeFiles/cmTC_b53ab.dir/CMakeCCompilerABI.c.o  -o cmTC_b53ab -rdynamic  
 Using built-in specs.
 COLLECT_GCC=/usr/bin/cc
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper
@@ -59,23 +59,23 @@ Thread model: posix
 gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.12) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f623c' '-rdynamic' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccxSngOA.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_f623c /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTC_f623c.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o
-make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_b53ab' '-rdynamic' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccxK6sZc.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_b53ab /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTC_b53ab.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o
+make[1]: Leaving directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
 
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_f623c/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_f623c.dir/build.make CMakeFiles/cmTC_f623c.dir/build]
-  ignore line: [make[1]: Entering directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_f623c.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc     -o CMakeFiles/cmTC_f623c.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.5/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_f623c]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f623c.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc      -v CMakeFiles/cmTC_f623c.dir/CMakeCCompilerABI.c.o  -o cmTC_f623c -rdynamic  ]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_b53ab/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_b53ab.dir/build.make CMakeFiles/cmTC_b53ab.dir/build]
+  ignore line: [make[1]: Entering directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_b53ab.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc     -o CMakeFiles/cmTC_b53ab.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.5/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_b53ab]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b53ab.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc      -v CMakeFiles/cmTC_b53ab.dir/CMakeCCompilerABI.c.o  -o cmTC_b53ab -rdynamic  ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/cc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper]
@@ -85,13 +85,13 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.12) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f623c' '-rdynamic' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccxSngOA.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_f623c /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTC_f623c.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_b53ab' '-rdynamic' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccxK6sZc.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_b53ab /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTC_b53ab.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/5/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccxSngOA.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccxK6sZc.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -109,7 +109,7 @@ Parsed C implicit link information from above output:
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_f623c] ==> ignore
+    arg [cmTC_b53ab] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o] ==> ignore
@@ -121,7 +121,7 @@ Parsed C implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../..]
-    arg [CMakeFiles/cmTC_f623c.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_b53ab.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -153,17 +153,17 @@ Parsed C implicit link information from above output:
 
 
 Detecting C [-std=c11] compiler features compiled with the following output:
-Change Dir: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_6d4f6/fast"
-/usr/bin/make -f CMakeFiles/cmTC_6d4f6.dir/build.make CMakeFiles/cmTC_6d4f6.dir/build
-make[1]: Entering directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_6d4f6.dir/feature_tests.c.o
-/usr/bin/cc    -std=c11 -o CMakeFiles/cmTC_6d4f6.dir/feature_tests.c.o   -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_6d4f6
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6d4f6.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_6d4f6.dir/feature_tests.c.o  -o cmTC_6d4f6 -rdynamic 
-make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_71ad1/fast"
+/usr/bin/make -f CMakeFiles/cmTC_71ad1.dir/build.make CMakeFiles/cmTC_71ad1.dir/build
+make[1]: Entering directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_71ad1.dir/feature_tests.c.o
+/usr/bin/cc    -std=c11 -o CMakeFiles/cmTC_71ad1.dir/feature_tests.c.o   -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_71ad1
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_71ad1.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_71ad1.dir/feature_tests.c.o  -o cmTC_71ad1 -rdynamic 
+make[1]: Leaving directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -173,17 +173,17 @@ make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/s
 
 
 Detecting C [-std=c99] compiler features compiled with the following output:
-Change Dir: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_fafbe/fast"
-/usr/bin/make -f CMakeFiles/cmTC_fafbe.dir/build.make CMakeFiles/cmTC_fafbe.dir/build
-make[1]: Entering directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_fafbe.dir/feature_tests.c.o
-/usr/bin/cc    -std=c99 -o CMakeFiles/cmTC_fafbe.dir/feature_tests.c.o   -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_fafbe
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fafbe.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_fafbe.dir/feature_tests.c.o  -o cmTC_fafbe -rdynamic 
-make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_3ffbb/fast"
+/usr/bin/make -f CMakeFiles/cmTC_3ffbb.dir/build.make CMakeFiles/cmTC_3ffbb.dir/build
+make[1]: Entering directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3ffbb.dir/feature_tests.c.o
+/usr/bin/cc    -std=c99 -o CMakeFiles/cmTC_3ffbb.dir/feature_tests.c.o   -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_3ffbb
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3ffbb.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_3ffbb.dir/feature_tests.c.o  -o cmTC_3ffbb -rdynamic 
+make[1]: Leaving directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -193,17 +193,17 @@ make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/s
 
 
 Detecting C [-std=c90] compiler features compiled with the following output:
-Change Dir: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_0bee0/fast"
-/usr/bin/make -f CMakeFiles/cmTC_0bee0.dir/build.make CMakeFiles/cmTC_0bee0.dir/build
-make[1]: Entering directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_0bee0.dir/feature_tests.c.o
-/usr/bin/cc    -std=c90 -o CMakeFiles/cmTC_0bee0.dir/feature_tests.c.o   -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_0bee0
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0bee0.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_0bee0.dir/feature_tests.c.o  -o cmTC_0bee0 -rdynamic 
-make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_2d84b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_2d84b.dir/build.make CMakeFiles/cmTC_2d84b.dir/build
+make[1]: Entering directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_2d84b.dir/feature_tests.c.o
+/usr/bin/cc    -std=c90 -o CMakeFiles/cmTC_2d84b.dir/feature_tests.c.o   -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_2d84b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2d84b.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_2d84b.dir/feature_tests.c.o  -o cmTC_2d84b -rdynamic 
+make[1]: Leaving directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -211,30 +211,30 @@ make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/s
     Feature record: C_FEATURE:0c_static_assert
     Feature record: C_FEATURE:0c_variadic_macros
 Determining if the CXX compiler works passed with the following output:
-Change Dir: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_08977/fast"
-/usr/bin/make -f CMakeFiles/cmTC_08977.dir/build.make CMakeFiles/cmTC_08977.dir/build
-make[1]: Entering directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_08977.dir/testCXXCompiler.cxx.o
-/usr/bin/c++      -o CMakeFiles/cmTC_08977.dir/testCXXCompiler.cxx.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_08977
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_08977.dir/link.txt --verbose=1
-/usr/bin/c++        CMakeFiles/cmTC_08977.dir/testCXXCompiler.cxx.o  -o cmTC_08977 -rdynamic 
-make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_93333/fast"
+/usr/bin/make -f CMakeFiles/cmTC_93333.dir/build.make CMakeFiles/cmTC_93333.dir/build
+make[1]: Entering directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_93333.dir/testCXXCompiler.cxx.o
+/usr/bin/c++      -o CMakeFiles/cmTC_93333.dir/testCXXCompiler.cxx.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_93333
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_93333.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_93333.dir/testCXXCompiler.cxx.o  -o cmTC_93333 -rdynamic 
+make[1]: Leaving directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_9319e/fast"
-/usr/bin/make -f CMakeFiles/cmTC_9319e.dir/build.make CMakeFiles/cmTC_9319e.dir/build
-make[1]: Entering directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_9319e.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++      -o CMakeFiles/cmTC_9319e.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_9319e
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9319e.dir/link.txt --verbose=1
-/usr/bin/c++       -v CMakeFiles/cmTC_9319e.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_9319e -rdynamic  
+Run Build Command:"/usr/bin/make" "cmTC_ac645/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ac645.dir/build.make CMakeFiles/cmTC_ac645.dir/build
+make[1]: Entering directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_ac645.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++      -o CMakeFiles/cmTC_ac645.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_ac645
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ac645.dir/link.txt --verbose=1
+/usr/bin/c++       -v CMakeFiles/cmTC_ac645.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_ac645 -rdynamic  
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper
@@ -244,23 +244,23 @@ Thread model: posix
 gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.12) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_9319e' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/cccCA6Y4.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_9319e /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTC_9319e.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o
-make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_ac645' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccPVm2JJ.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_ac645 /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTC_ac645.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o
+make[1]: Leaving directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
 
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_9319e/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_9319e.dir/build.make CMakeFiles/cmTC_9319e.dir/build]
-  ignore line: [make[1]: Entering directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_9319e.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++      -o CMakeFiles/cmTC_9319e.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_9319e]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9319e.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++       -v CMakeFiles/cmTC_9319e.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_9319e -rdynamic  ]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_ac645/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_ac645.dir/build.make CMakeFiles/cmTC_ac645.dir/build]
+  ignore line: [make[1]: Entering directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building CXX object CMakeFiles/cmTC_ac645.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++      -o CMakeFiles/cmTC_ac645.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_ac645]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ac645.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++       -v CMakeFiles/cmTC_ac645.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_ac645 -rdynamic  ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper]
@@ -270,13 +270,13 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.12) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_9319e' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/cccCA6Y4.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_9319e /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTC_9319e.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_ac645' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccPVm2JJ.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_ac645 /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTC_ac645.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/5/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/cccCA6Y4.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccPVm2JJ.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -294,7 +294,7 @@ Parsed CXX implicit link information from above output:
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_9319e] ==> ignore
+    arg [cmTC_ac645] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o] ==> ignore
@@ -306,7 +306,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../..]
-    arg [CMakeFiles/cmTC_9319e.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_ac645.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -336,17 +336,17 @@ Parsed CXX implicit link information from above output:
 
 
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
-Change Dir: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_e88fb/fast"
-/usr/bin/make -f CMakeFiles/cmTC_e88fb.dir/build.make CMakeFiles/cmTC_e88fb.dir/build
-make[1]: Entering directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_e88fb.dir/feature_tests.cxx.o
-/usr/bin/c++     -std=c++14 -o CMakeFiles/cmTC_e88fb.dir/feature_tests.cxx.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_e88fb
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e88fb.dir/link.txt --verbose=1
-/usr/bin/c++        CMakeFiles/cmTC_e88fb.dir/feature_tests.cxx.o  -o cmTC_e88fb -rdynamic 
-make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_003bf/fast"
+/usr/bin/make -f CMakeFiles/cmTC_003bf.dir/build.make CMakeFiles/cmTC_003bf.dir/build
+make[1]: Entering directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_003bf.dir/feature_tests.cxx.o
+/usr/bin/c++     -std=c++14 -o CMakeFiles/cmTC_003bf.dir/feature_tests.cxx.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_003bf
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_003bf.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_003bf.dir/feature_tests.cxx.o  -o cmTC_003bf -rdynamic 
+make[1]: Leaving directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
@@ -409,17 +409,17 @@ make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/s
 
 
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
-Change Dir: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_bc6f2/fast"
-/usr/bin/make -f CMakeFiles/cmTC_bc6f2.dir/build.make CMakeFiles/cmTC_bc6f2.dir/build
-make[1]: Entering directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_bc6f2.dir/feature_tests.cxx.o
-/usr/bin/c++     -std=c++11 -o CMakeFiles/cmTC_bc6f2.dir/feature_tests.cxx.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_bc6f2
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bc6f2.dir/link.txt --verbose=1
-/usr/bin/c++        CMakeFiles/cmTC_bc6f2.dir/feature_tests.cxx.o  -o cmTC_bc6f2 -rdynamic 
-make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_35360/fast"
+/usr/bin/make -f CMakeFiles/cmTC_35360.dir/build.make CMakeFiles/cmTC_35360.dir/build
+make[1]: Entering directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_35360.dir/feature_tests.cxx.o
+/usr/bin/c++     -std=c++11 -o CMakeFiles/cmTC_35360.dir/feature_tests.cxx.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_35360
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_35360.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_35360.dir/feature_tests.cxx.o  -o cmTC_35360 -rdynamic 
+make[1]: Leaving directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
@@ -482,17 +482,17 @@ make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/s
 
 
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
-Change Dir: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_cfd7b/fast"
-/usr/bin/make -f CMakeFiles/cmTC_cfd7b.dir/build.make CMakeFiles/cmTC_cfd7b.dir/build
-make[1]: Entering directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_cfd7b.dir/feature_tests.cxx.o
-/usr/bin/c++     -std=c++98 -o CMakeFiles/cmTC_cfd7b.dir/feature_tests.cxx.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_cfd7b
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cfd7b.dir/link.txt --verbose=1
-/usr/bin/c++        CMakeFiles/cmTC_cfd7b.dir/feature_tests.cxx.o  -o cmTC_cfd7b -rdynamic 
-make[1]: Leaving directory '/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Run Build Command:"/usr/bin/make" "cmTC_198f8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_198f8.dir/build.make CMakeFiles/cmTC_198f8.dir/build
+make[1]: Entering directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_198f8.dir/feature_tests.cxx.o
+/usr/bin/c++     -std=c++98 -o CMakeFiles/cmTC_198f8.dir/feature_tests.cxx.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_198f8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_198f8.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_198f8.dir/feature_tests.cxx.o  -o cmTC_198f8 -rdynamic 
+make[1]: Leaving directory '/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers

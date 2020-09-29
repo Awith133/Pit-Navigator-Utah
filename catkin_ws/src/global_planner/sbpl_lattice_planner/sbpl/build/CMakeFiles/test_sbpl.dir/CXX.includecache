@@ -314,7 +314,7 @@ set
 vector
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/test/main.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/test/main.cpp
 cmath
 -
 cstring

@@ -1,4 +1,4 @@
-# Install script for directory: /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl
+# Install script for directory: /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -33,18 +33,18 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "pkgconfig")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/InstallFiles/sbpl.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/InstallFiles/sbpl.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/sbpl" TYPE FILE FILES
-    "/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/InstallFiles/sbpl-config.cmake"
-    "/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/InstallFiles/sbpl-config-version.cmake"
+    "/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/InstallFiles/sbpl-config.cmake"
+    "/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/InstallFiles/sbpl-config-version.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/include/sbpl" FILES_MATCHING REGEX "/[^/]*\\.h$")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/include/sbpl" FILES_MATCHING REGEX "/[^/]*\\.h$")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
@@ -54,7 +54,7 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsbpl.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/libsbpl.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/libsbpl.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsbpl.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsbpl.so")
     file(RPATH_CHANGE
@@ -75,5 +75,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
