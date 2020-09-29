@@ -60,3 +60,17 @@ Lander2Pit,1,11
 Highway,11,11
 Lander2Pit,1,1
 Highway,1,1
+Lander2Pit,101,102
+Highway,102,102
+Lander2Pit,1,2
+Highway,2,2
+navAROUNDPIT,2,99
+navAROUNDPIT,99,342
+Lander2Pit,101,102
+Highway,102,102
+navAROUNDPIT,102,202
+Lander2Pit,0,4
+Highway,4,4
+navAROUNDPIT,4,105
+navAROUNDPIT,105,358
+navAROUNDPIT,358,579
