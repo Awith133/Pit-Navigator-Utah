@@ -8,9 +8,9 @@ orthographicViewHeight: 1
 textFiles: -1
 consoles: Console:All:All
 renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards left camera;1;1;0.249132;0.173835
-renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards meta camera;1;1;0.0575989;0.485663
+renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards meta camera;1;1;0.0575989;0.476103
 renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards meta range finder;1;1;0;0
-renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards right camera;1;1;0;0.489247
+renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 Backwards right camera;1;1;0;0.476103
 renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 left camera;1;1;0;0
 renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 meta camera;1;1;0;0
 renderingDevicePerspectives: Pioneer 3-AT:MultiSense S21 meta range finder;1;1;0;0
