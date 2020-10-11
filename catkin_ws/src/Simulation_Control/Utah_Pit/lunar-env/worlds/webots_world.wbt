@@ -35,6 +35,10 @@ Pioneer3at {
     "--use-sim-time"
   ]
   extensionSlot [
+    InertialUnit {
+      name "inertial_unit"
+      resolution 0.01
+    }
     Pen {
       inkColor 1 0 0
       leadSize 0.001
