@@ -39,3 +39,9 @@ Pit2Lander,547,578
 Lander2Pit,1,44
 Highway,44,44
 navAROUNDPIT,44,202
+Lander2Pit,1,43
+Highway,43,43
+Lander2Pit,2,44
+Highway,44,44
+navAROUNDPIT,44,204
+navAROUNDPIT,204,319
