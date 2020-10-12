@@ -55,7 +55,8 @@ CAMERA_NAMES = {
     "left_back": "MultiSense_S21_Backwards_left_camera",
     "right_back": "MultiSense_S21_Backwards_right_camera",
     "meta_back": "MultiSense_S21_Backwards_meta_camera",
-    "depth_back": "MultiSense_S21_Backwards_meta_range_finder"
+    "depth_back": "MultiSense_S21_Backwards_meta_range_finder",
+    "imu":"inertial_unit"
     }
 
 CAMERA_INFOS = {
@@ -224,11 +225,14 @@ def enable_sensor(sensor_name):
         service_name = ROBOT_ROSNODE+"/"+CAMERA_NAMES[sensor_name]+"/enable"
         rospy.wait_for_service(service_name,10)
         enbale_client = rospy.ServiceProxy(service_name, set_int)
-        rep1 = enbale_client(64)
+        if (not sensor_name == "imu"):
+            rep1 = enbale_client(64)
+        else:
+            rep1 = enbale_client(1)
 
         rospy.loginfo("Enabled camera: " + sensor_name)
 
-        if(not sensor_name == "depth"):
+        if(not sensor_name == "depth" and not sensor_name == "imu"):
             service_name = ROBOT_ROSNODE+"/"+CAMERA_NAMES[sensor_name]+"/get_info"
             rospy.wait_for_service(service_name)
             getinfo_client = rospy.ServiceProxy(service_name, camera_get_info)
@@ -255,9 +259,11 @@ def enable_sensor(sensor_name):
 
             topic_name = ROBOT_ROSNODE+"/"+CAMERA_NAMES[sensor_name]+"/image"
             rospy.Subscriber(topic_name, Image, publish_camera_info, (sensor_name))
-        else:
+        elif(sensor_name == "depth"):
             topic_name = ROBOT_ROSNODE+"/"+CAMERA_NAMES[sensor_name]+"/range_image"
             # rospy.Subscriber(topic_name, Image, publish_pc)
+        elif(sensor_name == "imu"):
+            topic_name = ROBOT_ROSNODE+"/"+CAMERA_NAMES[sensor_name]+"/roll_pitch_yaw"
 
     except rospy.ServiceException, e:
         print "Service call failed: %s"%e
@@ -277,13 +283,14 @@ if __name__ == "__main__":
     
     rospy.loginfo(("Finally started Node with name initialized to: " + ROBOT_ROSNODE))
     needDepth = rospy.get_param("show_rock_distances", 0)
-    #enable_sensor("meta")
+    enable_sensor("meta")
     enable_sensor("left")
     enable_sensor("right")
     enable_sensor("left_back")
     enable_sensor("right_back")
     #enable_sensor("meta_back")
-    if(needDepth):
+    enable_sensor("imu")
+    if(True):
         enable_sensor("depth")
     set_velocity(CURR_VELOCITY)
     

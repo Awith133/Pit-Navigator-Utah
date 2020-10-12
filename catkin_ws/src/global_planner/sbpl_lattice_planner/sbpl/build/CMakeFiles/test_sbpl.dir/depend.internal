@@ -32,7 +32,7 @@ CMakeFiles/test_sbpl.dir/src/test/main.cpp.o
  ../src/include/sbpl/utils/sbpl_bfs_3d.h
  ../src/include/sbpl/utils/sbpl_fifo.h
  ../src/include/sbpl/utils/utils.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/test/main.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/test/main.cpp
  /opt/ros/kinetic/include/geometry_msgs/Point.h
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h

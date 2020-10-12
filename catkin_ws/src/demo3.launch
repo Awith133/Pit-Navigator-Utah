@@ -3,7 +3,7 @@
 	<env name="WEBOTS_HOME"    value="/usr/local/webots"/>
 	
 	<arg name="SYSTEM_NAME"          value="/home/alex/pit-navigator-utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
-	<arg name="ROBOT_SIMULATION_ARG" value="/home/alex/pit-navigator-utah/catkin_ws/src/Simulation_Control/Pit_Edge_Test"/>
+	<arg name="ROBOT_SIMULATION_ARG" value="/home/alex/pit-navigator-utah/catkin_ws/src/Simulation_Control/Utah_Pit"/>
 	<!--rosparam file="$(arg SYSTEM_NAME)/server_parameters/parameters.yaml" command="load" /-->
 	<param name="use_sim_time" type="bool" value="true"/>
 	<param name="system_name" type="string" value="$(arg SYSTEM_NAME)"/>
@@ -117,7 +117,7 @@
       <!--    starting sim mode v pause realtime run-->
 	  <arg name="mode" value="pause"/> 
       <arg name="no-gui" value="$(arg no-gui)"/>
-      <arg name="world" value="$(arg ROBOT_SIMULATION_ARG)/lunar-env/worlds/webots_world.wbt"/>
+      <arg name="world" value="$(arg ROBOT_SIMULATION_ARG)/lunar-env/worlds/webots_world_nearPit.wbt"/>
     </include>
 	<node name="pioneer3at" pkg="webots_control" type="pioneer3at.py" required="$(arg auto-close)" output="log"/>
 
@@ -131,7 +131,7 @@
 	<node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="log" />
 
 	<node pkg="nodelet" type="nodelet" name="cloudify" args="load depth_image_proc/point_cloud_xyz record_player_manager --no-bond">
-		<remap from="camera_info" to="/apnapioneer3at/MultiSense_S21_meta_camera/camera_info"/>
+		<remap from="camera_info" to="/apnapioneer3at/MultiSense_S21_meta_range_finder/camera_info"/>
 		<remap from="image_rect" to="/apnapioneer3at/MultiSense_S21_meta_range_finder/range_image"/>
 	</node >
 

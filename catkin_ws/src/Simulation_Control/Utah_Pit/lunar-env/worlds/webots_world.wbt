@@ -1,9 +1,10 @@
-#VRML_SIM R2020a utf8
+#VRML_SIM R2020b utf8
 WorldInfo {
+  coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.9992370834163941 -0.028192761218163637 0.02702627130023079 4.725326746608002
-  position 10.297255796828974 23.061963338607008 27.614427054611355
+  orientation 0.9993363245231679 -0.032099610419712654 -0.017219915778773468 4.727972631661148
+  position 44.686704738628684 15.522303368490206 52.2314589237425
   follow "Pioneer 3-AT"
 }
 DirectionalLight {
@@ -17,11 +18,27 @@ Robot {
   supervisor TRUE
 }
 Pioneer3at {
-  translation 6.397039411502298 1.106970455522524 27.154168899975456
-  rotation -0.0024491469644894277 -0.9999873698476537 -0.004388829492947866 2.123691709013415
+  hidden position_0_0 445.3001582665581
+  hidden position_0_1 448.52894915642094
+  hidden position_0_2 445.3547025840031
+  hidden position_0_3 448.4978831952727
+  hidden rotation_14 -1 0 0 5.477186763987075
+  hidden rotation_15 1 0 0 3.860392960509291
+  hidden rotation_16 -1 0 0 5.531731081432068
+  hidden rotation_17 1 0 0 3.891458921657506
+  translation 42.63761086934634 1.1434257502590224 52.399431457720674
+  rotation 0.002552888338737344 -0.9999426655116673 0.010399444723244812 1.6376441827957224
   controller "ros"
-  controllerArgs "--name=apnapioneer3at --clock --use-sim-time"
+  controllerArgs [
+    "--name=apnapioneer3at"
+    "--clock"
+    "--use-sim-time"
+  ]
   extensionSlot [
+    InertialUnit {
+      name "inertial_unit"
+      resolution 0.01
+    }
     Pen {
       inkColor 1 0 0
       leadSize 0.001

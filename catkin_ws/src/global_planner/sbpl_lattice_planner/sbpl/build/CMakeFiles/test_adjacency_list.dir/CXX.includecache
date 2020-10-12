@@ -90,7 +90,7 @@ sbpl/sbpl_exception.h
 
 ../src/include/sbpl/utils/mdpconfig.h
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/test/test_adjacency_list.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/test/test_adjacency_list.cpp
 cmath
 -
 iostream

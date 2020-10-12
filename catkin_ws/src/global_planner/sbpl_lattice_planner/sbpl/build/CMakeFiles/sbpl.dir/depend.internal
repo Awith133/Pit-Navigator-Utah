@@ -9,7 +9,7 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.o
  ../src/include/sbpl/sbpl_exception.h
  ../src/include/sbpl/utils/mdp.h
  ../src/include/sbpl/utils/mdpconfig.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_XXX.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_XXX.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -76,7 +76,7 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.o
  ../src/include/sbpl/utils/mdp.h
  ../src/include/sbpl/utils/mdpconfig.h
  ../src/include/sbpl/utils/utils.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2D.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2D.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -143,7 +143,7 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.o
  ../src/include/sbpl/utils/mdp.h
  ../src/include/sbpl/utils/mdpconfig.h
  ../src/include/sbpl/utils/utils.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2Duu.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2Duu.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -212,7 +212,7 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp
  ../src/include/sbpl/utils/mdp.h
  ../src/include/sbpl/utils/mdpconfig.h
  ../src/include/sbpl/utils/utils.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_navxythetalat.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_navxythetalat.cpp
  /opt/ros/kinetic/include/geometry_msgs/Point.h
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
@@ -282,7 +282,7 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.o
  ../src/include/sbpl/utils/mdp.h
  ../src/include/sbpl/utils/mdpconfig.h
  ../src/include/sbpl/utils/utils.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_robarm.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_robarm.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -346,7 +346,7 @@ CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.o
  ../src/include/sbpl/heuristics/embedded_heuristic.h
  ../src/include/sbpl/heuristics/heuristic.h
  ../src/include/sbpl/sbpl_exception.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/heuristics/embedded_heuristic.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/heuristics/embedded_heuristic.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -414,7 +414,7 @@ CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.o
  ../src/include/sbpl/utils/key.h
  ../src/include/sbpl/utils/list.h
  ../src/include/sbpl/utils/mdp.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ANAplanner.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ANAplanner.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -483,7 +483,7 @@ CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.o
  ../src/include/sbpl/utils/list.h
  ../src/include/sbpl/utils/mdp.h
  ../src/include/sbpl/utils/mdpconfig.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/adplanner.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/adplanner.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -551,7 +551,7 @@ CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.o
  ../src/include/sbpl/utils/key.h
  ../src/include/sbpl/utils/list.h
  ../src/include/sbpl/utils/mdp.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/araplanner.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/araplanner.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -640,7 +640,7 @@ CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o
  ../src/include/sbpl/utils/sbpl_bfs_3d.h
  ../src/include/sbpl/utils/sbpl_fifo.h
  ../src/include/sbpl/utils/utils.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/lazyARA.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/lazyARA.cpp
  /opt/ros/kinetic/include/geometry_msgs/Point.h
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
@@ -709,7 +709,7 @@ CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.o
  ../src/include/sbpl/sbpl_exception.h
  ../src/include/sbpl/utils/heap.h
  ../src/include/sbpl/utils/key.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/mhaplanner.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/mhaplanner.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -775,7 +775,7 @@ CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.o
  ../src/include/sbpl/sbpl_exception.h
  ../src/include/sbpl/utils/mdp.h
  ../src/include/sbpl/utils/utils.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ppcpplanner.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ppcpplanner.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -843,7 +843,7 @@ CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.o
  ../src/include/sbpl/utils/key.h
  ../src/include/sbpl/utils/list.h
  ../src/include/sbpl/utils/mdp.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/rstarplanner.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/rstarplanner.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -911,7 +911,7 @@ CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.o
  ../src/include/sbpl/utils/mdp.h
  ../src/include/sbpl/utils/mdpconfig.h
  ../src/include/sbpl/utils/utils.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/viplanner.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/viplanner.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -978,7 +978,7 @@ CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.o
  ../src/include/sbpl/utils/key.h
  ../src/include/sbpl/utils/list.h
  ../src/include/sbpl/utils/utils.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/2Dgridsearch.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/2Dgridsearch.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -1038,7 +1038,7 @@ CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.o
  /opt/ros/kinetic/include/xmlrpcpp/XmlRpcValue.h
 CMakeFiles/sbpl.dir/src/utils/config.cpp.o
  ../src/include/sbpl/config.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/config.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/config.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -1102,7 +1102,7 @@ CMakeFiles/sbpl.dir/src/utils/heap.cpp.o
  ../src/include/sbpl/sbpl_exception.h
  ../src/include/sbpl/utils/heap.h
  ../src/include/sbpl/utils/key.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/heap.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/heap.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -1165,7 +1165,7 @@ CMakeFiles/sbpl.dir/src/utils/mdp.cpp.o
  ../src/include/sbpl/sbpl_exception.h
  ../src/include/sbpl/utils/mdp.h
  ../src/include/sbpl/utils/utils.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/mdp.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/mdp.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h
@@ -1232,7 +1232,7 @@ CMakeFiles/sbpl.dir/src/utils/utils.cpp.o
  ../src/include/sbpl/utils/sbpl_bfs_2d.h
  ../src/include/sbpl/utils/sbpl_fifo.h
  ../src/include/sbpl/utils/utils.h
- /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/utils.cpp
+ /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/utils.cpp
  /opt/ros/kinetic/include/ros/advertise_options.h
  /opt/ros/kinetic/include/ros/advertise_service_options.h
  /opt/ros/kinetic/include/ros/assert.h

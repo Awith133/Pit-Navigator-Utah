@@ -8,6 +8,17 @@ import glob
 #from PIL import Image
 import time
 import subprocess
+
+class BrinkStatus:
+    def __init__(self):
+       self.alert_flag = 'False'
+       return
+    
+    def edge_alert_cb(self, msg):
+        self.alert_flag = 'True'
+        return
+
+
 def display_real_images(userdata, file_locations):
     time.sleep(1)
     images_folder = file_locations['robot_simulation_env'] + '/lunar-env/images/'
@@ -189,7 +200,7 @@ def time_estimations(file_locations , estimation=None):
         if ('Lacus_Mortis_Pit' in file_locations['robot_simulation_env']):
             average = [800, 780, 5670, 1320]
         if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
-            average = [10, 78, 15, 25] 
+            average = [10, 160, 15, 25] 
     else:
         average = [80, 78, 567, 132]
     

@@ -314,7 +314,7 @@ set
 vector
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_XXX.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_XXX.cpp
 sbpl/discrete_space_information/environment_XXX.h
 -
 sstream
@@ -326,7 +326,7 @@ sbpl/utils/mdp.h
 sbpl/utils/mdpconfig.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2D.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2D.cpp
 cmath
 -
 cstdlib
@@ -346,7 +346,7 @@ sbpl/utils/mdp.h
 sbpl/utils/mdpconfig.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2Duu.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2Duu.cpp
 cstdlib
 -
 cstring
@@ -360,7 +360,7 @@ sbpl/utils/mdp.h
 sbpl/utils/mdpconfig.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_navxythetalat.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_navxythetalat.cpp
 cmath
 -
 cstring
@@ -384,7 +384,7 @@ sbpl/utils/mdpconfig.h
 inttypes.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_robarm.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_robarm.cpp
 cmath
 -
 cstdlib
@@ -408,11 +408,11 @@ sbpl/utils/mdpconfig.h
 sbpl/utils/utils.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/heuristics/embedded_heuristic.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/heuristics/embedded_heuristic.cpp
 sbpl/heuristics/embedded_heuristic.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ANAplanner.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ANAplanner.cpp
 cmath
 -
 sstream
@@ -426,7 +426,7 @@ sbpl/utils/heap.h
 sbpl/utils/list.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/adplanner.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/adplanner.cpp
 cmath
 -
 sstream
@@ -442,7 +442,7 @@ sbpl/utils/list.h
 sbpl/utils/mdpconfig.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/araplanner.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/araplanner.cpp
 sbpl/planners/araplanner.h
 -
 algorithm
@@ -464,13 +464,13 @@ sbpl/utils/key.h
 sbpl/utils/list.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/lazyARA.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/lazyARA.cpp
 sbpl/planners/lazyARA.h
 -
 sstream
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/mhaplanner.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/mhaplanner.cpp
 sbpl/planners/mhaplanner.h
 -
 assert.h
@@ -484,13 +484,13 @@ algorithm
 sbpl/utils/key.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ppcpplanner.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ppcpplanner.cpp
 sbpl/discrete_space_information/environment.h
 -
 sbpl/planners/ppcpplanner.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/rstarplanner.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/rstarplanner.cpp
 cmath
 -
 sstream
@@ -502,7 +502,7 @@ sbpl/planners/rstarplanner.h
 sbpl/utils/list.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/viplanner.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/viplanner.cpp
 cmath
 -
 sbpl/discrete_space_information/environment.h
@@ -516,7 +516,7 @@ sbpl/utils/mdpconfig.h
 sbpl/utils/utils.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/2Dgridsearch.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/2Dgridsearch.cpp
 cstdio
 -
 ctime
@@ -530,7 +530,7 @@ sbpl/utils/heap.h
 sbpl/utils/list.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/config.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/config.cpp
 sbpl/config.h
 -
 cstdarg
@@ -540,13 +540,13 @@ cstdlib
 cstring
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/heap.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/heap.cpp
 sbpl/sbpl_exception.h
 -
 sbpl/utils/heap.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/mdp.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/mdp.cpp
 cmath
 -
 sbpl/utils/mdp.h
@@ -554,7 +554,7 @@ sbpl/utils/mdp.h
 sbpl/utils/utils.h
 -
 
-/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/utils.cpp
+/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/utils.cpp
 cmath
 -
 cstdlib

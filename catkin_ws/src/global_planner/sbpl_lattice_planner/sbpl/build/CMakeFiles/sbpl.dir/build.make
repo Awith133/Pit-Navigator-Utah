@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl
+CMAKE_SOURCE_DIR = /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build
+CMAKE_BINARY_DIR = /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/sbpl.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/sbpl.dir/flags.make
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.o: ../src/discrete_space_information/environment_nav2D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2D.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2D.cpp
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2D.cpp > CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2D.cpp > CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.i
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2D.cpp -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2D.cpp -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.s
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2D.cpp.o.provi
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o: ../src/discrete_space_information/environment_navxythetalat.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_navxythetalat.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_navxythetalat.cpp
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_navxythetalat.cpp > CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_navxythetalat.cpp > CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.i
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_navxythetalat.cpp -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_navxythetalat.cpp -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.s
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_navxythetalat.cpp
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.o: ../src/discrete_space_information/environment_nav2Duu.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2Duu.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2Duu.cpp
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2Duu.cpp > CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2Duu.cpp > CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.i
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2Duu.cpp -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_nav2Duu.cpp -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.s
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.o.requires:
 
@@ -131,16 +131,16 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_nav2Duu.cpp.o.pro
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.o: ../src/discrete_space_information/environment_XXX.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_XXX.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_XXX.cpp
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_XXX.cpp > CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_XXX.cpp > CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.i
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_XXX.cpp -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_XXX.cpp -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.s
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.o.requires:
 
@@ -155,16 +155,16 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_XXX.cpp.o.provide
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.o: ../src/discrete_space_information/environment_robarm.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_robarm.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_robarm.cpp
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_robarm.cpp > CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_robarm.cpp > CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.i
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_robarm.cpp -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/discrete_space_information/environment_robarm.cpp -o CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.s
 
 CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.o.requires:
 
@@ -179,16 +179,16 @@ CMakeFiles/sbpl.dir/src/discrete_space_information/environment_robarm.cpp.o.prov
 
 CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.o: ../src/heuristics/embedded_heuristic.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/heuristics/embedded_heuristic.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/heuristics/embedded_heuristic.cpp
 
 CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/heuristics/embedded_heuristic.cpp > CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/heuristics/embedded_heuristic.cpp > CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.i
 
 CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/heuristics/embedded_heuristic.cpp -o CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/heuristics/embedded_heuristic.cpp -o CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.s
 
 CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.o.requires:
 
@@ -203,16 +203,16 @@ CMakeFiles/sbpl.dir/src/heuristics/embedded_heuristic.cpp.o.provides.build: CMak
 
 CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.o: ../src/planners/adplanner.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/adplanner.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/adplanner.cpp
 
 CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/adplanner.cpp > CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/adplanner.cpp > CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.i
 
 CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/adplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/adplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.s
 
 CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.o.requires:
 
@@ -227,16 +227,16 @@ CMakeFiles/sbpl.dir/src/planners/adplanner.cpp.o.provides.build: CMakeFiles/sbpl
 
 CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.o: ../src/planners/ANAplanner.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ANAplanner.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ANAplanner.cpp
 
 CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ANAplanner.cpp > CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ANAplanner.cpp > CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.i
 
 CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ANAplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ANAplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.s
 
 CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.o.requires:
 
@@ -251,16 +251,16 @@ CMakeFiles/sbpl.dir/src/planners/ANAplanner.cpp.o.provides.build: CMakeFiles/sbp
 
 CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.o: ../src/planners/araplanner.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/araplanner.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/araplanner.cpp
 
 CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/araplanner.cpp > CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/araplanner.cpp > CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.i
 
 CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/araplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/araplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.s
 
 CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.o.requires:
 
@@ -275,16 +275,16 @@ CMakeFiles/sbpl.dir/src/planners/araplanner.cpp.o.provides.build: CMakeFiles/sbp
 
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o: ../src/planners/lazyARA.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/lazyARA.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/lazyARA.cpp
 
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/lazyARA.cpp > CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/lazyARA.cpp > CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.i
 
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/lazyARA.cpp -o CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/lazyARA.cpp -o CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.s
 
 CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o.requires:
 
@@ -299,16 +299,16 @@ CMakeFiles/sbpl.dir/src/planners/lazyARA.cpp.o.provides.build: CMakeFiles/sbpl.d
 
 CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.o: ../src/planners/mhaplanner.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/mhaplanner.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/mhaplanner.cpp
 
 CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/mhaplanner.cpp > CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/mhaplanner.cpp > CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.i
 
 CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/mhaplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/mhaplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.s
 
 CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.o.requires:
 
@@ -323,16 +323,16 @@ CMakeFiles/sbpl.dir/src/planners/mhaplanner.cpp.o.provides.build: CMakeFiles/sbp
 
 CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.o: ../src/planners/ppcpplanner.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ppcpplanner.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ppcpplanner.cpp
 
 CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ppcpplanner.cpp > CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ppcpplanner.cpp > CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.i
 
 CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ppcpplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/ppcpplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.s
 
 CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.o.requires:
 
@@ -347,16 +347,16 @@ CMakeFiles/sbpl.dir/src/planners/ppcpplanner.cpp.o.provides.build: CMakeFiles/sb
 
 CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.o: ../src/planners/rstarplanner.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/rstarplanner.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/rstarplanner.cpp
 
 CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/rstarplanner.cpp > CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/rstarplanner.cpp > CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.i
 
 CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/rstarplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/rstarplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.s
 
 CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.o.requires:
 
@@ -371,16 +371,16 @@ CMakeFiles/sbpl.dir/src/planners/rstarplanner.cpp.o.provides.build: CMakeFiles/s
 
 CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.o: ../src/planners/viplanner.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/viplanner.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/viplanner.cpp
 
 CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/viplanner.cpp > CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/viplanner.cpp > CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.i
 
 CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/viplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/planners/viplanner.cpp -o CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.s
 
 CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.o.requires:
 
@@ -395,16 +395,16 @@ CMakeFiles/sbpl.dir/src/planners/viplanner.cpp.o.provides.build: CMakeFiles/sbpl
 
 CMakeFiles/sbpl.dir/src/utils/heap.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/utils/heap.cpp.o: ../src/utils/heap.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/sbpl.dir/src/utils/heap.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/utils/heap.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/heap.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/sbpl.dir/src/utils/heap.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/utils/heap.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/heap.cpp
 
 CMakeFiles/sbpl.dir/src/utils/heap.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/utils/heap.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/heap.cpp > CMakeFiles/sbpl.dir/src/utils/heap.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/heap.cpp > CMakeFiles/sbpl.dir/src/utils/heap.cpp.i
 
 CMakeFiles/sbpl.dir/src/utils/heap.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/utils/heap.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/heap.cpp -o CMakeFiles/sbpl.dir/src/utils/heap.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/heap.cpp -o CMakeFiles/sbpl.dir/src/utils/heap.cpp.s
 
 CMakeFiles/sbpl.dir/src/utils/heap.cpp.o.requires:
 
@@ -419,16 +419,16 @@ CMakeFiles/sbpl.dir/src/utils/heap.cpp.o.provides.build: CMakeFiles/sbpl.dir/src
 
 CMakeFiles/sbpl.dir/src/utils/mdp.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/utils/mdp.cpp.o: ../src/utils/mdp.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/sbpl.dir/src/utils/mdp.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/utils/mdp.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/mdp.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/sbpl.dir/src/utils/mdp.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/utils/mdp.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/mdp.cpp
 
 CMakeFiles/sbpl.dir/src/utils/mdp.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/utils/mdp.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/mdp.cpp > CMakeFiles/sbpl.dir/src/utils/mdp.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/mdp.cpp > CMakeFiles/sbpl.dir/src/utils/mdp.cpp.i
 
 CMakeFiles/sbpl.dir/src/utils/mdp.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/utils/mdp.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/mdp.cpp -o CMakeFiles/sbpl.dir/src/utils/mdp.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/mdp.cpp -o CMakeFiles/sbpl.dir/src/utils/mdp.cpp.s
 
 CMakeFiles/sbpl.dir/src/utils/mdp.cpp.o.requires:
 
@@ -443,16 +443,16 @@ CMakeFiles/sbpl.dir/src/utils/mdp.cpp.o.provides.build: CMakeFiles/sbpl.dir/src/
 
 CMakeFiles/sbpl.dir/src/utils/utils.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/utils/utils.cpp.o: ../src/utils/utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/sbpl.dir/src/utils/utils.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/utils/utils.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/sbpl.dir/src/utils/utils.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/utils/utils.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/utils.cpp
 
 CMakeFiles/sbpl.dir/src/utils/utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/utils/utils.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/utils.cpp > CMakeFiles/sbpl.dir/src/utils/utils.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/utils.cpp > CMakeFiles/sbpl.dir/src/utils/utils.cpp.i
 
 CMakeFiles/sbpl.dir/src/utils/utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/utils/utils.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/utils.cpp -o CMakeFiles/sbpl.dir/src/utils/utils.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/utils.cpp -o CMakeFiles/sbpl.dir/src/utils/utils.cpp.s
 
 CMakeFiles/sbpl.dir/src/utils/utils.cpp.o.requires:
 
@@ -467,16 +467,16 @@ CMakeFiles/sbpl.dir/src/utils/utils.cpp.o.provides.build: CMakeFiles/sbpl.dir/sr
 
 CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.o: ../src/utils/2Dgridsearch.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/2Dgridsearch.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/2Dgridsearch.cpp
 
 CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/2Dgridsearch.cpp > CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/2Dgridsearch.cpp > CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.i
 
 CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/2Dgridsearch.cpp -o CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/2Dgridsearch.cpp -o CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.s
 
 CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.o.requires:
 
@@ -491,16 +491,16 @@ CMakeFiles/sbpl.dir/src/utils/2Dgridsearch.cpp.o.provides.build: CMakeFiles/sbpl
 
 CMakeFiles/sbpl.dir/src/utils/config.cpp.o: CMakeFiles/sbpl.dir/flags.make
 CMakeFiles/sbpl.dir/src/utils/config.cpp.o: ../src/utils/config.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/sbpl.dir/src/utils/config.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/utils/config.cpp.o -c /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/config.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/sbpl.dir/src/utils/config.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sbpl.dir/src/utils/config.cpp.o -c /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/config.cpp
 
 CMakeFiles/sbpl.dir/src/utils/config.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sbpl.dir/src/utils/config.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/config.cpp > CMakeFiles/sbpl.dir/src/utils/config.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/config.cpp > CMakeFiles/sbpl.dir/src/utils/config.cpp.i
 
 CMakeFiles/sbpl.dir/src/utils/config.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sbpl.dir/src/utils/config.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/config.cpp -o CMakeFiles/sbpl.dir/src/utils/config.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/src/utils/config.cpp -o CMakeFiles/sbpl.dir/src/utils/config.cpp.s
 
 CMakeFiles/sbpl.dir/src/utils/config.cpp.o.requires:
 
@@ -578,7 +578,7 @@ libsbpl.so: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
 libsbpl.so: /usr/lib/x86_64-linux-gnu/libpthread.so
 libsbpl.so: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so
 libsbpl.so: CMakeFiles/sbpl.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Linking CXX shared library libsbpl.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Linking CXX shared library libsbpl.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sbpl.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -613,6 +613,6 @@ CMakeFiles/sbpl.dir/clean:
 .PHONY : CMakeFiles/sbpl.dir/clean
 
 CMakeFiles/sbpl.dir/depend:
-	cd /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build /home/alex/pit-navigator-utah/Simulation/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/sbpl.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build /home/alex/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/build/CMakeFiles/sbpl.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/sbpl.dir/depend
 
