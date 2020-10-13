@@ -1,0 +1,11 @@
+Webots Proto Cache File version 1.5
+protoFileHash: 6a2d505b166f99b692b1c34350910f47
+needsRobotAncestor: 1
+baseType: Solid
+slotType: 
+parameters: translation,rotation,name,cameraWidth,cameraHeight,cameraFieldOfView,cameraNoise,rangeFinderNoise,rangeFinderMaxRange,leftCamera,rightCamera,metaCamera,metaRangeFinder,physics
+tags: 
+license:  Creative Commons Attribution 4.0 International License.
+licenseUrl:  https://creativecommons.org/licenses/by/4.0/legalcode
+documentationUrl: https://www.cyberbotics.com/doc/guide/object-chairs
+info: A\stwo-color\schair\n
