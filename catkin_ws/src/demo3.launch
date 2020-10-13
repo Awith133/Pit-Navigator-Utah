@@ -2,8 +2,8 @@
 	<!--  *************** Global Parameters ***************  -->
 	<env name="WEBOTS_HOME"    value="/usr/local/webots"/>
 	
-	<arg name="SYSTEM_NAME"          value="/home/alex/pit-navigator-utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
-	<arg name="ROBOT_SIMULATION_ARG" value="/home/alex/pit-navigator-utah/catkin_ws/src/Simulation_Control/Utah_Pit"/>
+	<arg name="SYSTEM_NAME"          value="/home/pitcrew/Pit-Navigator-Utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
+	<arg name="ROBOT_SIMULATION_ARG" value="/home/pitcrew/Pit-Navigator-Utah/catkin_ws/src/Simulation_Control/Utah_Pit"/>
 	<!--rosparam file="$(arg SYSTEM_NAME)/server_parameters/parameters.yaml" command="load" /-->
 	<param name="use_sim_time" type="bool" value="true"/>
 	<param name="system_name" type="string" value="$(arg SYSTEM_NAME)"/>

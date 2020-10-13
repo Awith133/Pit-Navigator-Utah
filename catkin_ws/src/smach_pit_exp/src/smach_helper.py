@@ -18,7 +18,6 @@ class BrinkStatus:
         self.alert_flag = 'True'
         return
 
-
 def display_real_images(userdata, file_locations):
     time.sleep(1)
     images_folder = file_locations['robot_simulation_env'] + '/lunar-env/images/'
