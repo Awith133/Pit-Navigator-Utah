@@ -52,7 +52,7 @@ if ('Simulation' in file_locations['robot_simulation_env']):
 	if ('Lacus_Mortis_Pit' in file_locations['robot_simulation_env']):
 		TIME_OUT = 2200*10
 	if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
-		TIME_OUT = 6*60+60 #normal = 1.3 big = 1  
+		TIME_OUT = 4*160+160 #normal = 1.3 big = 1  
 else:
 	TIME_OUT = 100000
 
@@ -171,17 +171,24 @@ class circum_wp_cb(smach.State):
 			rospy.logwarn('return real life pictures')
 			# Reached vantage point
 			rospy.loginfo('Starting Brinkmanship Node')
+			#go
+			start_time_going = rospy.get_rostime().secs
 			while not alert_helper.alert_bool:
 				brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
 				brink_controller.publish_twist_msg()
-				rospy.loginfo(alert_helper.alert_bool)
+				#rospy.loginfo(alert_helper.alert_bool)
+			end_time_going = rospy.get_rostime().secs
 			# zero twist to stop
+			brink_controller.generate_twist_msg([0, 0, 0], [0, 0, 0])
+			brink_controller.publish_twist_msg()
 			# camera functions
-			while alert_helper.alert_bool:
+			smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
+			#return
+			start_time_coming = rospy.get_rostime().secs
+			while alert_helper.alert_bool or start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
 				brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
 				brink_controller.publish_twist_msg()
-				rospy.loginfo(alert_helper.alert_bool)
-			# smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
+				#rospy.loginfo(alert_helper.alert_bool)
 			self.vantage_return = True
 			self.count_visited += 1
 			return
@@ -501,13 +508,6 @@ def main():
 
 	# Execute the state machine
 	outcome = sm.execute()
-
-	import subprocess
-	viewer = subprocess.Popen(['totem', '/home/alex/Downloads/Europe_-_The Final Countdown(with).mp3'])
-	import time
-	time.sleep(60)
-	viewer.terminate()
-	viewer.kill()
 
 	# Wait for ctrl-c to stop the application
 	rospy.spin()

@@ -199,7 +199,7 @@ def time_estimations(file_locations , estimation=None):
         if ('Lacus_Mortis_Pit' in file_locations['robot_simulation_env']):
             average = [800, 780, 5670, 1320]
         if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
-            average = [10, 78, 15, 25] 
+            average = [10, 160, 15, 25] 
     else:
         average = [80, 78, 567, 132]
     
