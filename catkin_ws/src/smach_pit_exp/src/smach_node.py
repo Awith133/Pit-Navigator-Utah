@@ -4,6 +4,7 @@ import rospy
 import math
 import smach
 import pdb
+import os
 
 import smach_ros
 from smach import CBState
@@ -45,6 +46,8 @@ file_locations = {
 	'project_file_location':rospy.get_param("/system_name"),
 	'robot_simulation_env':rospy.get_param("/robot_simulation_arg"),}
 if ('Simulation' in file_locations['robot_simulation_env']):
+	if (os.path.isfile(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv'): #TODO elimate this for flightcode - bypasses risk algotrithm
+	    	os.remove(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv')
 	if ('Utah_Pit' in file_locations['robot_simulation_env']):
 		TIME_OUT = 2200*1.3 #normal = 1.3 big = 1 
 	if ('Utah_BIG' in file_locations['robot_simulation_env']):
