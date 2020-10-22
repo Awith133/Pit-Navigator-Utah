@@ -27,14 +27,12 @@ import time
 
 #display image imports
 import smach_helper
-from cloud_process import CloudSubscriber
-from sim_brinkmanship import Brinkmanship
+import sys
 
 
 translation = [0, 0.13, -0.18]
 rotation = [-0.3583641, 0, 0, 0.9335819]
-alert_helper = CloudSubscriber(translation, rotation)
-brink_controller = Brinkmanship()
+
 
 GLOBAL_RADIUS = .45
 GLOBAL_RADIUS2 = 1
@@ -45,6 +43,10 @@ file_locations = {
 	'project_file_location':rospy.get_param("/system_name"),
 	'robot_simulation_env':rospy.get_param("/robot_simulation_arg"),}
 if ('Simulation' in file_locations['robot_simulation_env']):
+	sys.path.insert(1,file_locations['robot_simulation_env'][0:file_locations['robot_simulation_env'].rfind("/",0,-1)]+"/webots_control/src")
+	from cloud_process import CloudSubscriber
+	from sim_brinkmanship import Brinkmanship
+	
 	if ('Utah_Pit' in file_locations['robot_simulation_env']):
 		TIME_OUT = 2200*1.3 #normal = 1.3 big = 1 
 	if ('Utah_BIG' in file_locations['robot_simulation_env']):
@@ -54,7 +56,15 @@ if ('Simulation' in file_locations['robot_simulation_env']):
 	if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
 		TIME_OUT = 4*160+160 #normal = 1.3 big = 1  
 else:
+	sys.path.insert(1,file_locations['robot_simulation_env'])
+	from cloud_process import CloudSubscriber
+	from brinkmanship import Brinkmanship
 	TIME_OUT = 100000
+
+alert_helper = CloudSubscriber(translation, rotation)
+brink_controller = Brinkmanship()
+
+
 
 map_resolution = rospy.get_param("/resolution")
 halfway_point = len(smach_helper.read_csv_around_pit(file_locations['file_around_pit'],map_resolution))/2
@@ -172,23 +182,27 @@ class circum_wp_cb(smach.State):
 			# Reached vantage point
 			rospy.loginfo('Starting Brinkmanship Node')
 			#go
-			start_time_going = rospy.get_rostime().secs
-			while not alert_helper.alert_bool:
+			if ('Simulation' in file_locations['robot_simulation_env']):
+				start_time_going = rospy.get_rostime().secs
+				while not alert_helper.alert_bool:
+					brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
+					brink_controller.publish_twist_msg()
+					#rospy.loginfo(alert_helper.alert_bool)
+				end_time_going = rospy.get_rostime().secs
+				# zero twist to stop
+				brink_controller.generate_twist_msg([0, 0, 0], [0, 0, 0])
+				brink_controller.publish_twist_msg()
+				# camera functions
+				smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
+				#return
+				start_time_coming = rospy.get_rostime().secs
+				while alert_helper.alert_bool or start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
+					brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
+					brink_controller.publish_twist_msg()
+					#rospy.loginfo(alert_helper.alert_bool)
+			elif ('Robot_Control' in file_locations['robot_simulation_env']):
 				brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
 				brink_controller.publish_twist_msg()
-				#rospy.loginfo(alert_helper.alert_bool)
-			end_time_going = rospy.get_rostime().secs
-			# zero twist to stop
-			brink_controller.generate_twist_msg([0, 0, 0], [0, 0, 0])
-			brink_controller.publish_twist_msg()
-			# camera functions
-			smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
-			#return
-			start_time_coming = rospy.get_rostime().secs
-			while alert_helper.alert_bool or start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
-				brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
-				brink_controller.publish_twist_msg()
-				#rospy.loginfo(alert_helper.alert_bool)
 			self.vantage_return = True
 			self.count_visited += 1
 			return

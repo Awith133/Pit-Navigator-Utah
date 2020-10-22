@@ -25,7 +25,7 @@ def handler(signal_received, frame):
 def bot_forward(speed, turn):
     x, y, z, th = 1, 0, 0, 0
     twist = Twist()
-    twist.linear.x = x*speed; twist.linear.y = y*speed; twist.linear.z = z*speed;
+    twist.linear.x = x*speed; twist.linear.y = y*speed; twist.linear.z = z*speed
     twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = th*turn
     pub.publish(twist)
     return True
@@ -33,7 +33,7 @@ def bot_forward(speed, turn):
 def bot_stop(speed, turn):
     x, y, z, th = 0, 0, 0, 0
     twist = Twist()
-    twist.linear.x = x*speed; twist.linear.y = y*speed; twist.linear.z = z*speed;
+    twist.linear.x = x*speed; twist.linear.y = y*speed; twist.linear.z = z*speed
     twist.angular.x = 0; twist.angular.y = 0; twist.angular.z = th*turn
     pub.publish(twist)
 
@@ -59,8 +59,7 @@ def edge_alert_callback(msg):
         a = datetime.datetime.now()
     alert = True
 
-
-if __name__ == '__main__':
+def main():
     CONV_H = 0.37
     CONV_V = 0.3
     dyna_center = 512
@@ -102,3 +101,34 @@ if __name__ == '__main__':
                         camera_pub.publish(str(pan)+'_'+str(tilt))
                 flag = 1
             # TODO: Execute camera motion and image capture
+
+def panorama_method():
+    CONV_H = 0.37
+    CONV_V = 0.3
+    dyna_center = 512
+    arby = ArbotiX("/dev/ttyUSB0", 115200)
+    pan_rng, tilt_rng = panorama.get_camera_angles(dyna_center, CONV_V, CONV_H)
+
+    rospy.init_node('brinkmanship_core')
+    signal(SIGINT, handler)
+    camera_pub = rospy.Publisher('image_capture_message', String, queue_size = 1)
+
+    speed = 0.75
+    turn = 1
+
+    panorama.set_camera_pose(arby, dyna_center, dyna_center - 51)
+    print("Alert has been published")
+    print("Moving Pan Tilt Motors")
+    for pan in pan_rng:
+        for tilt in tilt_rng:
+            panorama.set_camera_pose(arby, pan, tilt)
+            time.sleep(3)
+            camera_pub.publish(str(pan)+'_'+str(tilt))
+    flag = 1
+    # TODO: Execute camera motion and image capture
+
+
+
+if __name__ == '__main__':
+    #main()
+    panorama_method()
