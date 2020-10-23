@@ -72,7 +72,8 @@ def image_capture_callback(msg):
     cv2.imwrite("encore4/left_image_" + str(pan) + '_' + str(tilt) + ".jpg", nir_lf_image)
 
 if __name__ == '__main__':
-    global left_array, right_array
+    left_array = np.zeros((480,640,700))
+    right_array = np.zeros((480,640,700))
     signal(SIGINT, handler)
     # initializing the rosnode and creating a cloud publisher
     rospy.init_node('Stereo_Reconstruction_Node')
