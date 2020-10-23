@@ -2,10 +2,10 @@
 	<!--  *************** Global Parameters ***************  -->
 	<env name="WEBOTS_HOME"    value="/usr/local/webots"/>
 	
-	<arg name="SYSTEM_NAME"          value="/home/alex/pit-navigator-utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
-	<arg name="ROBOT_SIMULATION_ARG" value="/home/alex/pit-navigator-utah/catkin_ws/src/Simulation_Control/Utah_Pit"/>
+	<arg name="SYSTEM_NAME"          value="/home/pit_crew/pit-navigator-utah/Pit-Navigator-Utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
+	<arg name="ROBOT_SIMULATION_ARG" value="/home/pit_crew/pit-navigator-utah/Pit-Navigator-Utah/catkin_ws/src/Robot_Control"/>
 	<!--rosparam file="$(arg SYSTEM_NAME)/server_parameters/parameters.yaml" command="load" /-->
-	<param name="use_sim_time" type="bool" value="true"/>
+	
 	<param name="system_name" type="string" value="$(arg SYSTEM_NAME)"/>
 	<param name="robot_simulation_arg" type="string" value="$(arg ROBOT_SIMULATION_ARG)"/>
 	<param name="lunar_env_path" type="string" value="$(arg ROBOT_SIMULATION_ARG)/lunar-env"/>
@@ -24,7 +24,7 @@
 
 
     <!--  *************** MAP FILE LOCATION *************** -->
-	<node name="map_server" pkg="map_server" type="map_server" args="$(arg ROBOT_SIMULATION_ARG)/map/maze.yaml" output="log">
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg ROBOT_SIMULATION_ARG)/map/maze.yaml" output="screen">
         <param name="frame_id" value="map"/>
 	</node>
 	<rosparam file="$(arg ROBOT_SIMULATION_ARG)/map/maze.yaml" command="load" />
@@ -34,6 +34,32 @@
 	<param name="file_around_pit"                                type="string" value="$(arg ROBOT_SIMULATION_ARG)/around_pit_waypoints.csv"/>
 	
 	
+	<group unless="$(eval arg('ROBOT_SIMULATION_ARG') == arg('SYSTEM_NAME') + '/catkin_ws/src/Robot_Control')">
+		<!-- ****************  WEBOTS  **************** -->
+		<arg name="no-gui" default="false," doc="Start Webots with minimal GUI"/>
+		<include file="$(find webots_ros)/launch/webots.launch">
+			<!--    starting sim mode v pause realtime run-->
+			<arg name="mode" value="pause"/> 
+			<arg name="no-gui" value="$(arg no-gui)"/>
+			<arg name="world" value="$(arg ROBOT_SIMULATION_ARG)/lunar-env/worlds/webots_world_nearPit.wbt"/>
+		</include>
+		<node name="pioneer3at" pkg="webots_control" type="pioneer3at.py" required="$(arg auto-close)" output="log"/>
+		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/teb_local_planner_params.yaml" command="load" />
+		<param name="use_sim_time" type="bool" value="true"/>
+	</group>
+	<group if="$(eval arg('ROBOT_SIMULATION_ARG') == arg('SYSTEM_NAME') + '/catkin_ws/src/Robot_Control')">
+		<!-- ****************  ROBOTCODE  **************** -->
+		<node pkg="blue_skid_steering" type="skid_steering_subscriber.py" name="skid_steering" output="screen"/>
+		<!--node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/-->
+		<node pkg="differential_drive" type="diff_tf.py" name="diff_tf" output="screen">
+			<param name="ticks_meter" type="int" value="6000"/>
+			<param name="~base_width" value="0.47"/>
+		</node>
+		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/robot_teb_local_planner_params.yaml" command="load" />
+		<param name="use_sim_time" type="bool" value="false"/>
+		<param name="initial_pose_x" type="double" value="1.0"/>
+		<param name="initial_pose_y" type="double" value="1.0"/>
+	</group>
 
 
 
@@ -71,7 +97,7 @@
 		<!--param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" /-->
 		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/teb_local_planner_params.yaml" command="load" />
 		<param name="base_local_planner"                                       value="teb_local_planner/TebLocalPlannerROS" />
-		<param name="controller_frequency"                                     value="5.0" />
+		<param name="controller_frequency"                                     value="10.0" />
 		<param name="controller_patience"                                      value="15.0" />
 	</node>
 	
@@ -106,21 +132,11 @@
 	<!--  **************** Visualisation ****************  -->
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(arg ROBOT_SIMULATION_ARG)/rviz_navigation.rviz"/>
 	<arg name="show_viz" default="1"/>
-	<include file="$(find visualization)/launch/test2.launch"/>
+	<!--include file="$(find visualization)/launch/test2.launch"/-->
 
 
 
-	<group unless="$(eval arg('ROBOT_SIMULATION_ARG') == arg('SYSTEM_NAME') + '/catkin_ws/src/Robot_Control')">
-		<!-- ****************  WEBOTS  **************** -->
-		<arg name="no-gui" default="false," doc="Start Webots with minimal GUI"/>
-		<include file="$(find webots_ros)/launch/webots.launch">
-		<!--    starting sim mode v pause realtime run-->
-		<arg name="mode" value="pause"/> 
-		<arg name="no-gui" value="$(arg no-gui)"/>
-		<arg name="world" value="$(arg ROBOT_SIMULATION_ARG)/lunar-env/worlds/webots_world_nearPit.wbt"/>
-		</include>
-		<node name="pioneer3at" pkg="webots_control" type="pioneer3at.py" required="$(arg auto-close)" output="log"/>
-	</group>
+	
 
 
 	

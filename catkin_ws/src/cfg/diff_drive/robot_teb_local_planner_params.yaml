@@ -1,6 +1,6 @@
 TebLocalPlannerROS:
 
- odom_topic: odommetry_ground_truth #this makes me nervous - was odoetry_ground_truth
+ odom_topic: odom #this makes me nervous - was odoetry_ground_truth
 
  # Trajectory
 
@@ -12,34 +12,34 @@ TebLocalPlannerROS:
  allow_init_with_backwards_motion: True #able to back away from pit
  max_global_plan_lookahead_dist: 1 #default 1
  global_plan_viapoint_sep: -1 #default -1
- global_plan_prune_distance: 1 #no idea what this is - its not in the wiki
+ global_plan_prune_distance: 3 #default 1 #no idea what this is - its not in the wiki
  exact_arc_length: False
  feasibility_check_no_poses: 5
  publish_feedback: False
 
  # Robot
 
- max_vel_x: 0.11 #default .64 #units: m/s
- max_vel_x_backwards: 0.11 #default .1
+ max_vel_x: 2 #default .11 #units: m/s
+ max_vel_x_backwards: 2 #default .11
  max_vel_y: 0
- max_vel_theta: 1.2 #default 3.036 #1.2 is radians per second
- acc_lim_x: .11 #default .5
- acc_lim_theta: 1.2 #default 3
+ max_vel_theta: 1.3 #default 1.2 #1.2 is radians per second
+ acc_lim_x: 6 #default .11
+ acc_lim_theta: 2.6 #default 1.2
  min_turning_radius: 0.0 # diff-drive robot (can turn in place!)
- wheelbase: 0.266
+ wheelbase: 0.47
 
  footprint_model:
    type: "point"
 
  # GoalTolerance
 
- xy_goal_tolerance:  0.20 #decimeters? #default .2
+ xy_goal_tolerance:  0.01 #decimeters? #default .2
  yaw_goal_tolerance: 0.12 #default .12 #radians
  free_goal_vel: False
 
  # Obstacles
     
- min_obstacle_dist: 0.3 # This value must also include our robot radius, since footprint_model is set to "point".
+ min_obstacle_dist: 0.25 # This value must also include our robot radius, since footprint_model is set to "point".
  inflation_dist: 0.5 #default 0.5
  include_costmap_obstacles: True
  costmap_obstacles_behind_robot_dist: 0 #default 1.5
@@ -61,7 +61,7 @@ TebLocalPlannerROS:
  penalty_epsilon: 0.1
  obstacle_cost_exponent: 6 #default 6 
  weight_max_vel_x: 2
- weight_max_vel_theta: 2 #default 2
+ weight_max_vel_theta: 0.1 #default 2
  weight_acc_lim_x: 1
  weight_acc_lim_theta: 1
  weight_kinematics_nh: 1000

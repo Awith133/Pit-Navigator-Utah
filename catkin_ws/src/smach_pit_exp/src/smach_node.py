@@ -56,14 +56,13 @@ if ('Simulation' in file_locations['robot_simulation_env']):
 	if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
 		TIME_OUT = 4*160+160 #normal = 1.3 big = 1  
 else:
-	sys.path.insert(1,file_locations['robot_simulation_env'])
+	sys.path.insert(1,file_locations['robot_simulation_env'][0:file_locations['robot_simulation_env'].rfind("/",0,-1)]+"/Brinkmanship")
 	from cloud_process import CloudSubscriber
 	from brinkmanship import Brinkmanship
 	TIME_OUT = 100000
 
 alert_helper = CloudSubscriber(translation, rotation)
 brink_controller = Brinkmanship()
-
 
 
 map_resolution = rospy.get_param("/resolution")
@@ -135,6 +134,8 @@ class Lander2Pit(smach.State):
 			rate.sleep()
 			if smach_helper.step_flag and not smach_helper.charging:
 				smach_helper.step_flag = False
+				while userdata.counter_wp_2_pit == 4:  ##TODO remove after testing
+					rate.sleep()
 				self.nextwaypoint(userdata,1)
 			if smach_helper.abort_flag:
 				smach_helper.abort_flag = False
@@ -512,6 +513,13 @@ def main():
 	# 	rospy.loginfo(str(alert_helper.alert_bool))
 	# 	# time.sleep(1)
 	# 	rospy.sleep(1)
+	brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
+	brink_controller.publish_twist_msg()
+	rate = rospy.Rate(1)
+	rate.sleep()
+	brink_controller.generate_twist_msg([0.0, 0, 0], [0, 0, 0])
+	brink_controller.publish_twist_msg()
+
 	wait = move_base_client.wait_for_server(rospy.Duration(275.0))
 	if not wait:
 		rospy.logerr("Action server not available!")
