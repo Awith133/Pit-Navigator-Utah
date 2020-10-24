@@ -1,6 +1,6 @@
 TebLocalPlannerROS:
 
- odom_topic: odom #this makes me nervous - was odoetry_ground_truth
+ odom_topic: odometry/filtered #this makes me nervous - was odoetry_ground_truth
 
  # Trajectory
 

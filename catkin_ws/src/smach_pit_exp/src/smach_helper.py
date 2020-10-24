@@ -144,21 +144,24 @@ def calculate_yaw(q,msg):
 #read csv imports
 import csv
 def read_csv(filename,_map_resolution):
-	wp = []
-	resolution = _map_resolution
-	with open(filename, 'rb') as f:
-		reader = csv.reader(f, delimiter=',')
-		for row in reader:
-			tmp = []
-			i = 0
-			for elem in row:
-				if(i == 0):
-					tmp.append((int(elem)*resolution ))
-				else:
-					tmp.append(-1*int(elem)*resolution )
-				i+=1
-			wp.append(tmp)
-	return wp
+    wp = []
+    resolution = _map_resolution
+    with open(filename, 'rb') as f:
+        reader = csv.reader(f, delimiter=',')
+        for row in reader:
+            tmp = []
+            i = 0
+            for elem in row:
+                if(i == 0):
+                    tmp.append((int(elem)*resolution ))
+                else:
+                    if("Robot_Control" in filename):
+                        tmp.append(int(elem)*resolution )
+                    else:
+                        tmp.append(-1*int(elem)*resolution )
+                i+=1
+            wp.append(tmp)
+    return wp
 def read_csv_around_pit(filename, _map_resolution):
     wp = []
     map_resolution = _map_resolution
@@ -176,7 +179,10 @@ def read_csv_around_pit(filename, _map_resolution):
                 elif (i==1):
                     tmp.append(   int(elem) * map_resolution ) #x
                 elif (i==2):
-                    tmp.append(-1*int(elem) * map_resolution ) #y
+                    if ("Robot_Control" in filename):
+                        tmp.append(int(elem)*map_resolution )
+                    else:
+                        tmp.append(-1*int(elem)*map_resolution )
                 elif (i==3 or i==5 or i==6):
                     tmp.append(   int(elem)) #vatage point y = 1, n = -1
                 elif (i==4):
