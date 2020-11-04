@@ -27,13 +27,13 @@ import time
 
 #display image imports
 import smach_helper
-from cloud_process import CloudSubscriber
+# from cloud_process import CloudSubscriber
 from sim_brinkmanship import Brinkmanship
 
 
 translation = [0, 0.13, -0.18]
 rotation = [-0.3583641, 0, 0, 0.9335819]
-alert_helper = CloudSubscriber(translation, rotation)
+# alert_helper = CloudSubscriber(translation, rotation)
 brink_controller = Brinkmanship()
 
 GLOBAL_RADIUS = .45
@@ -69,9 +69,7 @@ sub_where_to_see = rospy.Subscriber('where_to_see',Float32,smach_helper.update_s
 listener = None
 
 # Brinkmanship Edge Alert Flag
-
-# alert_subscriber = rospy.Subscriber('/edge_alert', String ,alert_helper.edge_alert_cb)
-
+alert_helper = smach_helper.BrinkStatus()
 
 #Class 1 from lander to pit
 class Lander2Pit(smach.State):
@@ -173,7 +171,7 @@ class circum_wp_cb(smach.State):
 			rospy.loginfo('Starting Brinkmanship Node')
 			#go
 			start_time_going = rospy.get_rostime().secs
-			while not alert_helper.alert_bool:
+			while not alert_helper.alert_flag:
 				brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
 				brink_controller.publish_twist_msg()
 				#rospy.loginfo(alert_helper.alert_bool)
@@ -185,7 +183,7 @@ class circum_wp_cb(smach.State):
 			smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
 			#return
 			start_time_coming = rospy.get_rostime().secs
-			while alert_helper.alert_bool or start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
+			while alert_helper.alert_flag or start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
 				brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
 				brink_controller.publish_twist_msg()
 				#rospy.loginfo(alert_helper.alert_bool)

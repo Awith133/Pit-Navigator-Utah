@@ -1,6 +1,6 @@
 import numpy as np
 import std_msgs
-from std_msgs.msg import String
+from std_msgs.msg import Bool
 from sensor_msgs.msg import PointCloud2, Imu
 import sensor_msgs.point_cloud2 as pcl2
 import rospy
@@ -17,6 +17,9 @@ class CloudSubscriber:
         self.imu_sub = rospy.Subscriber('/apnapioneer3at/inertial_unit/roll_pitch_yaw', Imu, self.imu_sub_cb)
         self.cloud_pub = rospy.Publisher('/processed_cloud_py3', PointCloud2, queue_size = 10)
         self.imu_euler_pub = rospy.Publisher('/imu_euler_angles', euler_list, queue_size = 10)
+        # self.alert_pub = rospy.Publisher('/edge_alert', String, queue_size = 10)
+        self.alert_pub = rospy.Publisher('/edge_alert', Bool, queue_size = 10)
+        self.alert_bool = False
         self.cloud_data = None
         self.imu_euler_object = euler_list()
         self.h = std_msgs.msg.Header()
@@ -29,33 +32,47 @@ class CloudSubscriber:
     def cloud_sub_callback(self, msg):
         xyz = ros_numpy.point_cloud2.pointcloud2_to_xyz_array(msg, remove_nans=True)
         xyz = xyz[xyz[:,2] > 0.1]
-        xyz = xyz[xyz[:,2] < 0.7]
+        xyz = xyz[xyz[:,2] < 0.2]
+        print(xyz)
         print('One Step')
         self.H = self.get_transformation_matrix(self.tvec, self.rvec)
         self.cloud_data = self.transform_cloud(xyz, self.H)
         # self.cloud_data = self.cloud_data[self.cloud_data[:,2] < 0.5]
         # self.cloud_data = self.cloud_data[abs(self.cloud_data[:,0]) < 0.6]
+        if self.near_edge(self.get_mesh(self.cloud_data)):
+            # self.publish_stop_signal()
+            self.alert_bool = False
+        else:
+            self.alert_bool = False
+        self.publish_stop_signal()
 
-
-        grid = self.quantize(self.cloud_data.copy())
-        temp = self.compute_averages(grid)
-
+        # grid = self.quantize(self.cloud_data.copy())
+        # temp = self.compute_averages(grid)
         # y = temp[:,1].copy()
         # z = temp[:,2].copy()
         # temp[:,1] = z
         # temp[:,2] = y
         self.publish_processed_cloud(self.cloud_data)
+        return
+        
+    def get_mesh(self, cloud_array):
+        pv_cloud = pv.PolyData(cloud_array).clean(tolerance=0.033, absolute=False)
+        
+        return pv_cloud.delaunay_2d(alpha=0.1)
 
-        pv_cloud = pv.PolyData(temp).clean(tolerance=0.033, absolute=False)
+    def near_edge(self, surf):
+        # Check how many cells in front of rover are untraversable
+        # TODO: Don't hard-code closeness threshold here
+        # print(surf.points)
+        # close_mesh = surf.clip('-z', (0, 0, 0.2)) # 0.1 is 2x twist magnitude, plus 0.1 for near edge of point cloud
+        unsafe_cells = [abs(surf.cell_normals[:,1]) < 0.93]
+        danger_rating = np.sum(unsafe_cells) / surf.n_points
 
-        surf = pv_cloud.delaunay_2d(alpha=1.0)
-        # normals = surf.compute_normals()
-        # ids = np.arange(mesh.n_cells)[mesh['Normals'][:,2] > 0.0]
+        # plotter = pv.Plotter()
+        # plotter.add_mesh(surf, show_edges=True, scalars=[abs(surf.cell_normals[:, 1]) < 0.93], clim=[0,1])
+        # plotter.show() 
 
-        print(surf.cell_normals)
-        # pv_cloud.plot()
-        surf.plot(show_edges=True, scalars=[abs(surf.cell_normals[:, 1]) < 0.98])
-        return    
+        return danger_rating > 0.2 
 
     def quantize(self, points):
         n_iter = 15
@@ -81,6 +98,14 @@ class CloudSubscriber:
         mesh = [np.mean(element, axis = 0) for x in grid for element in x]
         mesh = np.array(mesh)
         return mesh
+
+    def publish_stop_signal(self):
+        # if not self.alert_bool:
+        #     self.alert_pub.publish('Close to pit edge')
+        # else:
+        #     pass
+        self.alert_pub.publish(self.alert_bool)
+        return
 
     def publish_processed_cloud(self, cloud_array):
         '''
