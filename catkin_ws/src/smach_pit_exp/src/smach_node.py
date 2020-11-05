@@ -171,9 +171,16 @@ class circum_wp_cb(smach.State):
 			rospy.loginfo('Starting Brinkmanship Node')
 			#go
 			start_time_going = rospy.get_rostime().secs
-			while not alert_helper.alert_flag:
-				brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
-				brink_controller.publish_twist_msg()
+			while alert_helper.alert_flag != 2:
+				if alert_helper.is_published:
+					if alert_helper.alert_flag == 0:
+						brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
+					else:
+						brink_controller.generate_twist_msg([0.025, 0, 0], [0, 0, 0])
+					brink_controller.publish_twist_msg()
+					alert_helper.is_published = False
+				else:
+					pass
 				#rospy.loginfo(alert_helper.alert_bool)
 			end_time_going = rospy.get_rostime().secs
 			# zero twist to stop
