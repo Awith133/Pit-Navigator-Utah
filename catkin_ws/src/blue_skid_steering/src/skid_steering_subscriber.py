@@ -51,6 +51,12 @@ def turn_right_wheels(speed):
   claw.SpeedM1M2(speed, speed)
 
 def drive_callback(msg):
+  if (msg.angular.z <-0.3):
+    msg.angular.z = -.215
+  if(msg.angular.z <-0.13 and msg.angular.z >-0.21):
+    ANGULAR_SPEED = .3/msg.angular.z*-1+1
+  else:
+    ANGULAR_SPEED = 1
   turn_left_wheels(int((((msg.linear.x * LINEAR_SPEED) - (msg.angular.z * ANGULAR_SPEED) * WHEEL_BASE / 2) / WHEEL_RADIUS) * TICKS_METER / 4))
   turn_right_wheels(int((((msg.linear.x * LINEAR_SPEED) + (msg.angular.z * ANGULAR_SPEED) * WHEEL_BASE / 2) / WHEEL_RADIUS) * TICKS_METER / 4))
 

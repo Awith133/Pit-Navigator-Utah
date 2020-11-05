@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 #display image imports
 #import cv2
 import glob
@@ -152,13 +151,20 @@ def read_csv(filename,_map_resolution):
             tmp = []
             i = 0
             for elem in row:
-                if(i == 0):
-                    tmp.append((int(elem)*resolution ))
-                else:
+                if elem == '':
+                    print("")
+                elif(i == 0):
+                    tmp.append(int(elem)*resolution )
+                elif(i==1):
                     if("Robot_Control" in filename):
                         tmp.append(int(elem)*resolution )
                     else:
                         tmp.append(-1*int(elem)*resolution )
+                else:
+                    if("Robot_Control" in filename):
+                        tmp.append(int(elem) )
+                    else:
+                        tmp.append(int(elem))
                 i+=1
             wp.append(tmp)
     return wp
@@ -224,7 +230,7 @@ def time_estimations(file_locations , estimation=None):
         if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
             average = [10, 160, 15, 25] 
     else:
-        average = [80, 78, 567, 132]
+        average = [80, 160, 120, 120]
     
     output = average[:]
     count = [0,0,0,0]

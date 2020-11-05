@@ -12,10 +12,12 @@ from sklearn.cluster import KMeans
 import copy
 class CloudSubscriber:
     def __init__(self, tvec, rvec):
-        self.cloud_sub = rospy.Subscriber('/points', PointCloud2, self.cloud_sub_callback)
+        # self.cloud_sub = rospy.Subscriber('/points', PointCloud2, self.cloud_sub_callback)
+        self.cloud_sub = rospy.Subscriber('/cloud_from_images', PointCloud2, self.cloud_sub_callback)
         self.cloud_pub = rospy.Publisher('/processed_cloud_py3', PointCloud2, queue_size = 10)
         self.cloud_data = None
         self.H = self.get_transformation_matrix(tvec, rvec)
+        self.p = pv.Plotter()
         return
 
     def cloud_sub_callback(self, msg):
@@ -38,10 +40,12 @@ class CloudSubscriber:
 
         pv_cloud = pv.PolyData(temp).clean(tolerance=0.033, absolute=False)
 
-        pv_cloud.plot()
+        # pv_cloud.plot()
 
         surf = pv_cloud.delaunay_2d(alpha=1.0)
-        surf.plot(show_edges=True, scalars=[abs(surf.cell_normals[:, 2]) < 0.85])
+        self.p.add_mesh(surf, name="surface", show_edges=True, scalars=[abs(surf.cell_normals[:, 2]) < 0.85])
+        self.p.show(auto_close=False, interactive_update=True)
+        self.p.update()
         return    
 
     def quantize(self, points):
