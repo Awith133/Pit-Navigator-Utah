@@ -7,15 +7,21 @@ import glob
 #from PIL import Image
 import time
 import subprocess
+import rospy
+from std_msgs.msg import Int8
 
-# class BrinkStatus:
-#     def __init__(self):
-#        self.alert_flag = 'False'
-#        return
+class BrinkStatus:
+    def __init__(self):
+        # self.edge_sub = rospy.Subscriber('/edge_alert', Bool, self.edge_alert_cb)             # USING A DIFFERENT METHOD
+        self.edge_sub = rospy.Subscriber('/edge_alert', Int8, self.edge_alert_cb)
+        self.alert_flag = False
+        self.is_published = False
+        return
     
-#     def edge_alert_cb(self, msg):
-#         self.alert_flag = 'True'
-#         return
+    def edge_alert_cb(self, msg):
+        self.is_published = True
+        self.alert_flag = msg.data
+        return
 
 def display_real_images(userdata, file_locations):
     time.sleep(1)

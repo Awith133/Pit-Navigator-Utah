@@ -50,8 +50,8 @@ if __name__ == '__main__':
 
     # initializing the rosnode and creating a cloud publisher
     rospy.init_node('Stereo_Reconstruction_Node')
-    cloud_pub = rospy.Publisher('cloud_from_images', PointCloud2, queue_size = 1)
-    alert_pub = rospy.Publisher('alert_message', String, queue_size = 10)
+    cloud_pub = rospy.Publisher('points', PointCloud2, queue_size = 1)
+    alert_pub = rospy.Publisher('alert_message_dense', String, queue_size = 10)
 
     try:
         while True:
@@ -84,11 +84,11 @@ if __name__ == '__main__':
                 # salert_pub.publish("Close to the edge")
 
             # visualizing one image from the stereo pair
-            cv2.imshow('IR Example2', im1)
-            key = cv2.waitKey(1)
-            if key & 0xFF == ord('q') or key == 27:
-                cv2.destroyAllWindows()
-                break
+#            cv2.imshow('IR Example2', im1)
+#            key = cv2.waitKey(1)
+#            if key & 0xFF == ord('q') or key == 27:
+#                cv2.destroyAllWindows()
+#                break
 
             # generate and publish cloud message
             header = std_msgs.msg.Header()

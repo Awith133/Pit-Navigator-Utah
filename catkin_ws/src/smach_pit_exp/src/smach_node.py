@@ -27,12 +27,14 @@ import time
 
 #display image imports
 import smach_helper
+# from cloud_process import CloudSubscriber
+from sim_brinkmanship import Brinkmanship
 import sys
-
 
 translation = [0, 0.13, -0.18]
 rotation = [-0.3583641, 0, 0, 0.9335819]
-
+# alert_helper = CloudSubscriber(translation, rotation)
+brink_controller = Brinkmanship()
 
 GLOBAL_RADIUS = .45
 GLOBAL_RADIUS2 = 1
@@ -57,12 +59,12 @@ if ('Simulation' in file_locations['robot_simulation_env']):
 		TIME_OUT = 4*160+160 #normal = 1.3 big = 1  
 else:
 	sys.path.insert(1,file_locations['robot_simulation_env'][0:file_locations['robot_simulation_env'].rfind("/",0,-1)]+"/Brinkmanship")
-	from cloud_process import CloudSubscriber
-	from brinkmanship import Brinkmanship
+	# from cloud_process import CloudSubscriber
+	# from brinkmanship import Brinkmanship
 	TIME_OUT = 80+3*160+240
 
-alert_helper = CloudSubscriber(translation, rotation)
-brink_controller = Brinkmanship()
+# alert_helper = CloudSubscriber(translation, rotation)
+# brink_controller = Brinkmanship()
 
 
 map_resolution = rospy.get_param("/resolution")
@@ -78,9 +80,7 @@ sub_where_to_see = rospy.Subscriber('where_to_see',Float32,smach_helper.update_s
 listener = None
 
 # Brinkmanship Edge Alert Flag
-
-# alert_subscriber = rospy.Subscriber('/edge_alert', String ,alert_helper.edge_alert_cb)
-
+alert_helper = smach_helper.BrinkStatus()
 
 #Class 1 from lander to pit
 class Lander2Pit(smach.State):
@@ -189,26 +189,28 @@ class circum_wp_cb(smach.State):
 			# Reached vantage point
 			rospy.loginfo('Starting Brinkmanship Node')
 			#go
-			if ('Simulation' in file_locations['robot_simulation_env']):
-				start_time_going = rospy.get_rostime().secs
-				while not alert_helper.alert_bool:
-					brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
+			start_time_going = rospy.get_rostime().secs
+			while alert_helper.alert_flag != 2:
+				if alert_helper.is_published:
+					if alert_helper.alert_flag == 0:
+						brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
+					else:
+						brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
 					brink_controller.publish_twist_msg()
-					#rospy.loginfo(alert_helper.alert_bool)
-				end_time_going = rospy.get_rostime().secs
-				# zero twist to stop
-				brink_controller.generate_twist_msg([0, 0, 0], [0, 0, 0])
-				brink_controller.publish_twist_msg()
-				# camera functions
-				smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
-				#return
-				start_time_coming = rospy.get_rostime().secs
-				while alert_helper.alert_bool or start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
-					brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
-					brink_controller.publish_twist_msg()
-					#rospy.loginfo(alert_helper.alert_bool)
-			elif ('Robot_Control' in file_locations['robot_simulation_env']):
-				brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
+					alert_helper.is_published = False
+				else:
+					pass
+				#rospy.loginfo(alert_helper.alert_bool)
+			end_time_going = rospy.get_rostime().secs
+			# zero twist to stop
+			brink_controller.generate_twist_msg([0, 0, 0], [0, 0, 0])
+			brink_controller.publish_twist_msg()
+			# camera functions
+			smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
+			#return
+			start_time_coming = rospy.get_rostime().secs
+			while alert_helper.alert_flag or start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
+				brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
 				brink_controller.publish_twist_msg()
 			self.vantage_return = True
 			self.count_visited += 1
