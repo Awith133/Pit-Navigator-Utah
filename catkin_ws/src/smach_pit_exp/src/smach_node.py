@@ -58,10 +58,10 @@ if ('Simulation' in file_locations['robot_simulation_env']):
 	if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
 		TIME_OUT = 4*160+160 #normal = 1.3 big = 1  
 else:
-	sys.path.insert(1,file_locations['robot_simulation_env'][0:file_locations['robot_simulation_env'].rfind("/",0,-1)]+"/Brinkmanship")
+	# sys.path.insert(1,file_locations['robot_simulation_env'][0:file_locations['robot_simulation_env'].rfind("/",0,-1)]+"/Brinkmanship")
 	# from cloud_process import CloudSubscriber
 	# from brinkmanship import Brinkmanship
-	TIME_OUT = 80+3*160+240
+	TIME_OUT = 80+3*160+240 + rospy.get_rostime().secs
 
 # alert_helper = CloudSubscriber(translation, rotation)
 # brink_controller = Brinkmanship()
@@ -209,9 +209,11 @@ class circum_wp_cb(smach.State):
 			smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
 			#return
 			start_time_coming = rospy.get_rostime().secs
-			while alert_helper.alert_flag or start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
+			while start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
 				brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
 				brink_controller.publish_twist_msg()
+			brink_controller.generate_twist_msg([0, 0, 0], [0, 0, 0])
+			brink_controller.publish_twist_msg()
 			self.vantage_return = True
 			self.count_visited += 1
 			return
