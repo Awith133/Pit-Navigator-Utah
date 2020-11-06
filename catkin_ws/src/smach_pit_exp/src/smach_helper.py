@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 #display image imports
 #import cv2
 import glob
@@ -83,7 +82,24 @@ def display_real_images(userdata, file_locations):
         #viewer.terminate()
         #viewer.kill()
         
-
+def display_sim_images(images, file_location):
+    time.sleep(1)
+    images_folder = file_location + '/lunar-env/images/'
+    grep = images_folder + str(images[0])+ '_' +str(images[1])+ '_'+'2_1_1_0_0.png'
+    list1 = glob.glob(grep)
+    def compare(x, y):
+        partsOfX = x.split('_')
+        partsOfY = y.split('_')
+        integerListx = [int(partsOfX[5]),int(partsOfX[6].split('.')[0])*100]
+        integerListy = [int(partsOfY[5]),int(partsOfY[6].split('.')[0])*100]
+        return integerListx[0] - integerListy[0]+ integerListy[1]- integerListx[1]
+    list1.sort(cmp= compare)
+    for filename in list1:
+        #method#3
+        viewer = subprocess.Popen(['eog', filename])
+        time.sleep(2)
+        viewer.terminate()
+        viewer.kill()
 
 
 
@@ -133,21 +149,31 @@ def calculate_yaw(q,msg):
 #read csv imports
 import csv
 def read_csv(filename,_map_resolution):
-	wp = []
-	resolution = _map_resolution
-	with open(filename, 'rb') as f:
-		reader = csv.reader(f, delimiter=',')
-		for row in reader:
-			tmp = []
-			i = 0
-			for elem in row:
-				if(i == 0):
-					tmp.append((int(elem)*resolution ))
-				else:
-					tmp.append(-1*int(elem)*resolution )
-				i+=1
-			wp.append(tmp)
-	return wp
+    wp = []
+    resolution = _map_resolution
+    with open(filename, 'rb') as f:
+        reader = csv.reader(f, delimiter=',')
+        for row in reader:
+            tmp = []
+            i = 0
+            for elem in row:
+                if elem == '':
+                    print("")
+                elif(i == 0):
+                    tmp.append(int(elem)*resolution )
+                elif(i==1):
+                    if("Robot_Control" in filename):
+                        tmp.append(int(elem)*resolution )
+                    else:
+                        tmp.append(-1*int(elem)*resolution )
+                else:
+                    if("Robot_Control" in filename):
+                        tmp.append(int(elem) )
+                    else:
+                        tmp.append(int(elem))
+                i+=1
+            wp.append(tmp)
+    return wp
 def read_csv_around_pit(filename, _map_resolution):
     wp = []
     map_resolution = _map_resolution
@@ -165,7 +191,10 @@ def read_csv_around_pit(filename, _map_resolution):
                 elif (i==1):
                     tmp.append(   int(elem) * map_resolution ) #x
                 elif (i==2):
-                    tmp.append(-1*int(elem) * map_resolution ) #y
+                    if ("Robot_Control" in filename):
+                        tmp.append(int(elem)*map_resolution )
+                    else:
+                        tmp.append(-1*int(elem)*map_resolution )
                 elif (i==3 or i==5 or i==6):
                     tmp.append(   int(elem)) #vatage point y = 1, n = -1
                 elif (i==4):
@@ -207,7 +236,7 @@ def time_estimations(file_locations , estimation=None):
         if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
             average = [10, 160, 15, 25] 
     else:
-        average = [80, 78, 567, 132]
+        average = [80, 160, 120, 120]
     
     output = average[:]
     count = [0,0,0,0]

@@ -13,11 +13,16 @@ import copy
 from smach_pit_exp.msg import euler_list
 
 
-min_depth = -0.58
-max_depth = -0.25
+# min_depth = -0.58
+# max_depth = -0.25
 
-max_width = 0.54
-min_width = -0.54
+# max_width = 0.54
+# min_width = -0.54
+min_depth = 0.14
+max_depth = 0.37
+
+max_width = 0.3
+min_width = -0.31
 
 
 def get_mesh(cloud_array):
@@ -74,21 +79,21 @@ def split_mesh(mesh):
     cell_verts_list = np.array(np.split(cell_verts, cell_verts.shape[0]/3, axis = 0))
 
 
-    sorted_args = np.argsort(centers[:,2])
+    sorted_args = np.argsort(centers[:,0])
     
     cell_verts_list = cell_verts_list[sorted_args]      # cell vertices sorted along the z-axis
     centers = centers[sorted_args]                      # cell centers sorted along the z-axis
 
-    z_band_1 = cell_verts_list[centers[:,2] > max_depth + (min_depth - max_depth)/3]
-    cell_verts_list = cell_verts_list[centers[:,2] <= max_depth + (min_depth - max_depth)/3]
+    z_band_1 = cell_verts_list[centers[:,0] > max_depth + (min_depth - max_depth)/3]
+    cell_verts_list = cell_verts_list[centers[:,0] <= max_depth + (min_depth - max_depth)/3]
 
-    c1 = centers[centers[:,2] > max_depth + (min_depth - max_depth)/3]
-    centers = centers[centers[:,2] <= max_depth + (min_depth - max_depth)/3]
-    c2 = centers[centers[:,2] > max_depth + 2*(min_depth - max_depth)/3]
-    c3 = centers[centers[:,2] <= max_depth + 2*(min_depth - max_depth)/3]
+    c1 = centers[centers[:,0] > max_depth + (min_depth - max_depth)/3]
+    centers = centers[centers[:,0] <= max_depth + (min_depth - max_depth)/3]
+    c2 = centers[centers[:,0] > max_depth + 2*(min_depth - max_depth)/3]
+    c3 = centers[centers[:,0] <= max_depth + 2*(min_depth - max_depth)/3]
     
-    z_band_2 = cell_verts_list[centers[:,2] > max_depth + 2*(min_depth - max_depth)/3]
-    z_band_3 = cell_verts_list[centers[:,2] <= max_depth + 2*(min_depth - max_depth)/3]
+    z_band_2 = cell_verts_list[centers[:,0] > max_depth + 2*(min_depth - max_depth)/3]
+    z_band_3 = cell_verts_list[centers[:,0] <= max_depth + 2*(min_depth - max_depth)/3]
 
     z_bands = [z_band_1, z_band_2, z_band_3]
     cen = [c1, c2, c3]
@@ -96,11 +101,11 @@ def split_mesh(mesh):
     grid = []
     for idx, band in enumerate(z_bands):
         centers = cen[idx]
-        grid.append(band[centers[:,0] < min_width + (max_width-min_width)/3])
-        band = band[centers[:,0] >= min_width + (max_width-min_width)/3]
-        centers = centers[centers[:,0] >= min_width + (max_width-min_width)/3]
-        grid.append(band[centers[:,0] < min_width + 2*(max_width-min_width)/3])
-        grid.append(band[centers[:,0] >= min_width + 2*(max_width-min_width)/3])
+        grid.append(band[centers[:,1] < min_width + (max_width-min_width)/3])
+        band = band[centers[:,1] >= min_width + (max_width-min_width)/3]
+        centers = centers[centers[:,1] >= min_width + (max_width-min_width)/3]
+        grid.append(band[centers[:,1] < min_width + 2*(max_width-min_width)/3])
+        grid.append(band[centers[:,1] >= min_width + 2*(max_width-min_width)/3])
     return grid
 
 
@@ -113,7 +118,6 @@ def split_mesh(mesh):
 #     '''
 #     centers = np.array(get_cell_centers(mesh))
 
-#     # TODO: Refactor so this isn't copying the code from get_cell_centers
 #     vtk_list = mesh.faces
 #     vtk_list = vtk_list.reshape(-1,4)[:,1:4].ravel()
 #     cell_verts = np.array(mesh.points[vtk_list])
@@ -200,7 +204,8 @@ def get_farthest_points(boundary_points):
 class CloudSubscriber:
     def __init__(self, tvec, rvec):
         self.cloud_sub = rospy.Subscriber('/points', PointCloud2, self.cloud_sub_callback)
-        self.imu_sub = rospy.Subscriber('/apnapioneer3at/inertial_unit/roll_pitch_yaw', Imu, self.imu_sub_cb)
+        # self.imu_sub = rospy.Subscriber('/apnapioneer3at/inertial_unit/roll_pitch_yaw', Imu, self.imu_sub_cb)
+        self.imu_sub = rospy.Subscriber('/imu/data', Imu, self.imu_sub_cb)
         self.cloud_pub = rospy.Publisher('/processed_cloud_py3', PointCloud2, queue_size = 10)
         self.imu_euler_pub = rospy.Publisher('/imu_euler_angles', euler_list, queue_size = 10)
         # self.alert_pub = rospy.Publisher('/edge_alert', Bool, queue_size = 10)            # USING A DIFFERENT METHOD
@@ -238,12 +243,12 @@ class CloudSubscriber:
         self.cloud_data = self.transform_cloud(xyz, self.H)
 
         self.mesh = self.get_mesh(self.cloud_data)
-        # edges, boundary_points = extract_boundary(self.mesh)
-        # print("Max Z val = {}".format(np.amax(boundary_points[:,2])))
-        # print("Min Z val = {}".format(np.amin(boundary_points[:,2])))
-        # print("Min X val = {}".format(np.amin(boundary_points[:,0])))
-        # print("Min X val = {}".format(np.amin(boundary_points[:,0])))
-        # pts = get_farthest_points(boundary_points)
+        edges, boundary_points = extract_boundary(self.mesh)
+        print("Max y val = {}".format(np.amax(boundary_points[:,1])))
+        print("Min y val = {}".format(np.amin(boundary_points[:,1])))
+        print("Min X val = {}".format(np.amin(boundary_points[:,0])))
+        print("Min X val = {}".format(np.amax(boundary_points[:,0])))
+        pts = get_farthest_points(boundary_points)
 
         warn, stop = self.risk(self.mesh)
         if warn:
@@ -336,10 +341,12 @@ class CloudSubscriber:
         if self.imu_quat is not None:
             # print('Adding rotation')
             # print()
-            r_imu = R.from_euler('zyx', [[-self.imu_euler_object.roll, 0, 180 + self.imu_euler_object.pitch]], degrees = 'True')
+            # r_imu = R.from_euler('zyx', [[-self.imu_euler_object.roll, 0, 180 + self.imu_euler_object.pitch]], degrees = 'True')
+            r_imu = R.from_euler('zyx', [[0, -self.imu_euler_object.roll, self.imu_euler_object.pitch]], degrees = 'True')
             # r_imu = R.from_quat(self.imu_quat)
             R_MAT = r_imu.as_matrix()
             T[:3, :3] = R_MAT@r.as_matrix()
+            # T[:3, :3] = r.as_matrix()
             # print('yes', R_MAT)
         else:
             T[:3, :3] = r.as_matrix()
@@ -367,6 +374,7 @@ class CloudSubscriber:
         self.imu_quat = [msg.orientation.x, msg.orientation.y, msg.orientation.z, msg.orientation.w]
         r = R.from_quat(self.imu_quat)
         angles = r.as_euler('zyx', degrees=True)
+        # print('IMU Angles = ', angles)
         self.h.stamp = rospy.Time.now()
         self.imu_euler_object.header = self.h
         self.imu_euler_object.roll = angles[1]
@@ -414,8 +422,10 @@ class CloudSubscriber:
 if __name__ == '__main__':
     rospy.init_node('Cloud_Processor')
     p = pv.Plotter()
-    translation = [0, 0.13, -0.23]
-    rotation = [-0.3583641, 0, 0, 0.9335819]
+    # translation = [0, 0.13, -0.23]
+    # rotation = [-0.3583641, 0, 0, 0.9335819]
+    translation = [0, 0, 0]
+    rotation = [ -0.579228, 0.579228, -0.4055798, 0.4055798 ]
     cs = CloudSubscriber(translation, rotation)
     rospy.spin()
 

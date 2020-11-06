@@ -1,6 +1,10 @@
 TebLocalPlannerROS:
 
+<<<<<<< HEAD
  odom_topic: odometry_ground_truth #this makes me nervous
+=======
+ odom_topic: odommetry_ground_truth #this makes me nervous - was odoetry_ground_truth
+>>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
 
  # Trajectory
 

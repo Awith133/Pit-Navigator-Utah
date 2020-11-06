@@ -1,1 +1,11 @@
+<<<<<<< HEAD
 this is the place where we will add different robto enviornments for our code to control
+=======
+this is the place where we will add different robto enviornments for our code to control
+
+
+TODO:
+add justins panorama code
+add a listener to cmd_vel to run motor controls
+make a new map for robot
+>>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
