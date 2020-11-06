@@ -13,16 +13,21 @@ class CloudSubscriber:
         self.cloud_pub = rospy.Publisher('/processed_cloud', PointCloud2, queue_size = 10)
         self.alert_pub = rospy.Publisher('/edge_alert', String, queue_size = 10)
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.alert_bool = True
 =======
         self.alert_bool = False
 >>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
+=======
+        self.alert_bool = False
+>>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
         self.cloud_data = None
         self.H = self.get_transformation_matrix(tvec, rvec)
         return
 
     def cloud_sub_callback(self, msg):
         xyz = ros_numpy.point_cloud2.pointcloud2_to_xyz_array(msg, remove_nans=True)
+<<<<<<< HEAD
 <<<<<<< HEAD
         print('Size of point cloud = {}'.format(xyz.shape))
         print('Max Z value = {}'.format(np.max(xyz[:,2])))
@@ -32,11 +37,16 @@ class CloudSubscriber:
         self.cloud_data = self.transform_cloud(xyz, self.H)
         if self.cloud_data.shape[0] < 20000:
 =======
+=======
+>>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
         xyz = xyz[xyz[:,2] < 0.4]
         # print('Size of point cloud = {}'.format(xyz.shape))
         self.cloud_data = self.transform_cloud(xyz, self.H)
         if self.cloud_data.shape[0] < 250000:
+<<<<<<< HEAD
 >>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
+=======
+>>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
             self.publish_stop_signal()
             self.alert_bool = True
         else:
@@ -47,10 +57,14 @@ class CloudSubscriber:
     def publish_stop_signal(self):
         if not self.alert_bool:
 <<<<<<< HEAD
+<<<<<<< HEAD
             self.alert_pub('Close to pit edge')
 =======
             self.alert_pub.publish('Close to pit edge')
 >>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
+=======
+            self.alert_pub.publish('Close to pit edge')
+>>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
         else:
             pass
         return
@@ -62,10 +76,14 @@ class CloudSubscriber:
         header = std_msgs.msg.Header()
         header.stamp = rospy.Time.now()
 <<<<<<< HEAD
+<<<<<<< HEAD
         header.frame_id = 'apnapioneer3at/MultiSense_S21_meta_range_finder'
 =======
         header.frame_id = 'base_link'
 >>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
+=======
+        header.frame_id = 'base_link'
+>>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
         cloud = pcl2.create_cloud_xyz32(header,cloud_array)
         self.cloud_pub.publish(cloud)
         return
