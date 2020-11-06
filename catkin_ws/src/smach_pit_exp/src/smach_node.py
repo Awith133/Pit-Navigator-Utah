@@ -4,7 +4,6 @@ import rospy
 import math
 import smach
 import pdb
-import os
 
 import smach_ros
 from smach import CBState
@@ -28,13 +27,13 @@ import time
 
 #display image imports
 import smach_helper
-from cloud_process import CloudSubscriber
+# from cloud_process import CloudSubscriber
 from sim_brinkmanship import Brinkmanship
-
+import sys
 
 translation = [0, 0.13, -0.18]
 rotation = [-0.3583641, 0, 0, 0.9335819]
-alert_helper = CloudSubscriber(translation, rotation)
+# alert_helper = CloudSubscriber(translation, rotation)
 brink_controller = Brinkmanship()
 
 GLOBAL_RADIUS = .45
@@ -46,8 +45,10 @@ file_locations = {
 	'project_file_location':rospy.get_param("/system_name"),
 	'robot_simulation_env':rospy.get_param("/robot_simulation_arg"),}
 if ('Simulation' in file_locations['robot_simulation_env']):
-	if (os.path.isfile(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv'): #TODO elimate this for flightcode - bypasses risk algotrithm
-	    	os.remove(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv')
+	sys.path.insert(1,file_locations['robot_simulation_env'][0:file_locations['robot_simulation_env'].rfind("/",0,-1)]+"/webots_control/src")
+	from cloud_process import CloudSubscriber
+	from sim_brinkmanship import Brinkmanship
+	
 	if ('Utah_Pit' in file_locations['robot_simulation_env']):
 		TIME_OUT = 2200*1.3 #normal = 1.3 big = 1 
 	if ('Utah_BIG' in file_locations['robot_simulation_env']):
@@ -57,7 +58,14 @@ if ('Simulation' in file_locations['robot_simulation_env']):
 	if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
 		TIME_OUT = 4*160+160 #normal = 1.3 big = 1  
 else:
-	TIME_OUT = 100000
+	sys.path.insert(1,file_locations['robot_simulation_env'][0:file_locations['robot_simulation_env'].rfind("/",0,-1)]+"/Brinkmanship")
+	# from cloud_process import CloudSubscriber
+	# from brinkmanship import Brinkmanship
+	TIME_OUT = 80+3*160+240
+
+# alert_helper = CloudSubscriber(translation, rotation)
+# brink_controller = Brinkmanship()
+
 
 map_resolution = rospy.get_param("/resolution")
 halfway_point = len(smach_helper.read_csv_around_pit(file_locations['file_around_pit'],map_resolution))/2
@@ -72,9 +80,7 @@ sub_where_to_see = rospy.Subscriber('where_to_see',Float32,smach_helper.update_s
 listener = None
 
 # Brinkmanship Edge Alert Flag
-
-# alert_subscriber = rospy.Subscriber('/edge_alert', String ,alert_helper.edge_alert_cb)
-
+alert_helper = smach_helper.BrinkStatus()
 
 #Class 1 from lander to pit
 class Lander2Pit(smach.State):
@@ -89,6 +95,7 @@ class Lander2Pit(smach.State):
 	def nextwaypoint(self,userdata,num):
 		userdata.counter_wp_2_pit += num
 		if userdata.counter_wp_2_pit < len(userdata.wp_2_pit):
+			time.sleep(1)
 			self.global_wp_nav(userdata)
 		else:
 			userdata.counter_wp_2_pit -= 1
@@ -99,18 +106,23 @@ class Lander2Pit(smach.State):
 		msg = PoseStamped()
 		msg.pose.position.x = userdata.wp_2_pit[userdata.counter_wp_2_pit][0]#x
 		msg.pose.position.y = userdata.wp_2_pit[userdata.counter_wp_2_pit][1]#y
-		if abs(smach_helper.pose['yaw']-smach_helper.sunangle)<=math.pi/2: 
-			yaw = smach_helper.sunangle
-			q = quaternion_from_euler(0, 0, smach_helper.sunangle)
-		else: 
-			yaw = smach_helper.sunangle+math.pi
-			q = quaternion_from_euler(0, 0, smach_helper.sunangle+math.pi)
+		print(len(userdata.wp_2_pit[userdata.counter_wp_2_pit]))
+		if(len(userdata.wp_2_pit[userdata.counter_wp_2_pit])== 3):
+			yaw = userdata.wp_2_pit[userdata.counter_wp_2_pit][2]*3.14159/180.0
+			q = quaternion_from_euler(0, 0, userdata.wp_2_pit[userdata.counter_wp_2_pit][2]*3.14159/180.0)
+		else:
+			if abs(smach_helper.pose['yaw']-smach_helper.sunangle)<=math.pi/2: 
+				yaw = smach_helper.sunangle
+				q = quaternion_from_euler(0, 0, smach_helper.sunangle)
+			else: 
+				yaw = smach_helper.sunangle+math.pi
+				q = quaternion_from_euler(0, 0, smach_helper.sunangle+math.pi)
 		msg.pose.orientation.x = q[0]
 		msg.pose.orientation.y = q[1]
 		msg.pose.orientation.z = q[2]
 		msg.pose.orientation.w = q[3]
 		msg.header.frame_id = 'map'
-		print('Publishing wp', msg.pose.position.x , msg.pose.position.y)
+		print('Publishing wp', msg.pose.position.x , msg.pose.position.y, yaw)
 		userdata.current_wp_cords = (msg.pose.position.x,msg.pose.position.y,smach_helper.sunangle)
 		goal = MoveBaseGoal()
 		goal.target_pose.header.frame_id = "map"
@@ -128,6 +140,8 @@ class Lander2Pit(smach.State):
 			rate.sleep()
 			if smach_helper.step_flag and not smach_helper.charging:
 				smach_helper.step_flag = False
+				while userdata.counter_wp_2_pit == 4:  ##TODO remove after testing
+					rate.sleep()
 				self.nextwaypoint(userdata,1)
 			if smach_helper.abort_flag:
 				smach_helper.abort_flag = False
@@ -158,7 +172,7 @@ class circum_wp_cb(smach.State):
 		self.start_time = 0
 		self.end_time = 0
 		self.count_visited = 0
-		self.risk_safe = 9
+		self.risk_safe = 3
 		self.first_waypoint = True
 
 	def atThisWaypoint(self,userdata):
@@ -176,9 +190,16 @@ class circum_wp_cb(smach.State):
 			rospy.loginfo('Starting Brinkmanship Node')
 			#go
 			start_time_going = rospy.get_rostime().secs
-			while not alert_helper.alert_bool:
-				brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
-				brink_controller.publish_twist_msg()
+			while alert_helper.alert_flag != 2:
+				if alert_helper.is_published:
+					if alert_helper.alert_flag == 0:
+						brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
+					else:
+						brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
+					brink_controller.publish_twist_msg()
+					alert_helper.is_published = False
+				else:
+					pass
 				#rospy.loginfo(alert_helper.alert_bool)
 			end_time_going = rospy.get_rostime().secs
 			# zero twist to stop
@@ -188,10 +209,9 @@ class circum_wp_cb(smach.State):
 			smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
 			#return
 			start_time_coming = rospy.get_rostime().secs
-			while alert_helper.alert_bool or start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
+			while alert_helper.alert_flag or start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
 				brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
 				brink_controller.publish_twist_msg()
-				#rospy.loginfo(alert_helper.alert_bool)
 			self.vantage_return = True
 			self.count_visited += 1
 			return
@@ -205,11 +225,11 @@ class circum_wp_cb(smach.State):
 			self.count_visited = 0
 			userdata.counter_wp_around_pit -= 1
 			self.success_flag = True
-		elif self.count_visited >= self.risk_safe:
-			rospy.logerr("Risk too high - returning home")
-			self.count_visited = 0
-			userdata.counter_wp_around_pit -= 1
-			self.success_flag = True
+		# elif self.count_visited >= self.risk_safe:
+		# 	rospy.logerr("Risk too high - returning home")
+		# 	self.count_visited = 0
+		# 	userdata.counter_wp_around_pit -= 1
+		# 	self.success_flag = True
 		else:
 			self.global_wp_nav(userdata)
 			
@@ -501,6 +521,9 @@ def main():
 	# 	rospy.loginfo(str(alert_helper.alert_bool))
 	# 	# time.sleep(1)
 	# 	rospy.sleep(1)
+	brink_controller.generate_twist_msg([0.0, 0, 0], [0, 0, 0])
+	brink_controller.publish_twist_msg()
+
 	wait = move_base_client.wait_for_server(rospy.Duration(275.0))
 	if not wait:
 		rospy.logerr("Action server not available!")

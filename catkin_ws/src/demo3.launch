@@ -2,10 +2,10 @@
 	<!--  *************** Global Parameters ***************  -->
 	<env name="WEBOTS_HOME"    value="/usr/local/webots"/>
 	
-	<arg name="SYSTEM_NAME"          value="/home/pitcrew/Pit-Navigator-Utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
-	<arg name="ROBOT_SIMULATION_ARG" value="/home/pitcrew/Pit-Navigator-Utah/catkin_ws/src/Simulation_Control/Utah_Pit"/>
+	<arg name="SYSTEM_NAME"          value="/home/pit_crew/pit-navigator-utah/Pit-Navigator-Utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
+	<arg name="ROBOT_SIMULATION_ARG" value="/home/pit_crew/pit-navigator-utah/Pit-Navigator-Utah/catkin_ws/src/Robot_Control"/>
 	<!--rosparam file="$(arg SYSTEM_NAME)/server_parameters/parameters.yaml" command="load" /-->
-	<param name="use_sim_time" type="bool" value="true"/>
+	
 	<param name="system_name" type="string" value="$(arg SYSTEM_NAME)"/>
 	<param name="robot_simulation_arg" type="string" value="$(arg ROBOT_SIMULATION_ARG)"/>
 	<param name="lunar_env_path" type="string" value="$(arg ROBOT_SIMULATION_ARG)/lunar-env"/>
@@ -24,7 +24,7 @@
 
 
     <!--  *************** MAP FILE LOCATION *************** -->
-	<node name="map_server" pkg="map_server" type="map_server" args="$(arg ROBOT_SIMULATION_ARG)/map/maze.yaml" output="log">
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg ROBOT_SIMULATION_ARG)/map/maze.yaml" output="screen">
         <param name="frame_id" value="map"/>
 	</node>
 	<rosparam file="$(arg ROBOT_SIMULATION_ARG)/map/maze.yaml" command="load" />
@@ -33,7 +33,97 @@
 	<param name="file_to_pit"                                    type="string" value="$(arg ROBOT_SIMULATION_ARG)/to_pit_waypoints.csv"/>
 	<param name="file_around_pit"                                type="string" value="$(arg ROBOT_SIMULATION_ARG)/around_pit_waypoints.csv"/>
 	
+	<!-- if SIMULATION-->
+	<group unless="$(eval arg('ROBOT_SIMULATION_ARG') == arg('SYSTEM_NAME') + '/catkin_ws/src/Robot_Control')">
+		<!-- ****************  WEBOTS  **************** -->
+		<arg name="no-gui" default="false," doc="Start Webots with minimal GUI"/>
+		<include file="$(find webots_ros)/launch/webots.launch">
+			<!--    starting sim mode v pause realtime run-->
+			<arg name="mode" value="pause"/> 
+			<arg name="no-gui" value="$(arg no-gui)"/>
+			<arg name="world" value="$(arg ROBOT_SIMULATION_ARG)/lunar-env/worlds/webots_world_nearPit.wbt"/>
+		</include>
+		<!-- motor drivers -->
+		<node name="pioneer3at" pkg="webots_control" type="pioneer3at.py" required="$(arg auto-close)" output="log"/>
+		
+		<!-- sim planning parameters-->
+		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/teb_local_planner_params.yaml" command="load" />
+		<param name="use_sim_time" type="bool" value="true"/>
+		<node pkg="tf" type="static_transform_publisher" name="odom_map_publisher" args="0 0 0 0 0 1.570796326  /map /odom  1"/>
+		<node pkg="tf" type="static_transform_publisher" name="odom_noisy_map_publisher" args="0 0 0 0 0 1.570796326  /map /noisy_odom  1"/>
+		<node pkg="tf" type="static_transform_publisher" name="camera_base_link_publisher" args="0.23 0 0.18 -1.570796326 0 -1.570796326  /base_link /apnapioneer3at/MultiSense_S21_meta_range_finder 1"/>
+
+	</group>
 	
+	<!-- if Robot-->
+	<group if="$(eval arg('ROBOT_SIMULATION_ARG') == arg('SYSTEM_NAME') + '/catkin_ws/src/Robot_Control')">
+		<!-- ****************  ROBOTCODE  **************** -->
+		<!--node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/-->
+		<param name="ticks_meter" type="int" value="6208"/>
+		<!-- motor drivers -->
+		<node pkg="blue_skid_steering" type="skid_steering_subscriber.py" name="skid_steering" output="screen"/>
+		
+		<!-- wheel odom sensor6208-->
+		
+		<node pkg="differential_drive" type="diff_tf.py" name="diff_tf" output="screen">
+			<param name="~base_width" value="0.47"/>
+		</node>
+		<node pkg="tf" type="static_transform_publisher" name="bl_odom0" args="0 0 0 0 0 0 base_link odom0 1"/>
+
+
+		<!-- imu sensor-->
+		<node pkg="fsm_imu" type="fsm_imu_node" name="imu0" output="log"/>          <!-- v this updates based on where the imu mounts meters-->
+		<node pkg="tf" type="static_transform_publisher" name="bl_imu" args="-0.127 0 0.027 0 3.14159 0 base_link imu0 1"/>
+
+		<!-- robot planning parameters-->
+		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/robot_teb_local_planner_params.yaml" command="load" />
+		<param name="use_sim_time" type="bool" value="false"/>
+		<param name="initial_pose_x" type="double" value="1.0"/>
+		<param name="initial_pose_y" type="double" value="1.0"/>
+		<node pkg="tf" type="static_transform_publisher" name="odom_map_publisher" args="0 0 0 0 0 0  /map /odom  1"/>
+
+		<!-- ****************  ROBOT LOCALIZATION  **************** -->
+		<node pkg="robot_localization" type="ekf_localization_node" name="robot_localization_ekf_node_odom"	clear_params="true">
+			<param name="frequency" value="10." />
+			<param name="sensor_timeout" value="0.2" />
+			<param name="two_d_mode" value="true" />
+			<param name="publish_tf" value="true" />
+			<param name="map_frame" value="map" />
+			<param name="odom_frame" value="odom" />
+			<param name="base_link_frame" value="base_link" />
+			<param name="world_frame" value="odom" />
+			<remap from="odometry/filtered" to="odometry/filtered" />
+			<param name="odom0" value="/odom0" />
+			<param name="odom0_differential" value="false"/>
+			<rosparam param="odom0_config">[false, false, false, false, false, false,  true,  true, false, false, false,  false, false, false, false]</rosparam>
+			<param name="imu0" value="/imu/data" />
+			<param name="imu0_differential" value="false"/>
+			<rosparam param="imu0_config"> [false, false, false, false, false,  false, false, false, false, false, false,  true,  false,  false, false]</rosparam>
+			<rosparam param="initial_state">[1.0,  4.0,  0.105,
+                                 0.0,  0.0,  0.0,
+                                 0.0,  0.0,  0.0,
+                                 0.0,  0.0,  0.0,
+                                 0.0,  0.0,  0.0]</rosparam>
+			<rosparam param="initial_estimate_covariance">[1e-9, 0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
+                                                      0,    1e-9, 0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
+                                                      0,    0,    1e-9, 0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
+                                                      0,    0,    0,    1e-9, 0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
+                                                      0,    0,    0,    0,    1e-9, 0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
+                                                      0,    0,    0,    0,    0,    .1, 0,    0,    0,    0,     0,     0,     0,    0,    0,
+                                                      0,    0,    0,    0,    0,    0,    .1, 0,    0,    0,     0,     0,     0,    0,    0,
+                                                      0,    0,    0,    0,    0,    0,    0,    .001, 0,    0,     0,     0,     0,    0,    0,
+                                                      0,    0,    0,    0,    0,    0,    0,    0,    1e-9, 0,     0,     0,     0,    0,    0,
+                                                      0,    0,    0,    0,    0,    0,    0,    0,    0,    1e-9,  0,     0,     0,    0,    0,
+                                                      0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     1e-9,  0,     0,    0,    0,
+                                                      0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     .0001 ,  0,    0,    0,
+                                                      0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     .1, 0,    0,
+                                                      0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    .1, 0,
+                                                      0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    1e-9]</rosparam>
+		</node>
+		
+		
+
+	</group>
 
 
 
@@ -48,9 +138,6 @@
   		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/base_local_planner_params.yaml" command="load" />
 		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/costmap_converter_params.yaml" command="load" />
 		
-
-		
-
 		<!-- *************** GLOBAL PLANNER ***************  -->
 		<!-- different planners : "carrot_planner/CarrotPlanner","global_planner/GlobalPlanner","navfn/NavfnROS", "RAstar_planner/RAstarPlannerROS", "SBPLLatticePlanner"-->
 		<param name="base_global_planner"                                      value="global_planner/GlobalPlanner"/>
@@ -69,9 +156,8 @@
 		
 		<!-- *************** LOCAL PLANNER ***************  -->
 		<!--param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" /-->
-		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/teb_local_planner_params.yaml" command="load" />
 		<param name="base_local_planner"                                       value="teb_local_planner/TebLocalPlannerROS" />
-		<param name="controller_frequency"                                     value="5.0" />
+		<param name="controller_frequency"                                     value="10.0" />
 		<param name="controller_patience"                                      value="15.0" />
 	</node>
 	
@@ -95,10 +181,7 @@
 		<param name="initial_pose_a"            value="0"/>
 	</node -->
 	<arg name="auto-close" default="false" doc="Startup mode"/>
-	<node pkg="tf" type="static_transform_publisher" name="odom_map_publisher" args="0 0 0 0 0 1.570796326  /map /odom  1"/>
-	<node pkg="tf" type="static_transform_publisher" name="odom_noisy_map_publisher" args="0 0 0 0 0 1.570796326  /map /noisy_odom  1"/>
-	<node pkg="tf" type="static_transform_publisher" name="camera_base_link_publisher" args="0.23 0 0.18 -1.570796326 0 -1.570796326  /base_link /apnapioneer3at/MultiSense_S21_meta_range_finder 1"/>
-
+	
 
 
 
@@ -106,21 +189,11 @@
 	<!--  **************** Visualisation ****************  -->
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(arg ROBOT_SIMULATION_ARG)/rviz_navigation.rviz"/>
 	<arg name="show_viz" default="1"/>
-	<include file="$(find visualization)/launch/test2.launch"/>
+	<!--include file="$(find visualization)/launch/test2.launch"/-->
 
 
 
-
-	<!-- ****************  WEBOTS  **************** -->
-    <arg name="no-gui" default="false," doc="Start Webots with minimal GUI"/>
-    <include file="$(find webots_ros)/launch/webots.launch">
-      <!--    starting sim mode v pause realtime run-->
-	  <arg name="mode" value="pause"/> 
-      <arg name="no-gui" value="$(arg no-gui)"/>
-      <arg name="world" value="$(arg ROBOT_SIMULATION_ARG)/lunar-env/worlds/webots_world_nearPit.wbt"/>
-    </include>
-	<node name="pioneer3at" pkg="webots_control" type="pioneer3at.py" required="$(arg auto-close)" output="log"/>
-
+	
 
 
 	
@@ -133,7 +206,7 @@
 	<node pkg="nodelet" type="nodelet" name="cloudify" args="load depth_image_proc/point_cloud_xyz record_player_manager --no-bond">
 		<remap from="camera_info" to="/apnapioneer3at/MultiSense_S21_meta_range_finder/camera_info"/>
 		<remap from="image_rect" to="/apnapioneer3at/MultiSense_S21_meta_range_finder/range_image"/>
-	</node >
+	</node>
 
 	<!--node pkg="nodelet" type="nodelet" name="passthrough" args="load pcl/PassThrough pcl_manager" output="log">
 		<remap from="~input" to="/points" />
