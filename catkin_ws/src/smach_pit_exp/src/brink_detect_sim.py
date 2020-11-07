@@ -13,16 +13,11 @@ import copy
 from smach_pit_exp.msg import euler_list
 
 
-# min_depth = -0.58
-# max_depth = -0.25
+min_depth = -0.58
+max_depth = -0.25
 
-# max_width = 0.54
-# min_width = -0.54
-min_depth = 0.14
-max_depth = 0.37
-
-max_width = 0.3
-min_width = -0.31
+max_width = 0.54
+min_width = -0.54
 
 
 def get_mesh(cloud_array):
@@ -79,21 +74,21 @@ def split_mesh(mesh):
     cell_verts_list = np.array(np.split(cell_verts, cell_verts.shape[0]/3, axis = 0))
 
 
-    sorted_args = np.argsort(centers[:,0])
+    sorted_args = np.argsort(centers[:,2])
     
     cell_verts_list = cell_verts_list[sorted_args]      # cell vertices sorted along the z-axis
     centers = centers[sorted_args]                      # cell centers sorted along the z-axis
 
-    z_band_1 = cell_verts_list[centers[:,0] > max_depth + (min_depth - max_depth)/3]
-    cell_verts_list = cell_verts_list[centers[:,0] <= max_depth + (min_depth - max_depth)/3]
+    z_band_1 = cell_verts_list[centers[:,2] > max_depth + (min_depth - max_depth)/3]
+    cell_verts_list = cell_verts_list[centers[:,2] <= max_depth + (min_depth - max_depth)/3]
 
-    c1 = centers[centers[:,0] > max_depth + (min_depth - max_depth)/3]
-    centers = centers[centers[:,0] <= max_depth + (min_depth - max_depth)/3]
-    c2 = centers[centers[:,0] > max_depth + 2*(min_depth - max_depth)/3]
-    c3 = centers[centers[:,0] <= max_depth + 2*(min_depth - max_depth)/3]
+    c1 = centers[centers[:,2] > max_depth + (min_depth - max_depth)/3]
+    centers = centers[centers[:,2] <= max_depth + (min_depth - max_depth)/3]
+    c2 = centers[centers[:,2] > max_depth + 2*(min_depth - max_depth)/3]
+    c3 = centers[centers[:,2] <= max_depth + 2*(min_depth - max_depth)/3]
     
-    z_band_2 = cell_verts_list[centers[:,0] > max_depth + 2*(min_depth - max_depth)/3]
-    z_band_3 = cell_verts_list[centers[:,0] <= max_depth + 2*(min_depth - max_depth)/3]
+    z_band_2 = cell_verts_list[centers[:,2] > max_depth + 2*(min_depth - max_depth)/3]
+    z_band_3 = cell_verts_list[centers[:,2] <= max_depth + 2*(min_depth - max_depth)/3]
 
     z_bands = [z_band_1, z_band_2, z_band_3]
     cen = [c1, c2, c3]
@@ -101,57 +96,12 @@ def split_mesh(mesh):
     grid = []
     for idx, band in enumerate(z_bands):
         centers = cen[idx]
-        grid.append(band[centers[:,1] < min_width + (max_width-min_width)/3])
-        band = band[centers[:,1] >= min_width + (max_width-min_width)/3]
-        centers = centers[centers[:,1] >= min_width + (max_width-min_width)/3]
-        grid.append(band[centers[:,1] < min_width + 2*(max_width-min_width)/3])
-        grid.append(band[centers[:,1] >= min_width + 2*(max_width-min_width)/3])
+        grid.append(band[centers[:,0] < min_width + (max_width-min_width)/3])
+        band = band[centers[:,0] >= min_width + (max_width-min_width)/3]
+        centers = centers[centers[:,0] >= min_width + (max_width-min_width)/3]
+        grid.append(band[centers[:,0] < min_width + 2*(max_width-min_width)/3])
+        grid.append(band[centers[:,0] >= min_width + 2*(max_width-min_width)/3])
     return grid
-
-
-
-
-# def split_mesh(mesh):
-#     '''
-#     Input:  Pyvista triangle mesh object
-#     Output: Array of nine Pyvista triangle mesh objects that are subsets of the input mesh, divided by location in XZ plane
-#     '''
-#     centers = np.array(get_cell_centers(mesh))
-
-#     vtk_list = mesh.faces
-#     vtk_list = vtk_list.reshape(-1,4)[:,1:4].ravel()
-#     cell_verts = np.array(mesh.points[vtk_list])
-#     cell_verts_list = np.array(np.split(cell_verts, cell_verts.shape[0]/3, axis = 0))
-
-
-#     sorted_args = np.argsort(centers[:,1])
-    
-#     cell_verts_list = cell_verts_list[sorted_args]      # cell vertices sorted along the z-axis
-#     centers = centers[sorted_args]                      # cell centers sorted along the z-axis
-
-#     z_band_1 = cell_verts_list[centers[:,1] < max_depth/3]
-#     cell_verts_list = cell_verts_list[centers[:,1] >= max_depth/3]
-
-#     c1 = centers[centers[:,1] < max_depth/3]
-#     centers = centers[centers[:,1] >= max_depth/3]
-#     c2 = centers[centers[:,1] < 2*max_depth/3]
-#     c3 = centers[centers[:,1] >= 2*max_depth/3]
-    
-#     z_band_2 = cell_verts_list[centers[:,1] < 2*max_depth/3]
-#     z_band_3 = cell_verts_list[centers[:,1] >= 2*max_depth/3]
-
-#     z_bands = [z_band_1, z_band_2, z_band_3]
-#     cen = [c1, c2, c3]
-
-#     grid = []
-#     for idx, band in enumerate(z_bands):
-#         centers = cen[idx]
-#         grid.append(band[centers[:,0] < max_width/3])
-#         band = band[centers[:,0] >= max_width/3]
-#         centers = centers[centers[:,0] >= max_width/3]
-#         grid.append(band[centers[:,0] < 2*max_width/3])
-#         grid.append(band[centers[:,0] >= 2*max_width/3])
-#     return grid
 
 def visualize_mesh(mesh, points = None, edges = None, color_pt = None):
     '''
@@ -186,14 +136,6 @@ def visualize_grid(mesh, grid = None, color_pt = None):
     p.update()
     return
 
-# def get_distance(boundary_points):
-#     pts = np.array(boundary_points)
-#     pts = pts[pts[:,1].argsort()]
-#     print(pts)
-#     bins = np.array_split(pts, 10, axis = 0)
-#     print(bins)
-#     return
-
 def get_farthest_points(boundary_points):
     points = boundary_points[boundary_points[:,2].argsort()]
     # print(points)
@@ -203,15 +145,14 @@ def get_farthest_points(boundary_points):
 
 class CloudSubscriber:
     def __init__(self, tvec, rvec):
-        self.cloud_sub = rospy.Subscriber('/camera/depth/color/points', PointCloud2, self.cloud_sub_callback)
-        # self.imu_sub = rospy.Subscriber('/apnapioneer3at/inertial_unit/roll_pitch_yaw', Imu, self.imu_sub_cb)
-        self.imu_sub = rospy.Subscriber('/imu/data', Imu, self.imu_sub_cb)
+        self.cloud_sub = rospy.Subscriber('/points', PointCloud2, self.cloud_sub_callback)
+        self.imu_sub = rospy.Subscriber('/apnapioneer3at/inertial_unit/roll_pitch_yaw', Imu, self.imu_sub_cb)
         self.cloud_pub = rospy.Publisher('/processed_cloud_py3', PointCloud2, queue_size = 10)
         self.imu_euler_pub = rospy.Publisher('/imu_euler_angles', euler_list, queue_size = 10)
-        # self.alert_pub = rospy.Publisher('/edge_alert', Bool, queue_size = 10)            # USING A DIFFERENT METHOD
+        # self.alert_pub = rospy.Publisher('/edge_alert', Bool, queue_size = 10)                            # USING A DIFFERENT METHOD
         self.alert_pub = rospy.Publisher('/edge_alert', Int8, queue_size = 10)
 
-        # self.alert_bool = False                           # USING A DIFFERENT METHOD
+        # self.alert_bool = False                                                                           # USING A DIFFERENT METHOD
         self.alert_status = 0
         self.cloud_data = None
         self.imu_euler_object = euler_list()
@@ -232,11 +173,11 @@ class CloudSubscriber:
         
         xyz = ros_numpy.point_cloud2.pointcloud2_to_xyz_array(msg, remove_nans=True)
         xyz = xyz[xyz[:,2] > 0.1]
-        xyz = xyz[xyz[:,2] < 1]
+        xyz = xyz[xyz[:,2] < 0.4]
         if xyz.shape[0] == 0:
             return
-        # rand_vec = np.random.randint(0, xyz.shape[0], size = xyz.shape[0]//3)
-        # xyz = xyz[rand_vec]
+        rand_vec = np.random.randint(0, xyz.shape[0], size = xyz.shape[0]//3)
+        xyz = xyz[rand_vec]
         print(xyz.shape)
         print('One Step')
         self.H = self.get_transformation_matrix(self.tvec, self.rvec)
@@ -340,14 +281,9 @@ class CloudSubscriber:
         r = R.from_quat(quat)
         if self.imu_quat is not None:
             # print('Adding rotation')
-            # print()
-            # r_imu = R.from_euler('zyx', [[-self.imu_euler_object.roll, 0, 180 + self.imu_euler_object.pitch]], degrees = 'True')
-            r_imu = R.from_euler('zyx', [[0, -self.imu_euler_object.roll, self.imu_euler_object.pitch]], degrees = 'True')
-            # r_imu = R.from_quat(self.imu_quat)
+            r_imu = R.from_euler('zyx', [[-self.imu_euler_object.roll, 0, 180 + self.imu_euler_object.pitch]], degrees = 'True')
             R_MAT = r_imu.as_matrix()
             T[:3, :3] = R_MAT@r.as_matrix()
-            # T[:3, :3] = r.as_matrix()
-            # print('yes', R_MAT)
         else:
             T[:3, :3] = r.as_matrix()
         T[:3, -1] = tvec
@@ -383,86 +319,10 @@ class CloudSubscriber:
         self.imu_euler_pub.publish(self.imu_euler_object)
         return
 
-# def get_farthest_points(edges, boundary_points):
-#     edge_array = np.zeros((edges.n_cells*2, 3)).astype('float')
-#     # edge_list = np.array([np.array(edges.extract_cells(i).points) for i in range(edges.n_cells)])
-#     for i in range(edges.n_cells):
-#         edge_array[2*i:2*i+2,:] = np.array(edges.extract_cells(i).points)
-    
-#     print(edge_array)
-
-#     max_pts = boundary_points[boundary_points[:,1] == np.amax(boundary_points[:,1])]
-#     min_pts = boundary_points[boundary_points[:,0] == np.amin(boundary_points[:,0])]
-#     left_corner = min_pts[min_pts[:,1] == np.amax(min_pts[:,1])][0]
-#     right_corner = max_pts[max_pts[:,1] == np.amax(max_pts[:,1])][0]
-#     # print(left_corner.shape)
-#     not_found = True
-#     far_edges = [left_corner]
-#     while(not_found):
-#         idx = (edge_array == far_edges[-1]).all(axis = 1).nonzero()[0]
-#         if idx[0]%2 == 0:
-#             neighbour1 = edge_array[idx+1]
-#         else:
-#             neighbour1 = edge_array[idx-1]
-#         if idx[1]%2 == 0:
-#             neighbour2 = edge_array[idx+1]
-#         else:
-#             neighbour2 = edge_array[idx-1]
-
-
-
-#     return
-
-# def get_best_nbr(pt, n1, n2):
-#     s1 = n1[2] - n[1]
-#     return
-
-
-
 if __name__ == '__main__':
     rospy.init_node('Cloud_Processor')
     p = pv.Plotter()
-    # translation = [0, 0.13, -0.23]
-    # rotation = [-0.3583641, 0, 0, 0.9335819]
-    translation = [0, 0, 0]
-    rotation = [ -0.579228, 0.579228, -0.4055798, 0.4055798 ]
+    translation = [0, 0.13, -0.23]
+    rotation = [-0.3583641, 0, 0, 0.9335819]
     cs = CloudSubscriber(translation, rotation)
     rospy.spin()
-
-    # for i in range(1):
-    #     x = np.arange(40)
-    #     y = np.arange(40)
-    #     xv, yv = np.meshgrid(x, y, sparse=False, indexing='ij')
-    #     # points = np.vstack((xv.flatten(), yv.flatten(), np.random.randint(0,4, size = xv.flatten().shape[0]))).T
-    #     points = np.vstack((xv.flatten(), yv.flatten(), np.zeros((xv.flatten().shape[0])))).T
-
-    #     mesh = get_mesh(points)
-    #     # get_cell_centers(mesh)    
-    #     # edges, boundary_points = extract_boundary(mesh)
-    #     # # import ipdb; ipdb.set_trace()
-    #     # pts = get_farthest_points(boundary_points)
-    #     grid = split_mesh(mesh)
-    #     visualize_grid(mesh,grid)
-    #     # visualize_mesh(mesh)
-
-
-
-
-
-
-
-
-
-    # edge_dict = {}
-    # for i in range(edges.n_cells):
-    #     pts = np.array(edges.extract_cells(i).points)
-        
-    #     if pts[0] in edge_dict.keys():
-    #         if pts[1] in edge_dict[pts[0]]:
-    #             pass
-    #         else:
-    #             edge_dict[pts[0]] = edge_dict[pts[0]].append(list(pts[1]))
-    #     else:
-    #         edge_dict[pts[0]] = list(pts[1])
-    
-    # print(edge_dict)
