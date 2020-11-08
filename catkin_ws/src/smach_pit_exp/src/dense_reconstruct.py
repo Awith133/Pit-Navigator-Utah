@@ -45,6 +45,10 @@ stereo = cv2.StereoSGBM_create(minDisparity= min_disp,
  P1 = 8*3*win_size**2,
  P2 =32*3*win_size**2)
 
+camera = profile.get_device().first_color_sensor()
+camera.set_option(rs.option.enable_auto_exposure, 0)
+camera.set_option(rs.option.exposure, 10) # TODO: DOn't hardcode
+
 def image_cap_cb(self, msg):
     frames = pipeline.wait_for_frames()
     color_frame = frames.get_color_frame()
