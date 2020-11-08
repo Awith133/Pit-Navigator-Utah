@@ -19,10 +19,10 @@ from smach_pit_exp.msg import euler_list
 # max_width = 0.54
 # min_width = -0.54
 min_depth = 0.14
-max_depth = 0.37
+max_depth = 0.98
 
-max_width = 0.3
-min_width = -0.31
+max_width = 0.6
+min_width = -0.7
 
 
 def get_mesh(cloud_array):
@@ -203,7 +203,7 @@ def get_farthest_points(boundary_points):
 
 class CloudSubscriber:
     def __init__(self, tvec, rvec):
-        self.cloud_sub = rospy.Subscriber('/camera/depth/color/points', PointCloud2, self.cloud_sub_callback)
+        self.cloud_sub = rospy.Subscriber('/points', PointCloud2, self.cloud_sub_callback)
         # self.imu_sub = rospy.Subscriber('/apnapioneer3at/inertial_unit/roll_pitch_yaw', Imu, self.imu_sub_cb)
         self.imu_sub = rospy.Subscriber('/imu/data', Imu, self.imu_sub_cb)
         self.cloud_pub = rospy.Publisher('/processed_cloud_py3', PointCloud2, queue_size = 10)
@@ -227,7 +227,7 @@ class CloudSubscriber:
         self.flush = not self.flush
         self.alert_status = 0
         if self.flush:
-            print('Skipping Data')
+            # print('Skipping Data')
             return
         
         xyz = ros_numpy.point_cloud2.pointcloud2_to_xyz_array(msg, remove_nans=True)
@@ -244,10 +244,10 @@ class CloudSubscriber:
 
         self.mesh = self.get_mesh(self.cloud_data)
         edges, boundary_points = extract_boundary(self.mesh)
-        print("Max y val = {}".format(np.amax(boundary_points[:,1])))
-        print("Min y val = {}".format(np.amin(boundary_points[:,1])))
-        print("Min X val = {}".format(np.amin(boundary_points[:,0])))
-        print("Min X val = {}".format(np.amax(boundary_points[:,0])))
+        # print("Max y val = {}".format(np.amax(boundary_points[:,1])))
+        # print("Min y val = {}".format(np.amin(boundary_points[:,1])))
+        # print("Min X val = {}".format(np.amin(boundary_points[:,0])))
+        # print("Min X val = {}".format(np.amax(boundary_points[:,0])))
         pts = get_farthest_points(boundary_points)
 
         warn, stop = self.risk(self.mesh)
@@ -287,13 +287,21 @@ class CloudSubscriber:
         band_2 = np.vstack((grid[2].reshape((-1, 3)),grid[3].reshape((-1, 3)),grid[4].reshape((-1, 3))))
         pv_cloud = pv.PolyData(band_2)       
         near_mesh = pv_cloud.delaunay_2d()
+        unsafe_cells = [abs(near_mesh.cell_normals[:,1]) < 0.93]
+        danger_rating = np.sum(unsafe_cells) / near_mesh.n_points
+        
         grid_cell_sizes = [x.shape[0] for x in grid]
         print('Grid cell_sizes = ', grid_cell_sizes)
         far_points = sum(grid_cell_sizes[-3:])
         intermediate_points = sum(grid_cell_sizes[3:6])
+        
         if far_points < 30:
             warn = True
         if intermediate_points < 50 or far_points == 0:
+            print('Brink Detected')
+            stop = True
+        if danger_rating > 0.2:
+            print('Unsafe Slope')
             stop = True
         return warn, stop
 

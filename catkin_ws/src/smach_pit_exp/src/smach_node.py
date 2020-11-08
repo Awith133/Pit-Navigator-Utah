@@ -8,7 +8,7 @@ import pdb
 import smach_ros
 from smach import CBState
 from nav_msgs.msg import Odometry
-from std_msgs.msg import Empty, String
+from std_msgs.msg import Empty, String, Int8
 from geometry_msgs.msg import PoseStamped, PolygonStamped
 
 from tf.transformations import quaternion_from_euler
@@ -24,13 +24,14 @@ from std_msgs.msg import Float64
 from sensor_msgs.msg import Temperature
 import tf
 import time
-
+from arbotix_python.arbotix import ArbotiX
 #display image imports
 import smach_helper
 # from cloud_process import CloudSubscriber
 from sim_brinkmanship import Brinkmanship
 import sys
 
+rospy.init_node('smach_nodelet')
 translation = [0, 0.13, -0.18]
 rotation = [-0.3583641, 0, 0, 0.9335819]
 # alert_helper = CloudSubscriber(translation, rotation)
@@ -58,17 +59,15 @@ if ('Simulation' in file_locations['robot_simulation_env']):
 	if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
 		TIME_OUT = 4*160+160 #normal = 1.3 big = 1  
 else:
-<<<<<<< HEAD
-	sys.path.insert(1,file_locations['robot_simulation_env'][0:file_locations['robot_simulation_env'].rfind("/",0,-1)]+"/Brinkmanship")
-=======
 	# sys.path.insert(1,file_locations['robot_simulation_env'][0:file_locations['robot_simulation_env'].rfind("/",0,-1)]+"/Brinkmanship")
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
 	# from cloud_process import CloudSubscriber
 	# from brinkmanship import Brinkmanship
 	TIME_OUT = 80+3*160+240 + rospy.get_rostime().secs
 
 # alert_helper = CloudSubscriber(translation, rotation)
 # brink_controller = Brinkmanship()
+
+img_capture_pub = rospy.Publisher('/image_number', Int8, queue_size = 10)
 
 
 map_resolution = rospy.get_param("/resolution")
@@ -189,7 +188,6 @@ class circum_wp_cb(smach.State):
 			self.vantage_return = False
 			return
 		if(userdata.wp_around_pit[userdata.counter_wp_around_pit][3] == 1 ): #is this a vantage point? yes = 1
-			rospy.logwarn('return real life pictures')
 			# Reached vantage point
 			rospy.loginfo('Starting Brinkmanship Node')
 			#go
@@ -210,20 +208,26 @@ class circum_wp_cb(smach.State):
 			brink_controller.generate_twist_msg([0, 0, 0], [0, 0, 0])
 			brink_controller.publish_twist_msg()
 			# camera functions
-			smach_helper.display_real_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
+			if ('Simulation' in file_locations['robot_simulation_env']):
+				smach_helper.display_sim_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
+			else:
+				rospy.logwarn('return real life pictures')
+				arb = ArbotiX("/dev/ttyUSB0",115200)
+				pan_rng = [437, 512, 587, 437, 512, 587, 437, 512, 587]
+				tilt_rng = [512, 512, 512, 482, 482, 482, 452, 452, 452]
+				pan_tilt_list = zip(pan_rng, tilt_rng)
+				for idx, (pan, tilt) in enumerate(pan_tilt_list):
+					smach_helper.display_real_images(arb, pan, tilt) #relpace with pan tilt motions on robot #make it stop this one
+					img_capture_pub.publish(idx)
+					time.sleep(1)
+				rospy.logerr("Taking real imaged text in red")
 			#return
 			start_time_coming = rospy.get_rostime().secs
-<<<<<<< HEAD
-			while alert_helper.alert_flag or start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
-				brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
-				brink_controller.publish_twist_msg()
-=======
 			while start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
 				brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
 				brink_controller.publish_twist_msg()
 			brink_controller.generate_twist_msg([0, 0, 0], [0, 0, 0])
 			brink_controller.publish_twist_msg()
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
 			self.vantage_return = True
 			self.count_visited += 1
 			return
@@ -490,7 +494,6 @@ class Highway(smach.State):
 
 def main():
 	global listener, map_resolution
-	rospy.init_node('smach_nodelet')
 	listener = tf.TransformListener()
 	#state machine initialize
 	sm = smach.StateMachine(outcomes=['Mission_completed_succesfully','Mission_aborted'])

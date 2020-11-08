@@ -2,23 +2,11 @@
 	<!--  *************** Global Parameters ***************  -->
 	<env name="WEBOTS_HOME"    value="/usr/local/webots"/>
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<arg name="SYSTEM_NAME"          value="/home/pitcrew/Pit-Navigator-Utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
-	<arg name="ROBOT_SIMULATION_ARG" value="/home/pitcrew/Pit-Navigator-Utah/catkin_ws/src/Simulation_Control/Utah_Pit"/>
-	<!--rosparam file="$(arg SYSTEM_NAME)/server_parameters/parameters.yaml" command="load" /-->
-	<param name="use_sim_time" type="bool" value="true"/>
-=======
-=======
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
+
 	<arg name="SYSTEM_NAME"          value="/home/pit_crew/pit-navigator-utah/Pit-Navigator-Utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
 	<arg name="ROBOT_SIMULATION_ARG" value="/home/pit_crew/pit-navigator-utah/Pit-Navigator-Utah/catkin_ws/src/Robot_Control"/>
 	<!--rosparam file="$(arg SYSTEM_NAME)/server_parameters/parameters.yaml" command="load" /-->
 	
-<<<<<<< HEAD
->>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
-=======
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
 	<param name="system_name" type="string" value="$(arg SYSTEM_NAME)"/>
 	<param name="robot_simulation_arg" type="string" value="$(arg ROBOT_SIMULATION_ARG)"/>
 	<param name="lunar_env_path" type="string" value="$(arg ROBOT_SIMULATION_ARG)/lunar-env"/>
@@ -37,15 +25,9 @@
 
 
     <!--  *************** MAP FILE LOCATION *************** -->
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	<node name="map_server" pkg="map_server" type="map_server" args="$(arg ROBOT_SIMULATION_ARG)/map/maze.yaml" output="log">
-=======
-	<node name="map_server" pkg="map_server" type="map_server" args="$(arg ROBOT_SIMULATION_ARG)/map/maze.yaml" output="screen">
->>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
-=======
-	<node name="map_server" pkg="map_server" type="map_server" args="$(arg ROBOT_SIMULATION_ARG)/map/maze.yaml" output="screen">
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
+
         <param name="frame_id" value="map"/>
 	</node>
 	<rosparam file="$(arg ROBOT_SIMULATION_ARG)/map/maze.yaml" command="load" />
@@ -54,12 +36,6 @@
 	<param name="file_to_pit"                                    type="string" value="$(arg ROBOT_SIMULATION_ARG)/to_pit_waypoints.csv"/>
 	<param name="file_around_pit"                                type="string" value="$(arg ROBOT_SIMULATION_ARG)/around_pit_waypoints.csv"/>
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
-	
-=======
-=======
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
 	<!-- if SIMULATION-->
 	<group unless="$(eval arg('ROBOT_SIMULATION_ARG') == arg('SYSTEM_NAME') + '/catkin_ws/src/Robot_Control')">
 		<!-- ****************  WEBOTS  **************** -->
@@ -89,7 +65,6 @@
 		<param name="ticks_meter" type="int" value="6208"/>
 		<!-- motor drivers -->
 		<node pkg="blue_skid_steering" type="skid_steering_subscriber.py" name="skid_steering" output="screen"/>
-		
 		<!-- wheel odom sensor6208-->
 		
 		<node pkg="differential_drive" type="diff_tf.py" name="diff_tf" output="screen">
@@ -148,13 +123,13 @@
                                                       0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    1e-9]</rosparam>
 		</node>
 		
-		
+		<node pkg="smach_pit_exp" type="dense_reconstruct.py" name="dense_reconstruct" output="log"/>
 
+		<node name="arbotix" pkg="arbotix_python" type="arbotix_driver" output="screen">
+		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/pantilt.yaml" command="load"/>
+		</node>
 	</group>
-<<<<<<< HEAD
->>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
-=======
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
+
 
 
 
@@ -169,15 +144,7 @@
   		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/base_local_planner_params.yaml" command="load" />
 		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/costmap_converter_params.yaml" command="load" />
 		
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-		
-
-=======
->>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
-=======
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
 		<!-- *************** GLOBAL PLANNER ***************  -->
 		<!-- different planners : "carrot_planner/CarrotPlanner","global_planner/GlobalPlanner","navfn/NavfnROS", "RAstar_planner/RAstarPlannerROS", "SBPLLatticePlanner"-->
 		<param name="base_global_planner"                                      value="global_planner/GlobalPlanner"/>
@@ -196,24 +163,14 @@
 		
 		<!-- *************** LOCAL PLANNER ***************  -->
 		<!--param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" /-->
-<<<<<<< HEAD
-<<<<<<< HEAD
-		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/diff_drive/teb_local_planner_params.yaml" command="load" />
-		<param name="base_local_planner"                                       value="teb_local_planner/TebLocalPlannerROS" />
-		<param name="controller_frequency"                                     value="5.0" />
-=======
+
 		<param name="base_local_planner"                                       value="teb_local_planner/TebLocalPlannerROS" />
 		<param name="controller_frequency"                                     value="10.0" />
->>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
-=======
-		<param name="base_local_planner"                                       value="teb_local_planner/TebLocalPlannerROS" />
-		<param name="controller_frequency"                                     value="10.0" />
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
+
 		<param name="controller_patience"                                      value="15.0" />
 	</node>
 	
 	
-
 
 
 	<!-- *************** STATE MACHINE ***************  -->
@@ -232,18 +189,7 @@
 		<param name="initial_pose_a"            value="0"/>
 	</node -->
 	<arg name="auto-close" default="false" doc="Startup mode"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<node pkg="tf" type="static_transform_publisher" name="odom_map_publisher" args="0 0 0 0 0 1.570796326  /map /odom  1"/>
-	<node pkg="tf" type="static_transform_publisher" name="odom_noisy_map_publisher" args="0 0 0 0 0 1.570796326  /map /noisy_odom  1"/>
-	<node pkg="tf" type="static_transform_publisher" name="camera_base_link_publisher" args="0.23 0 0.18 -1.570796326 0 -1.570796326  /base_link /apnapioneer3at/MultiSense_S21_meta_range_finder 1"/>
 
-=======
-	
->>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
-=======
-	
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
 
 
 
@@ -251,38 +197,9 @@
 	<!--  **************** Visualisation ****************  -->
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(arg ROBOT_SIMULATION_ARG)/rviz_navigation.rviz"/>
 	<arg name="show_viz" default="1"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<include file="$(find visualization)/launch/test2.launch"/>
 
-
-
-
-	<!-- ****************  WEBOTS  **************** -->
-    <arg name="no-gui" default="false," doc="Start Webots with minimal GUI"/>
-    <include file="$(find webots_ros)/launch/webots.launch">
-      <!--    starting sim mode v pause realtime run-->
-	  <arg name="mode" value="pause"/> 
-      <arg name="no-gui" value="$(arg no-gui)"/>
-      <arg name="world" value="$(arg ROBOT_SIMULATION_ARG)/lunar-env/worlds/webots_world_nearPit.wbt"/>
-    </include>
-	<node name="pioneer3at" pkg="webots_control" type="pioneer3at.py" required="$(arg auto-close)" output="log"/>
-
-=======
-=======
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
 	<!--include file="$(find visualization)/launch/test2.launch"/-->
 
-
-
-	
-<<<<<<< HEAD
->>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
-=======
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
-
-
-	
 
 	<!-- ****************  NODELETS  **************** -->
 	<node pkg="nodelet" type="nodelet" args="manager" name="record_player_manager" output="log"/>
@@ -292,15 +209,9 @@
 	<node pkg="nodelet" type="nodelet" name="cloudify" args="load depth_image_proc/point_cloud_xyz record_player_manager --no-bond">
 		<remap from="camera_info" to="/apnapioneer3at/MultiSense_S21_meta_range_finder/camera_info"/>
 		<remap from="image_rect" to="/apnapioneer3at/MultiSense_S21_meta_range_finder/range_image"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-	</node >
-=======
+
 	</node>
->>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
-=======
-	</node>
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
+
 
 	<!--node pkg="nodelet" type="nodelet" name="passthrough" args="load pcl/PassThrough pcl_manager" output="log">
 		<remap from="~input" to="/points" />

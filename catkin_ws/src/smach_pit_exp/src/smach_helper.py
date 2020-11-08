@@ -10,6 +10,8 @@ import subprocess
 import rospy
 from std_msgs.msg import Int8
 
+PT_SPEED = 8
+
 class BrinkStatus:
     def __init__(self):
         # self.edge_sub = rospy.Subscriber('/edge_alert', Bool, self.edge_alert_cb)             # USING A DIFFERENT METHOD
@@ -23,64 +25,11 @@ class BrinkStatus:
         self.alert_flag = msg.data
         return
 
-def display_real_images(userdata, file_locations):
-    time.sleep(1)
-    images_folder = file_locations['robot_simulation_env'] + '/lunar-env/images/'
+def display_real_images(arb, pan, tilt):
+    rospy.logerr("move damn it")
+    pan_tilt_to_pos(arb, pan, tilt)
+    return
     
-    grep = images_folder + str(userdata.wp_around_pit[userdata.counter_wp_around_pit][5])+ '_' +str(userdata.wp_around_pit[userdata.counter_wp_around_pit][6])+ '_'+'2_1_1_0_0.png'
-    #smalldst = images_folder+iteration[userdata.counter_wp_around_pit][0] +'_'+iteration[userdata.counter_wp_around_pit][1]+'/'
-    #smallgrep = iteration[userdata.counter_wp_around_pit][0] + '_' +iteration[userdata.counter_wp_around_pit][1]+ '_'+ '2_1_1_*_*.png'
-    #import os
-    ##method 4
-    #if not os.path.exists(smalldst):
-    #os.mkdir(smalldst)
-    
-    list1 = glob.glob(grep)
-    def compare(x, y):
-        partsOfX = x.split('_')
-        partsOfY = y.split('_')
-        integerListx = [int(partsOfX[5]),int(partsOfX[6].split('.')[0])*100]
-        integerListy = [int(partsOfY[5]),int(partsOfY[6].split('.')[0])*100]
-        return integerListx[0] - integerListy[0]+ integerListy[1]- integerListx[1]
-    list1.sort(cmp= compare)
-    
-    #i = 0
-    for filename in list1:
-        #make method 4
-        #from shutil import copyfile
-        #dst = smalldst+'{0}.png'.format(str(i).zfill(3))
-        #i+=1
-        #copyfile(filename, dst)
-
-        #method#3
-        viewer = subprocess.Popen(['eog', filename])
-        time.sleep(2)
-        viewer.terminate()
-        viewer.kill()
-        
-        #method2
-        #img=mpimg.imread(filename)
-        #imgplot = plt.imshow(img)
-        #plt.show(block=False)
-        #plt.pause(1)
-        #plt.close()
-
-        #method1
-        #image = cv2.imread(filename)
-        #print('1')
-        #cv2.imshow('image',image)
-        #cv2.waitKey(1000)
-        #cv2.destroyAllWindows()
-        
-    #make method 4
-    #location = file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/'
-    #subprocess.call("{0}makeVantagegif.sh {1} {2}".format(location,smalldst,smallgrep),shell=True)
-    #else:
-        #method 4
-        #viewer = subprocess.Popen(['eog', smalldst+smallgrep+'.gif'])
-        #time.sleep(14)
-        #viewer.terminate()
-        #viewer.kill()
         
 def display_sim_images(images, file_location):
     time.sleep(1)
@@ -101,7 +50,21 @@ def display_sim_images(images, file_location):
         viewer.terminate()
         viewer.kill()
 
+def pan_tilt_to_pos(arb, pan, tilt):
+    pan_pos = arb.getPosition(1)
+    tilt_pos = arb.getPosition(2)
 
+    while (abs(pan_pos - pan) > 5 or abs(tilt_pos - tilt) > 5):
+        pan_move = min(PT_SPEED, abs(pan - pan_pos)) * (1 if pan >= pan_pos else -1)
+        tilt_move = min(PT_SPEED, abs(tilt - tilt_pos)) * (1 if tilt >= tilt_pos else -1)
+
+        arb.setPosition(1, pan_pos + pan_move)
+        arb.setPosition(2, tilt_pos + tilt_move)
+
+        pan_pos = arb.getPosition(1)
+        tilt_pos = arb.getPosition(2)
+
+    return
 
 def show_model(model,file_locations):
 
