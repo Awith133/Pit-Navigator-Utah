@@ -123,7 +123,7 @@
                                                       0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    1e-9]</rosparam>
 		</node>
 		
-		<node pkg="smach_pit_exp" type="dense_reconstruct.py" name="dense_reconstruct" output="log"/>
+		<!-- <node pkg="smach_pit_exp" type="dense_reconstruct.py" name="dense_reconstruct" output="screen"/> -->
 
 		<node name="arbotix" pkg="arbotix_python" type="arbotix_driver" output="screen">
 		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/pantilt.yaml" command="load"/>

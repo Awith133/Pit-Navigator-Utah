@@ -8,7 +8,7 @@ import pdb
 import smach_ros
 from smach import CBState
 from nav_msgs.msg import Odometry
-from std_msgs.msg import Empty, String, Int8
+from std_msgs.msg import Empty, String, Int32
 from geometry_msgs.msg import PoseStamped, PolygonStamped
 
 from tf.transformations import quaternion_from_euler
@@ -67,9 +67,9 @@ else:
 # alert_helper = CloudSubscriber(translation, rotation)
 # brink_controller = Brinkmanship()
 
-img_capture_pub = rospy.Publisher('/image_number', Int8, queue_size = 10)
+img_capture_pub = rospy.Publisher('/image_number', Int32, queue_size = 10)
 
-
+arb = ArbotiX("/dev/ttyUSB0",115200)
 map_resolution = rospy.get_param("/resolution")
 halfway_point = len(smach_helper.read_csv_around_pit(file_locations['file_around_pit'],map_resolution))/2
 
@@ -195,9 +195,9 @@ class circum_wp_cb(smach.State):
 			while alert_helper.alert_flag != 2:
 				if alert_helper.is_published:
 					if alert_helper.alert_flag == 0:
-						brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
+						brink_controller.generate_twist_msg([0.075, 0, 0], [0, 0, 0])
 					else:
-						brink_controller.generate_twist_msg([0.05, 0, 0], [0, 0, 0])
+						brink_controller.generate_twist_msg([0.075, 0, 0], [0, 0, 0])
 					brink_controller.publish_twist_msg()
 					alert_helper.is_published = False
 				else:
@@ -212,22 +212,26 @@ class circum_wp_cb(smach.State):
 				smach_helper.display_sim_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
 			else:
 				rospy.logwarn('return real life pictures')
-				arb = ArbotiX("/dev/ttyUSB0",115200)
+
 				pan_rng = [437, 512, 587, 437, 512, 587, 437, 512, 587]
 				tilt_rng = [512, 512, 512, 482, 482, 482, 452, 452, 452]
 				pan_tilt_list = zip(pan_rng, tilt_rng)
 				for idx, (pan, tilt) in enumerate(pan_tilt_list):
 					smach_helper.display_real_images(arb, pan, tilt) #relpace with pan tilt motions on robot #make it stop this one
-					img_capture_pub.publish(idx)
+					img_capture_pub.publish(idx*100+userdata.counter_wp_around_pit)
 					time.sleep(1)
 				rospy.logerr("Taking real imaged text in red")
+				# Reset Motor Pose
+				smach_helper.pan_tilt_to_pos(arb, 512, 445)
 			#return
 			start_time_coming = rospy.get_rostime().secs
-			while start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
-				brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
-				brink_controller.publish_twist_msg()
+			#while start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
+			brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
+			brink_controller.publish_twist_msg()
+			time.sleep(int((end_time_going-start_time_going)*3/4))
 			brink_controller.generate_twist_msg([0, 0, 0], [0, 0, 0])
 			brink_controller.publish_twist_msg()
+			time.sleep(1)
 			self.vantage_return = True
 			self.count_visited += 1
 			return
@@ -495,7 +499,12 @@ class Highway(smach.State):
 def main():
 	global listener, map_resolution
 	listener = tf.TransformListener()
+	
+	# Reset Motor Pose
+	smach_helper.pan_tilt_to_pos(arb, 512, 445)
+	
 	#state machine initialize
+
 	sm = smach.StateMachine(outcomes=['Mission_completed_succesfully','Mission_aborted'])
 	sm.userdata.q                       = 5 # size of the array given # i dunno what this is and its not used ever TODO decide wether or not to keep this
 	sm.userdata.counter_wp_2_pit        = -1

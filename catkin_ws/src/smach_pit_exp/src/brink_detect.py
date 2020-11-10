@@ -18,11 +18,11 @@ from smach_pit_exp.msg import euler_list
 
 # max_width = 0.54
 # min_width = -0.54
-min_depth = 0.14
-max_depth = 0.98
+min_depth = 0.15
+max_depth = 0.8
 
-max_width = 0.6
-min_width = -0.7
+max_width = 0.5
+min_width = -0.6
 
 
 def get_mesh(cloud_array):
@@ -84,16 +84,16 @@ def split_mesh(mesh):
     cell_verts_list = cell_verts_list[sorted_args]      # cell vertices sorted along the z-axis
     centers = centers[sorted_args]                      # cell centers sorted along the z-axis
 
-    z_band_1 = cell_verts_list[centers[:,0] > max_depth + (min_depth - max_depth)/3]
-    cell_verts_list = cell_verts_list[centers[:,0] <= max_depth + (min_depth - max_depth)/3]
+    z_band_1 = cell_verts_list[centers[:,0] < min_depth + (max_depth - min_depth)/3]
+    cell_verts_list = cell_verts_list[centers[:,0] >= min_depth + (max_depth - min_depth)/3]
 
-    c1 = centers[centers[:,0] > max_depth + (min_depth - max_depth)/3]
-    centers = centers[centers[:,0] <= max_depth + (min_depth - max_depth)/3]
-    c2 = centers[centers[:,0] > max_depth + 2*(min_depth - max_depth)/3]
-    c3 = centers[centers[:,0] <= max_depth + 2*(min_depth - max_depth)/3]
+    c1 = centers[centers[:,0] < min_depth + (max_depth - min_depth)/3]
+    centers = centers[centers[:,0] >= min_depth + (max_depth - min_depth)/3]
+    c2 = centers[centers[:,0] < min_depth + 2*(max_depth - min_depth)/3]
+    c3 = centers[centers[:,0] >= min_depth + 2*(max_depth - min_depth)/3]
     
-    z_band_2 = cell_verts_list[centers[:,0] > max_depth + 2*(min_depth - max_depth)/3]
-    z_band_3 = cell_verts_list[centers[:,0] <= max_depth + 2*(min_depth - max_depth)/3]
+    z_band_2 = cell_verts_list[centers[:,0] < min_depth + 2*(max_depth - min_depth)/3]
+    z_band_3 = cell_verts_list[centers[:,0] >= min_depth + 2*(max_depth - min_depth)/3]
 
     z_bands = [z_band_1, z_band_2, z_band_3]
     cen = [c1, c2, c3]
@@ -161,7 +161,7 @@ def visualize_mesh(mesh, points = None, edges = None, color_pt = None):
             Points: Numpy array containing points to be visualized
             Edges: Pyvista object containing edge information (obtained from extract_edges)
     '''
-    p.add_mesh(mesh, show_edges=True, color=True, name = 'mesh')
+    p.add_mesh(mesh, scalars = [abs(mesh.cell_normals[:,2]) < 0.93], show_edges=True, color=True, name = 'mesh')
     if edges is not None:
         p.add_mesh(edges, color="blue", line_width=5, name = 'edges')
     if points is not None:
@@ -232,22 +232,26 @@ class CloudSubscriber:
         
         xyz = ros_numpy.point_cloud2.pointcloud2_to_xyz_array(msg, remove_nans=True)
         xyz = xyz[xyz[:,2] > 0.1]
-        xyz = xyz[xyz[:,2] < 1]
+        xyz = xyz[xyz[:,2] < 0.8]
         if xyz.shape[0] == 0:
             return
-        # rand_vec = np.random.randint(0, xyz.shape[0], size = xyz.shape[0]//3)
-        # xyz = xyz[rand_vec]
-        print(xyz.shape)
-        print('One Step')
+        rand_vec = np.random.randint(0, xyz.shape[0], size = xyz.shape[0]//2)
+        xyz = xyz[rand_vec]
+        # print(xyz.shape)
+        # print('One Step')
         self.H = self.get_transformation_matrix(self.tvec, self.rvec)
         self.cloud_data = self.transform_cloud(xyz, self.H)
-
+        self.cloud_data = self.cloud_data[self.cloud_data[:,2] < 0]
+        avg_z = np.mean(self.cloud_data[:,2])
+        # print(avg_z)
+        self.cloud_data = self.cloud_data[self.cloud_data[:,2] > 1.3*avg_z ]
+        self.cloud_data = self.cloud_data[self.cloud_data[:,2] < 0.8*avg_z ]
         self.mesh = self.get_mesh(self.cloud_data)
         edges, boundary_points = extract_boundary(self.mesh)
-        # print("Max y val = {}".format(np.amax(boundary_points[:,1])))
-        # print("Min y val = {}".format(np.amin(boundary_points[:,1])))
-        # print("Min X val = {}".format(np.amin(boundary_points[:,0])))
-        # print("Min X val = {}".format(np.amax(boundary_points[:,0])))
+        print("Max y val = {}".format(np.amax(boundary_points[:,1])))
+        print("Min y val = {}".format(np.amin(boundary_points[:,1])))
+        print("Min X val = {}".format(np.amin(boundary_points[:,0])))
+        print("Min X val = {}".format(np.amax(boundary_points[:,0])))
         pts = get_farthest_points(boundary_points)
 
         warn, stop = self.risk(self.mesh)
@@ -284,12 +288,14 @@ class CloudSubscriber:
         stop = False
         grid = split_mesh(mesh)
         # band_1 = np.vstack((grid[0].reshape((-1, 3)),grid[1].reshape((-1, 3)),grid[2].reshape((-1, 3))))
-        band_2 = np.vstack((grid[2].reshape((-1, 3)),grid[3].reshape((-1, 3)),grid[4].reshape((-1, 3))))
+        band_2 = np.vstack((grid[3].reshape((-1, 3)),grid[4].reshape((-1, 3)),grid[5].reshape((-1, 3))))
+        # self.publish_processed_cloud(band2)
         pv_cloud = pv.PolyData(band_2)       
         near_mesh = pv_cloud.delaunay_2d()
-        unsafe_cells = [abs(near_mesh.cell_normals[:,1]) < 0.93]
+        unsafe_cells = [abs(near_mesh.cell_normals[:,2]) < 0.93]
         danger_rating = np.sum(unsafe_cells) / near_mesh.n_points
         
+#        visualize_mesh(near_mesh)
         grid_cell_sizes = [x.shape[0] for x in grid]
         print('Grid cell_sizes = ', grid_cell_sizes)
         far_points = sum(grid_cell_sizes[-3:])
@@ -297,12 +303,16 @@ class CloudSubscriber:
         
         if far_points < 30:
             warn = True
-        if intermediate_points < 50 or far_points == 0:
+        if intermediate_points < 40 and far_points == 0:
             print('Brink Detected')
             stop = True
-        if danger_rating > 0.2:
+        if intermediate_points < 20:
+            print('Brink Detected')
+            stop = True
+        if danger_rating > 0.4:
             print('Unsafe Slope')
             stop = True
+        # print(danger_rating)
         return warn, stop
 
     def near_unsafe_slope(self, surf):
@@ -311,13 +321,12 @@ class CloudSubscriber:
         band_1 = np.vstack((grid[0].reshape((-1, 3)),grid[1].reshape((-1, 3)),grid[2].reshape((-1, 3))))
         pv_cloud = pv.PolyData(band_1)       
         near_mesh = pv_cloud.delaunay_2d()
-        # visualize_mesh(near_mesh)
         # visualize_grid(surf, grid)
         # Check how many cells in front of rover are untraversable
         unsafe_cells = [abs(near_mesh.cell_normals[:,1]) < 0.93]
         danger_rating = np.sum(unsafe_cells) / near_mesh.n_points
-        print('Near unsafe slope : ', danger_rating > 0.2)
-        return danger_rating > 0.2 
+        print('Near unsafe slope : ', danger_rating > 0.1)
+        return danger_rating > 0.15
 
     def near_brink(self, surf, thresh):
         edges, boundary_points = extract_boundary(surf)

@@ -7,11 +7,12 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 import std_msgs
-from std_msgs.msg import String
+from std_msgs.msg import String, Int32
 from sensor_msgs.msg import PointCloud2
 import sensor_msgs.point_cloud2 as pcl2
 import rospy
-
+import time
+import imutils
 # Uncomment plt.ion() while visualizing the depthmap using matplotlib
 plt.ion()
 
@@ -20,6 +21,8 @@ pipeline = rs.pipeline()
 config = rs.config()
 config.enable_stream(rs.stream.infrared, 1, 640, 480, rs.format.y8, 30)
 config.enable_stream(rs.stream.infrared, 2, 640, 480, rs.format.y8, 30)
+config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+config.enable_record_to_file('image.bag')
 profile = pipeline.start(config)
 
 # matrix containing the camera parameters
@@ -49,12 +52,23 @@ camera = profile.get_device().first_color_sensor()
 camera.set_option(rs.option.enable_auto_exposure, 0)
 camera.set_option(rs.option.exposure, 10) # TODO: DOn't hardcode
 
-def image_cap_cb(self, msg):
+pan_img_list = []
+stitcher = cv2.createStitcher() if imutils.is_cv3() else cv2.Stitcher_create()
+ 
+def image_cap_cb(msg):
     frames = pipeline.wait_for_frames()
-    color_frame = frames.get_color_frame()
-    color_image = np.asanyarray(color_frame.get_data())
-    cv2.imwrite('/home/pit_crew/panorama_images/single' + str(msg.data) + '.jpg')
-
+    bw_frame = frames.get_color_frame()
+    bw_image = np.asanyarray(bw_frame.get_data())
+    img_section = cv2.imwrite('/home/pit_crew/panorama_images/single' + str(msg.data) + '.jpg', bw_image)
+    print(bw_image.shape)
+    pan_img_list.append(bw_image)
+    if ((msg.data/100 +1) % 3 == 0):
+        time.sleep(1)
+        (status, stitched_img) = stitcher.stitch(pan_img_list)
+        print('Panorama Status = {}'.format(status))
+        cv2.imwrite('/home/pit_crew/panorama_images/pano' + str(msg.data) + '.jpg', stitched_img)
+        time.sleep(1)
+        del pan_img_list[:]
 
 if __name__ == '__main__':
 
@@ -62,7 +76,7 @@ if __name__ == '__main__':
     rospy.init_node('Stereo_Reconstruction_Node')
     cloud_pub = rospy.Publisher('points', PointCloud2, queue_size = 1)
     # alert_pub = rospy.Publisher('alert_message_dense', String, queue_size = 10)
-    pano_sub = rospy.Subscriber('image_number', Int8, image_cap_cb)
+    pano_sub = rospy.Subscriber('image_number', Int32, image_cap_cb)
 
     try:
         while not rospy.is_shutdown():
