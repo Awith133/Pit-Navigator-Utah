@@ -24,7 +24,6 @@ from std_msgs.msg import Float64
 from sensor_msgs.msg import Temperature
 import tf
 import time
-from arbotix_python.arbotix import ArbotiX
 #display image imports
 import smach_helper
 # from cloud_process import CloudSubscriber
@@ -47,11 +46,11 @@ file_locations = {
 	'robot_simulation_env':rospy.get_param("/robot_simulation_arg"),}
 if ('Simulation' in file_locations['robot_simulation_env']):
 	sys.path.insert(1,file_locations['robot_simulation_env'][0:file_locations['robot_simulation_env'].rfind("/",0,-1)]+"/webots_control/src")
-	from cloud_process import CloudSubscriber
-	from sim_brinkmanship import Brinkmanship
-	
+	import os
+	if (os.path.isfile(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv')): 
+		os.remove(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv')
 	if ('Utah_Pit' in file_locations['robot_simulation_env']):
-		TIME_OUT = 2200*1.3 #normal = 1.3 big = 1 
+		TIME_OUT = 2200*4 #one shot 2200*1.3, #3 shots = 2200*3
 	if ('Utah_BIG' in file_locations['robot_simulation_env']):
 		TIME_OUT = 2200*1 #normal = 1.3 big = 1 
 	if ('Lacus_Mortis_Pit' in file_locations['robot_simulation_env']):
@@ -62,14 +61,14 @@ else:
 	# sys.path.insert(1,file_locations['robot_simulation_env'][0:file_locations['robot_simulation_env'].rfind("/",0,-1)]+"/Brinkmanship")
 	# from cloud_process import CloudSubscriber
 	# from brinkmanship import Brinkmanship
+	from arbotix_python.arbotix import ArbotiX
 	TIME_OUT = 80+3*160+240 + rospy.get_rostime().secs
+	arb = ArbotiX("/dev/ttyUSB0",115200)
 
-# alert_helper = CloudSubscriber(translation, rotation)
-# brink_controller = Brinkmanship()
 
 img_capture_pub = rospy.Publisher('/image_number', Int32, queue_size = 10)
 
-arb = ArbotiX("/dev/ttyUSB0",115200)
+
 map_resolution = rospy.get_param("/resolution")
 halfway_point = len(smach_helper.read_csv_around_pit(file_locations['file_around_pit'],map_resolution))/2
 
@@ -143,8 +142,6 @@ class Lander2Pit(smach.State):
 			rate.sleep()
 			if smach_helper.step_flag and not smach_helper.charging:
 				smach_helper.step_flag = False
-				while userdata.counter_wp_2_pit == 4:  ##TODO remove after testing
-					rate.sleep()
 				self.nextwaypoint(userdata,1)
 			if smach_helper.abort_flag:
 				smach_helper.abort_flag = False
@@ -186,7 +183,6 @@ class circum_wp_cb(smach.State):
 			smach_helper.timekeeper('navAROUNDPIT',self.start_time,self.end_time,file_locations)
 			self.start_time = rospy.get_rostime().secs
 			self.vantage_return = False
-			return
 		if(userdata.wp_around_pit[userdata.counter_wp_around_pit][3] == 1 ): #is this a vantage point? yes = 1
 			# Reached vantage point
 			rospy.loginfo('Starting Brinkmanship Node')
@@ -234,7 +230,6 @@ class circum_wp_cb(smach.State):
 			time.sleep(1)
 			self.vantage_return = True
 			self.count_visited += 1
-			return
 
 	def nextwaypoint(self,userdata,num):
 		#moving on to next waypoint
@@ -245,11 +240,11 @@ class circum_wp_cb(smach.State):
 			self.count_visited = 0
 			userdata.counter_wp_around_pit -= 1
 			self.success_flag = True
-		# elif self.count_visited >= self.risk_safe:
-		# 	rospy.logerr("Risk too high - returning home")
-		# 	self.count_visited = 0
-		# 	userdata.counter_wp_around_pit -= 1
-		# 	self.success_flag = True
+		elif self.count_visited >= self.risk_safe:
+			rospy.logerr("Risk too high - returning home")
+			self.count_visited = 0
+			userdata.counter_wp_around_pit -= 1
+			self.success_flag = True
 		else:
 			self.global_wp_nav(userdata)
 			
@@ -501,7 +496,8 @@ def main():
 	listener = tf.TransformListener()
 	
 	# Reset Motor Pose
-	smach_helper.pan_tilt_to_pos(arb, 512, 445)
+	if (not 'Simulation' in file_locations['robot_simulation_env']):
+		smach_helper.pan_tilt_to_pos(arb, 512, 445)
 	
 	#state machine initialize
 

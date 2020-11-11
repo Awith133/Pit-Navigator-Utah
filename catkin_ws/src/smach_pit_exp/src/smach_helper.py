@@ -31,10 +31,12 @@ def display_real_images(arb, pan, tilt):
     return
     
         
-def display_sim_images(images, file_location):
+def display_sim_images(userdata, file_location):
     time.sleep(1)
-    images_folder = file_location + '/lunar-env/images/'
-    grep = images_folder + str(images[0])+ '_' +str(images[1])+ '_'+'2_1_1_0_0.png'
+    if False:
+        print("capture new picture")
+    images_folder = file_location['robot_simulation_env'] + '/lunar-env/images/'
+    grep = images_folder + str(userdata.wp_around_pit[userdata.counter_wp_around_pit][5])+ '_' +str(userdata.wp_around_pit[userdata.counter_wp_around_pit][6])+ '_'+'2_1_1_0_0.png'
     list1 = glob.glob(grep)
     def compare(x, y):
         partsOfX = x.split('_')
@@ -191,15 +193,15 @@ def time_estimations(file_locations , estimation=None):
     reader = csv.reader(csvfile)
     if ('Simulation' in file_locations['robot_simulation_env']):
         if ('Utah_Pit' in file_locations['robot_simulation_env']):
-            average = [80, 78, 567, 132]
+            average = [270, 200, 355, 1200] #Lander2Pit,Navaroundpit,pit2lander,highway
         if ('Utah_BIG' in file_locations['robot_simulation_env']):
-            average = [80, 78, 567, 132]
+            average = [80, 78, 567, 132] #Lander2Pit,Navaroundpit,pit2lander,highway
         if ('Lacus_Mortis_Pit' in file_locations['robot_simulation_env']):
-            average = [800, 780, 5670, 1320]
+            average = [800, 780, 5670, 1320] #Lander2Pit,Navaroundpit,pit2lander,highway
         if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
-            average = [10, 160, 15, 25] 
+            average = [10, 160, 15, 25] #Lander2Pit,Navaroundpit,pit2lander,highway
     else:
-        average = [80, 160, 120, 120]
+        average = [80, 160, 120, 120] #Lander2Pit,Navaroundpit,pit2lander,highway
     
     output = average[:]
     count = [0,0,0,0]
