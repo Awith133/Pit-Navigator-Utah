@@ -50,7 +50,7 @@ if ('Simulation' in file_locations['robot_simulation_env']):
 	if (os.path.isfile(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv')): 
 		os.remove(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv')
 	if ('Utah_Pit' in file_locations['robot_simulation_env']):
-		TIME_OUT = 2200*4 #one shot 2200*1.3, #3 shots = 2200*3
+		TIME_OUT = 2200*4.1 #one shot 2200*1.3, #3 shots = 2200*3
 	if ('Utah_BIG' in file_locations['robot_simulation_env']):
 		TIME_OUT = 2200*1 #normal = 1.3 big = 1 
 	if ('Lacus_Mortis_Pit' in file_locations['robot_simulation_env']):
@@ -240,7 +240,7 @@ class circum_wp_cb(smach.State):
 			self.count_visited = 0
 			userdata.counter_wp_around_pit -= 1
 			self.success_flag = True
-		elif self.count_visited >= self.risk_safe:
+		elif self.count_visited >= self.risk_safe and not userdata.wp_around_pit[userdata.counter_wp_around_pit-num][3] == 1:
 			rospy.logerr("Risk too high - returning home")
 			self.count_visited = 0
 			userdata.counter_wp_around_pit -= 1
