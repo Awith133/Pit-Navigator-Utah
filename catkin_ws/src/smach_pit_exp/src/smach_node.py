@@ -37,6 +37,21 @@ rotation = [-0.3583641, 0, 0, 0.9335819]
 # alert_helper = CloudSubscriber(translation, rotation)
 brink_controller = Brinkmanship()
 
+pitch_angle = rospy.get_param('/pitch_angle', 20)
+
+
+GLOBAL_PITCH_COUNT = 445			# 20 DEG PITCH
+
+if pitch_angle == 40:
+	GLOBAL_PITCH_COUNT = 378			# 40 DEG PITCH
+if pitch_angle == 45:
+	GLOBAL_PITCH_COUNT = 361			# 45 DEG PITCH
+if pitch_angle == 50:
+	GLOBAL_PITCH_COUNT = 345			# 60 DEG PITCH
+if pitch_angle == 60:
+	GLOBAL_PITCH_COUNT = 311			# 60 DEG PITCH
+
+
 GLOBAL_RADIUS = .45
 GLOBAL_RADIUS2 = 1
 YAW_THRESH = 0.16 #10 deg
@@ -69,7 +84,7 @@ else:
 
 img_capture_pub = rospy.Publisher('/image_number', Int32, queue_size = 10)
 
-arb = ArbotiX("/dev/ttyUSB0",115200)
+arb = ArbotiX("/dev/ttyUSB1",115200)
 map_resolution = rospy.get_param("/resolution")
 halfway_point = len(smach_helper.read_csv_around_pit(file_locations['file_around_pit'],map_resolution))/2
 
@@ -179,6 +194,7 @@ class circum_wp_cb(smach.State):
 		self.first_waypoint = True
 
 	def atThisWaypoint(self,userdata):
+		global GLOBAL_PITCH_COUNT
 		#made it and ready to move on - anything to do here?
 		if(self.vantage_return ):
 			rospy.logwarn('vantage return')
@@ -222,7 +238,7 @@ class circum_wp_cb(smach.State):
 					time.sleep(1)
 				rospy.logerr("Taking real imaged text in red")
 				# Reset Motor Pose
-				smach_helper.pan_tilt_to_pos(arb, 512, 445)
+				smach_helper.pan_tilt_to_pos(arb, 512, GLOBAL_PITCH_COUNT)
 			#return
 			start_time_coming = rospy.get_rostime().secs
 			#while start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
@@ -497,11 +513,13 @@ class Highway(smach.State):
 		return 'mission_ongoing'
 
 def main():
-	global listener, map_resolution
+	global listener, map_resolution, GLOBAL_PITCH_COUNT
 	listener = tf.TransformListener()
 	
 	# Reset Motor Pose
-	smach_helper.pan_tilt_to_pos(arb, 512, 445)
+
+	smach_helper.pan_tilt_to_pos(arb, 512, GLOBAL_PITCH_COUNT)
+
 	
 	#state machine initialize
 

@@ -1,4 +1,4 @@
-port: /dev/ttyUSB0
+port: /dev/ttyUSB1
 rate: 15
 dynamixels: {
     head_pan_joint: {id: 1, invert: true},

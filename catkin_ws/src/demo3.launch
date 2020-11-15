@@ -19,7 +19,7 @@
 	<param name="/battery/arc_energy_out"       value="10"/>   <!--#Watt per second-->
 	<param name="/battery/drive_energy_out"     value="5"/>    <!--#Watt per second-->
 	<param name="/battery/solar_peak"           value="50"/>   <!--#Watt per second-->
-
+	<param name="/pitch_angle"					value="40"/>
 
 
 
