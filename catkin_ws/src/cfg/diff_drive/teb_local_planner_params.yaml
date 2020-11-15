@@ -1,14 +1,7 @@
 TebLocalPlannerROS:
 
-<<<<<<< HEAD
-<<<<<<< HEAD
- odom_topic: odometry_ground_truth #this makes me nervous
-=======
+
  odom_topic: odommetry_ground_truth #this makes me nervous - was odoetry_ground_truth
->>>>>>> 3dc8bfe06b4db08c5f7260cd56aafa3a2dbfc1e3
-=======
- odom_topic: odommetry_ground_truth #this makes me nervous - was odoetry_ground_truth
->>>>>>> 320633c487afe1f01e0afb2cbaf1c39cc4e95fa4
 
  # Trajectory
 
@@ -27,12 +20,12 @@ TebLocalPlannerROS:
 
  # Robot
 
- max_vel_x: 0.11 #default .64 #units: m/s
- max_vel_x_backwards: 0.11 #default .1
+ max_vel_x: 0.64 #default .64 #units: m/s
+ max_vel_x_backwards: 0.64 #default .1
  max_vel_y: 0
- max_vel_theta: 1.2 #default 3.036 #1.2 is radians per second
+ max_vel_theta: 3 #default 3.036 #1.2 is radians per second
  acc_lim_x: .11 #default .5
- acc_lim_theta: 1.2 #default 3
+ acc_lim_theta: 3 #default 3
  min_turning_radius: 0.0 # diff-drive robot (can turn in place!)
  wheelbase: 0.266
 

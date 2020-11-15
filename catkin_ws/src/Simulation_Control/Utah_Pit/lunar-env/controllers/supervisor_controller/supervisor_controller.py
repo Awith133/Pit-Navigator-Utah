@@ -349,7 +349,7 @@ while(supervisor.step(TIME_STEP)!=-1):
         msg.header.frame_id = "base_link"
         msg.temperature = battery_charge/total_battery_charge*100
         msg.variance = 0
-        battery_charge_publisher.publish(msg)
+        #battery_charge_publisher.publish(msg)
         #rospy.set_param("/battery/charge",battery_charge/total_battery_charge)
         
         prev_second = time
