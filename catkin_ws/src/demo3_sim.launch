@@ -3,8 +3,8 @@
 	<env name="WEBOTS_HOME"    value="/usr/local/webots"/>
 	
 
-	<arg name="SYSTEM_NAME"          value="/home/pit_crew/pit-navigator-utah/Pit-Navigator-Utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
-	<arg name="ROBOT_SIMULATION_ARG" value="/home/pit_crew/pit-navigator-utah/Pit-Navigator-Utah/catkin_ws/src/Simulation_Control/Utah_Pit"/>
+	<arg name="SYSTEM_NAME"          value="/home/pitcrew/Pit-Navigator-Utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
+	<arg name="ROBOT_SIMULATION_ARG" value="/home/pitcrew/Pit-Navigator-Utah/catkin_ws/src/Simulation_Control/Utah_Pit"/>
 	<!--rosparam file="$(arg SYSTEM_NAME)/server_parameters/parameters.yaml" command="load" /-->
 	
 	<param name="system_name" type="string" value="$(arg SYSTEM_NAME)"/>
@@ -184,7 +184,6 @@
 	<!-- *************** LOCALIZATION ***************  -->
 	<!--node pkg="amcl" type="amcl" name="amcl" output="log">
 		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/amcl_params.yaml" command="load" />
-
 	    <param name="initial_pose_x"            value="1"/>
 		<param name="initial_pose_y"            value="-1"/>
 		<param name="initial_pose_a"            value="0"/>

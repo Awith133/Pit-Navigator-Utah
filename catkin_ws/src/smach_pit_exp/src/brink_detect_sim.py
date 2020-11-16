@@ -232,6 +232,7 @@ class CloudSubscriber:
         print('Grid cell_sizes = ', grid_cell_sizes)
         far_points = sum(grid_cell_sizes[-3:])
         intermediate_points = sum(grid_cell_sizes[3:6])
+        visualize_mesh(near_mesh)
         if far_points < 30:
             warn = True
         if intermediate_points < 50 or far_points == 0:

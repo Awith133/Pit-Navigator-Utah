@@ -20,3 +20,4 @@ catkin_ws/devel
 catkin_ws/CMakeLists.txt
 
 catkin_ws/src/Simulation_Control/Utah_Pit/lunar-env/protos/*
+catkin_ws/src/smach_pit_exp/src/timekeeping.csv
