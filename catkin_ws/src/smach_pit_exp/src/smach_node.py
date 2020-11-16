@@ -4,7 +4,7 @@ import rospy
 import math
 import smach
 import pdb
-
+import cv2
 import smach_ros
 from smach import CBState
 from nav_msgs.msg import Odometry
@@ -21,7 +21,7 @@ from actionlib_msgs.msg import GoalStatus
 
 from std_msgs.msg import Float32
 from std_msgs.msg import Float64
-from sensor_msgs.msg import Temperature
+from sensor_msgs.msg import Temperature, Image
 import tf
 import time
 #display image imports
@@ -29,6 +29,8 @@ import smach_helper
 # from cloud_process import CloudSubscriber
 from sim_brinkmanship import Brinkmanship
 import sys
+from cv_bridge import CvBridge, CvBridgeError
+bridge = CvBridge()
 
 rospy.init_node('smach_nodelet')
 translation = [0, 0.13, -0.18]
@@ -94,10 +96,30 @@ move_base_client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
 
 sub_where_to_see = rospy.Subscriber('where_to_see',Float32,smach_helper.update_sun)
 
+log_images = False
+
+rgb_count = 0
+
+alert_helper = smach_helper.BrinkStatus()
+def image_subscriber_cb(msg):
+	global log_images
+	global rgb_count
+	if not log_images:
+		# rospy.logerr("Inside Callback")
+		return
+	else:
+		rospy.logerr("Condition Met")
+		log_images = False
+		rgb_img = bridge.imgmsg_to_cv2(msg, "bgr8")
+        cv2.imwrite('/home/pitcrew/Pit-Navigator-Utah/catkin_ws/src/smach_pit_exp/logged_images/' + str(rgb_count) + '.png', rgb_img)
+        rgb_count += 1
+	return
+
+image_subscriber = rospy.Subscriber('/apnapioneer3at/MultiSense_S21_left_camera/image', Image, image_subscriber_cb)
+
 listener = None
 
 # Brinkmanship Edge Alert Flag
-alert_helper = smach_helper.BrinkStatus()
 
 #Class 1 from lander to pit
 class Lander2Pit(smach.State):
@@ -191,6 +213,7 @@ class circum_wp_cb(smach.State):
 		self.first_waypoint = True
 
 	def atThisWaypoint(self,userdata):
+		global log_images
 		global GLOBAL_PITCH_COUNT
 		#made it and ready to move on - anything to do here?
 		if(self.vantage_return ):
@@ -221,6 +244,7 @@ class circum_wp_cb(smach.State):
 			brink_controller.publish_twist_msg()
 			# camera functions
 			if ('Simulation' in file_locations['robot_simulation_env']):
+				log_images = True
 				smach_helper.display_sim_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
 			else:
 				rospy.logwarn('return real life pictures')

@@ -184,7 +184,6 @@
 	<!-- *************** LOCALIZATION ***************  -->
 	<!--node pkg="amcl" type="amcl" name="amcl" output="log">
 		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/amcl_params.yaml" command="load" />
-
 	    <param name="initial_pose_x"            value="1"/>
 		<param name="initial_pose_y"            value="-1"/>
 		<param name="initial_pose_a"            value="0"/>
