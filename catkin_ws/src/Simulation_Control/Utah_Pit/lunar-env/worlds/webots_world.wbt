@@ -4,7 +4,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation 0.9999181057727938 -0.0064894508615448935 0.011030356987124004 5.088919388503823
-  position 8.94647158972165 19.405286755587046 35.29115201316691
+  position 9.018571919836557 19.405270060250988 35.29016404751973
   follow "Pioneer 3-AT"
 }
 DirectionalLight {
@@ -18,16 +18,16 @@ Robot {
   supervisor TRUE
 }
 Pioneer3at {
-  hidden translation_15 -0.197 0 0.1331
-  hidden rotation_15 1 0 0 3.041178436638649
-  hidden translation_16 0.197 0 0.1331
-  hidden rotation_16 1 0 0 6.215499843766132
-  hidden translation_17 -0.197 0 -0.1331
-  hidden rotation_17 1 0 0 3.072349167997249
-  hidden translation_18 0.197 0 -0.1331
-  hidden rotation_18 -1 0 0 0.819184959599625
-  translation 8.028213588454376 1.1070107383158603 28.036954091716026
-  rotation -0.0003693513018833166 -0.9999998562657656 -0.00038864902385338175 1.6233145859730205
+  hidden translation_16 -0.197 0 0.1331
+  hidden rotation_16 0.9999999999999999 0 0 2.221965807634625
+  hidden translation_17 0.197 0 0.1331
+  hidden rotation_17 1 0 0 5.396354177337127
+  hidden translation_18 -0.197 0 -0.1331
+  hidden rotation_18 1 0 0 2.253248932022044
+  hidden translation_19 0.197 0 -0.1331
+  hidden rotation_19 -1 0 0 1.6383702666143285
+  translation 8.114235472893911 1.1070106607412795 28.0357195406897
+  rotation -0.0003723661137751218 -0.9999998551910853 -0.0003885373673064266 1.614749434245477
   controller "ros"
   controllerArgs [
     "--name=apnapioneer3at"
@@ -35,6 +35,12 @@ Pioneer3at {
     "--use-sim-time"
   ]
   extensionSlot [
+    Camera {
+      translation 0 0.15 -0.18
+      height 64
+      width 64
+      fieldOfView 0.785
+    }
     InertialUnit {
       name "inertial_unit"
       resolution 0.01

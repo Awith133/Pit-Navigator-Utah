@@ -79,11 +79,11 @@ else:
 	from arbotix_python.arbotix import ArbotiX
 	TIME_OUT = 80+3*160+240 + rospy.get_rostime().secs
 	arb = ArbotiX("/dev/ttyUSB0",115200)
+	arb = ArbotiX("/dev/ttyUSB1",115200)
 
 
 img_capture_pub = rospy.Publisher('/image_number', Int32, queue_size = 10)
 
-arb = ArbotiX("/dev/ttyUSB1",115200)
 map_resolution = rospy.get_param("/resolution")
 halfway_point = len(smach_helper.read_csv_around_pit(file_locations['file_around_pit'],map_resolution))/2
 
