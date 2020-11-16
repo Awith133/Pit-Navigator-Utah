@@ -38,6 +38,21 @@ rotation = [-0.3583641, 0, 0, 0.9335819]
 # alert_helper = CloudSubscriber(translation, rotation)
 brink_controller = Brinkmanship()
 
+pitch_angle = rospy.get_param('/pitch_angle', 20)
+
+
+GLOBAL_PITCH_COUNT = 445			# 20 DEG PITCH
+
+if pitch_angle == 40:
+	GLOBAL_PITCH_COUNT = 378			# 40 DEG PITCH
+if pitch_angle == 45:
+	GLOBAL_PITCH_COUNT = 361			# 45 DEG PITCH
+if pitch_angle == 50:
+	GLOBAL_PITCH_COUNT = 345			# 60 DEG PITCH
+if pitch_angle == 60:
+	GLOBAL_PITCH_COUNT = 311			# 60 DEG PITCH
+
+
 GLOBAL_RADIUS = .45
 GLOBAL_RADIUS2 = 1
 YAW_THRESH = 0.16 #10 deg
@@ -52,7 +67,7 @@ if ('Simulation' in file_locations['robot_simulation_env']):
 	if (os.path.isfile(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv')): 
 		os.remove(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv')
 	if ('Utah_Pit' in file_locations['robot_simulation_env']):
-		TIME_OUT = 2200*4 #one shot 2200*1.3, #3 shots = 2200*3
+		TIME_OUT = 2200*4.1 #one shot 2200*1.3, #3 shots = 2200*3
 	if ('Utah_BIG' in file_locations['robot_simulation_env']):
 		TIME_OUT = 2200*1 #normal = 1.3 big = 1 
 	if ('Lacus_Mortis_Pit' in file_locations['robot_simulation_env']):
@@ -70,7 +85,7 @@ else:
 
 img_capture_pub = rospy.Publisher('/image_number', Int32, queue_size = 10)
 
-
+arb = ArbotiX("/dev/ttyUSB1",115200)
 map_resolution = rospy.get_param("/resolution")
 halfway_point = len(smach_helper.read_csv_around_pit(file_locations['file_around_pit'],map_resolution))/2
 
@@ -199,6 +214,7 @@ class circum_wp_cb(smach.State):
 
 	def atThisWaypoint(self,userdata):
 		global log_images
+		global GLOBAL_PITCH_COUNT
 		#made it and ready to move on - anything to do here?
 		if(self.vantage_return ):
 			rospy.logwarn('vantage return')
@@ -242,7 +258,7 @@ class circum_wp_cb(smach.State):
 					time.sleep(1)
 				rospy.logerr("Taking real imaged text in red")
 				# Reset Motor Pose
-				smach_helper.pan_tilt_to_pos(arb, 512, 445)
+				smach_helper.pan_tilt_to_pos(arb, 512, GLOBAL_PITCH_COUNT)
 			#return
 			start_time_coming = rospy.get_rostime().secs
 			#while start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
@@ -264,7 +280,7 @@ class circum_wp_cb(smach.State):
 			self.count_visited = 0
 			userdata.counter_wp_around_pit -= 1
 			self.success_flag = True
-		elif self.count_visited >= self.risk_safe:
+		elif self.count_visited >= self.risk_safe and not userdata.wp_around_pit[userdata.counter_wp_around_pit-num][3] == 1:
 			rospy.logerr("Risk too high - returning home")
 			self.count_visited = 0
 			userdata.counter_wp_around_pit -= 1
@@ -516,12 +532,12 @@ class Highway(smach.State):
 		return 'mission_ongoing'
 
 def main():
-	global listener, map_resolution
+	global listener, map_resolution, GLOBAL_PITCH_COUNT
 	listener = tf.TransformListener()
 	
 	# Reset Motor Pose
 	if (not 'Simulation' in file_locations['robot_simulation_env']):
-		smach_helper.pan_tilt_to_pos(arb, 512, 445)
+		smach_helper.pan_tilt_to_pos(arb, 512, GLOBAL_PITCH_COUNT)
 	
 	#state machine initialize
 

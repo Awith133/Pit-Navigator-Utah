@@ -19,7 +19,7 @@
 	<param name="/battery/arc_energy_out"       value="10"/>   <!--#Watt per second-->
 	<param name="/battery/drive_energy_out"     value="5"/>    <!--#Watt per second-->
 	<param name="/battery/solar_peak"           value="50"/>   <!--#Watt per second-->
-
+	<param name="/pitch_angle"					value="40"/>
 
 
 
@@ -42,7 +42,7 @@
 		<arg name="no-gui" default="false," doc="Start Webots with minimal GUI"/>
 		<include file="$(find webots_ros)/launch/webots.launch">
 			<!--    starting sim mode v pause realtime run-->
-			<arg name="mode" value="pause"/> 
+			<arg name="mode" value="realtime"/> 
 			<arg name="no-gui" value="$(arg no-gui)"/>
 			<arg name="world" value="$(arg ROBOT_SIMULATION_ARG)/lunar-env/worlds/webots_world.wbt"/>
 		</include>

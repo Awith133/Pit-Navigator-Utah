@@ -12,17 +12,37 @@ from sklearn.cluster import KMeans
 import copy
 from smach_pit_exp.msg import euler_list
 
+pitch_angle = rospy.get_param('/pitch_angle', 20)
 
-# min_depth = -0.58
-# max_depth = -0.25
-
-# max_width = 0.54
-# min_width = -0.54
+# 20 deg pitch
 min_depth = 0.15
 max_depth = 0.8
-
 max_width = 0.5
-min_width = -0.6
+min_width = -0.5
+
+# 40 deg pitch
+if pitch_angle == 40:
+    print('using 40 degrees (max min)')
+    max_width = 0.4
+    min_width = -0.3
+    min_depth = 0.2
+    max_depth = 0.86
+
+if pitch_angle == 45:
+    print('using 45 degrees (max min)')
+    max_width = 0.45
+    min_width = -0.6
+    min_depth = 0.07
+    max_depth = 0.85
+# 60 deg pitch
+if pitch_angle == 60:
+    print('using 60 degrees (max min)')
+    max_width = 0.23
+    min_width = -0.27
+    min_depth = 0.1
+    max_depth = 0.17
+
+
 
 
 def get_mesh(cloud_array):
@@ -235,26 +255,35 @@ class CloudSubscriber:
         xyz = xyz[xyz[:,2] < 0.8]
         if xyz.shape[0] == 0:
             return
-        rand_vec = np.random.randint(0, xyz.shape[0], size = xyz.shape[0]//2)
+        rand_vec = np.random.randint(0, xyz.shape[0], size = xyz.shape[0]//3)
         xyz = xyz[rand_vec]
-        # print(xyz.shape)
+        print(xyz.shape)
         # print('One Step')
         self.H = self.get_transformation_matrix(self.tvec, self.rvec)
         self.cloud_data = self.transform_cloud(xyz, self.H)
         self.cloud_data = self.cloud_data[self.cloud_data[:,2] < 0]
         avg_z = np.mean(self.cloud_data[:,2])
         # print(avg_z)
-        self.cloud_data = self.cloud_data[self.cloud_data[:,2] > 1.3*avg_z ]
+        self.cloud_data = self.cloud_data[self.cloud_data[:,2] > 1.2*avg_z ]
         self.cloud_data = self.cloud_data[self.cloud_data[:,2] < 0.8*avg_z ]
+        self.cloud_data = self.cloud_data[self.cloud_data[:,2] > -0.3]
+        if self.cloud_data.shape[0] < 600:
+            self.alert_status = 2
+            self.publish_stop_signal()
+            print('Cannot generate mesh')
+            return
         self.mesh = self.get_mesh(self.cloud_data)
-        edges, boundary_points = extract_boundary(self.mesh)
-        print("Max y val = {}".format(np.amax(boundary_points[:,1])))
-        print("Min y val = {}".format(np.amin(boundary_points[:,1])))
-        print("Min X val = {}".format(np.amin(boundary_points[:,0])))
-        print("Min X val = {}".format(np.amax(boundary_points[:,0])))
-        pts = get_farthest_points(boundary_points)
+        print('Printing mesh data',self.mesh)
+        # edges, boundary_points = extract_boundary(self.mesh)
+        # print("Max y val = {}".format(np.amax(boundary_points[:,1])))
+        # print("Min y val = {}".format(np.amin(boundary_points[:,1])))
+        # print("Min X val = {}".format(np.amin(boundary_points[:,0])))
+        # print("Max X val = {}".format(np.amax(boundary_points[:,0])))
+        # print("Avg z val = {}".format(np.mean(boundary_points[:,2])))
+        # pts = get_farthest_points(boundary_points)
 
         warn, stop = self.risk(self.mesh)
+        
         if warn:
             self.alert_status = 1
         if stop:
@@ -279,39 +308,59 @@ class CloudSubscriber:
         return
         
     def get_mesh(self, cloud_array):
-        pv_cloud = pv.PolyData(cloud_array).clean(tolerance=0.033, absolute=False)
-        
-        return pv_cloud.delaunay_2d(alpha=0.1)
+        try:
+            pv_cloud = pv.PolyData(cloud_array).clean(tolerance=0.033, absolute=False)
+            mesh = pv_cloud.delaunay_2d(alpha=0.1)
+        except ValueError:
+            return None
+        return mesh
 
     def risk(self, mesh):
         warn = False
         stop = False
         grid = split_mesh(mesh)
         # band_1 = np.vstack((grid[0].reshape((-1, 3)),grid[1].reshape((-1, 3)),grid[2].reshape((-1, 3))))
-        band_2 = np.vstack((grid[3].reshape((-1, 3)),grid[4].reshape((-1, 3)),grid[5].reshape((-1, 3))))
+        band_2 = np.vstack((grid[0].reshape((-1, 3)),grid[1].reshape((-1, 3)),grid[2].reshape((-1, 3))))
         # self.publish_processed_cloud(band2)
+        grid_cell_sizes = np.array([x.shape[0] for x in grid])
+        print('Grid cell_sizes = ', grid_cell_sizes)
+        near_points = grid_cell_sizes[:3]
+        intermediate_points = grid_cell_sizes[3:6]
+        far_points = grid_cell_sizes[-3:]
+        
+        unsafe_intermediate_cells = sum(intermediate_points < 10)
+        unsafe_near_cells = sum(near_points < 5)
+
+        if unsafe_intermediate_cells > 1: 
+            warn = True
+            print('Unsafe Intermediate Cells')
+        # if unsafe_near_cells > 0:
+        #     stop = True
+        #     print('Unsafe Near Cells')
+        if near_points[1] < 20 and sum(far_points) < 5:
+            stop = True
+            print('Near Points < 20')
+        # if sum(near_points) < 40:
+        #     stop = True
+        if sum(far_points) < 30:
+            warn = True
+            print('Far Edge Detected')
+        # if intermediate_points < 40 and far_points == 0:
+        #     print('Brink Detected')
+        #     stop = True
+        # if intermediate_points < 20:
+        #     print('Brink Detected')
+        #     stop = True
         pv_cloud = pv.PolyData(band_2)       
         near_mesh = pv_cloud.delaunay_2d()
         unsafe_cells = [abs(near_mesh.cell_normals[:,2]) < 0.93]
-        danger_rating = np.sum(unsafe_cells) / near_mesh.n_points
-        
-#        visualize_mesh(near_mesh)
-        grid_cell_sizes = [x.shape[0] for x in grid]
-        print('Grid cell_sizes = ', grid_cell_sizes)
-        far_points = sum(grid_cell_sizes[-3:])
-        intermediate_points = sum(grid_cell_sizes[3:6])
-        
-        if far_points < 30:
-            warn = True
-        if intermediate_points < 40 and far_points == 0:
-            print('Brink Detected')
-            stop = True
-        if intermediate_points < 20:
-            print('Brink Detected')
-            stop = True
-        if danger_rating > 0.4:
+        danger_rating = np.sum(unsafe_cells) / near_mesh.n_cells
+        print(danger_rating)
+        if danger_rating > 0.95:
             print('Unsafe Slope')
             stop = True
+        
+        # visualize_mesh(near_mesh)
         # print(danger_rating)
         return warn, stop
 
@@ -438,11 +487,26 @@ class CloudSubscriber:
 
 if __name__ == '__main__':
     rospy.init_node('Cloud_Processor')
+    # global pitch_angle
     p = pv.Plotter()
     # translation = [0, 0.13, -0.23]
     # rotation = [-0.3583641, 0, 0, 0.9335819]
     translation = [0, 0, 0]
-    rotation = [ -0.579228, 0.579228, -0.4055798, 0.4055798 ]
+    if pitch_angle == 20:
+        print('using 20 degrees')
+        rotation = [ -0.579228, 0.579228, -0.4055798, 0.4055798 ]
+    if pitch_angle == 40:
+        print('using 40 degrees')
+        rotation = [ -0.6408564, 0.6408564, -0.2988362, 0.2988362 ]
+    if pitch_angle == 60:
+        print('using 60 degrees')
+        rotation = [ -0.6830127, 0.6830127, -0.1830127, 0.1830127 ]
+    if pitch_angle == 50:
+        print('using 50 degrees')
+        rotation = [ -0.664463, 0.664463, -0.2418448, 0.2418448 ]
+    if pitch_angle == 45:
+        print('using 45 degrees')
+        rotation = [ -0.6532815, 0.6532815, -0.2705981, 0.2705981 ]
     cs = CloudSubscriber(translation, rotation)
     rospy.spin()
 

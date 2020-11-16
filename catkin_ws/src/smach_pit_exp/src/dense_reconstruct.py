@@ -22,7 +22,7 @@ config = rs.config()
 config.enable_stream(rs.stream.infrared, 1, 640, 480, rs.format.y8, 30)
 config.enable_stream(rs.stream.infrared, 2, 640, 480, rs.format.y8, 30)
 config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
-config.enable_record_to_file('image.bag')
+config.enable_record_to_file('run4.bag')
 profile = pipeline.start(config)
 
 # matrix containing the camera parameters
@@ -109,11 +109,11 @@ if __name__ == '__main__':
                 # salert_pub.publish("Close to the edge")
 
             # visualizing one image from the stereo pair
-#            cv2.imshow('IR Example2', im1)
-#            key = cv2.waitKey(1)
-#            if key & 0xFF == ord('q') or key == 27:
-#                cv2.destroyAllWindows()
-#                break
+            # cv2.imshow('IR Example2', im1)
+            # key = cv2.waitKey(1)
+            # if key & 0xFF == ord('q') or key == 27:
+            #    cv2.destroyAllWindows()
+            #    break
 
             # generate and publish cloud message
             header = std_msgs.msg.Header()
