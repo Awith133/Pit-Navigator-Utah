@@ -64,6 +64,7 @@ Pioneer3at {
           direction 0 -1 0
           intensity 3
           castShadows TRUE
+          on TRUE
         }
       ]
       color [
