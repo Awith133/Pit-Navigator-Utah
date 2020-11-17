@@ -243,9 +243,9 @@ class CloudSubscriber:
         if danger_rating > 0.7:
             stop = True
             print('Unsafe Slope Detected')
-        if far_points < 30:
-            warn = True
-        if intermediate_points < 50 or far_points < 10:
+        # if far_points < 30:
+        #     warn = True
+        if intermediate_points < 50 or far_points < 40:
             stop = True
             print('Brink Detected')
         return warn, stop
