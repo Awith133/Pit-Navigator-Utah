@@ -442,17 +442,17 @@ class Highway(smach.State):
 
 	def nextwaypoint(self,userdata,num):
 		if(userdata.counter_highway_wp == userdata.alternative_point or 
-		   userdata.alternative_point + userdata.counter_highway_wp == len(userdata.wp_around_pit)-1 or
-		   userdata.alternative_point - userdata.counter_highway_wp == 0):
+		   userdata.alternative_point + userdata.counter_highway_wp >= len(userdata.wp_around_pit)-1 or
+		   userdata.alternative_point - userdata.counter_highway_wp <= 0):
 			userdata.counter_highway_wp = 0
 			self.success_flag = True
-
-		userdata.counter_highway_wp += num
-		if userdata.counter_highway_wp < userdata.alternative_point:
-			self.global_wp_nav(userdata)
 		else:
-			userdata.counter_highway_wp -= 1
-			self.success_flag = True
+			userdata.counter_highway_wp += num
+			if userdata.counter_highway_wp < userdata.alternative_point:
+				self.global_wp_nav(userdata)
+			# else:
+			# 	userdata.counter_highway_wp -= 1
+			# 	self.success_flag = True
 
 	def global_wp_nav(self,userdata):
 		msg = PoseStamped()
