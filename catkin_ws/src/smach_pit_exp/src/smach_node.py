@@ -269,7 +269,10 @@ class circum_wp_cb(smach.State):
 			#while start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
 			brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
 			brink_controller.publish_twist_msg()
-			time.sleep(int((end_time_going-start_time_going)*3/4))
+			return_time = rospy.get_rostime().secs
+			while (return_time +int((end_time_going-start_time_going)*3/4)>rospy.get_rostime().secs):
+				time.sleep(0.01)
+			# time.sleep(int((end_time_going-start_time_going)*3/4))
 			brink_controller.generate_twist_msg([0, 0, 0], [0, 0, 0])
 			brink_controller.publish_twist_msg()
 			time.sleep(1)

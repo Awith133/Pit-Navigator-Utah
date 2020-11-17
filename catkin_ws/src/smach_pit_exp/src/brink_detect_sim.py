@@ -168,7 +168,7 @@ class CloudSubscriber:
         self.flush = not self.flush
         self.alert_status = 0
         if self.flush:
-            print('Skipping Data')
+            #print('Skipping Data')
             return
         
         xyz = ros_numpy.point_cloud2.pointcloud2_to_xyz_array(msg, remove_nans=True)
@@ -178,17 +178,18 @@ class CloudSubscriber:
             return
         rand_vec = np.random.randint(0, xyz.shape[0], size = xyz.shape[0]//3)
         xyz = xyz[rand_vec]
-        print(xyz.shape)
+        print('\n')
         print('One Step')
+        print(xyz.shape)
         self.H = self.get_transformation_matrix(self.tvec, self.rvec)
         self.cloud_data = self.transform_cloud(xyz, self.H)
 
         self.mesh = self.get_mesh(self.cloud_data)
         edges, boundary_points = extract_boundary(self.mesh)
-        print("Max y val = {}".format(np.amax(boundary_points[:,1])))
-        print("Min y val = {}".format(np.amin(boundary_points[:,1])))
-        print("Min X val = {}".format(np.amin(boundary_points[:,0])))
-        print("Min X val = {}".format(np.amax(boundary_points[:,0])))
+        #print("Max y val = {}".format(np.amax(boundary_points[:,1])))
+        #print("Min y val = {}".format(np.amin(boundary_points[:,1])))
+        #print("Min X val = {}".format(np.amin(boundary_points[:,0])))
+        #print("Min X val = {}".format(np.amax(boundary_points[:,0])))
         pts = get_farthest_points(boundary_points)
 
         warn, stop = self.risk(self.mesh)
