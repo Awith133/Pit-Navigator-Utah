@@ -193,7 +193,7 @@ def time_estimations(file_locations , estimation=None):
     reader = csv.reader(csvfile)
     if ('Simulation' in file_locations['robot_simulation_env']):
         if ('Utah_Pit' in file_locations['robot_simulation_env']):
-            average = [270, 220, 355, 1200] #Lander2Pit,Navaroundpit,pit2lander,highway
+            average = [226, 162, 355, 500] #Lander2Pit,Navaroundpit,pit2lander,highway
         if ('Utah_BIG' in file_locations['robot_simulation_env']):
             average = [80, 78, 567, 132] #Lander2Pit,Navaroundpit,pit2lander,highway
         if ('Lacus_Mortis_Pit' in file_locations['robot_simulation_env']):
