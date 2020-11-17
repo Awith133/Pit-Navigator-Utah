@@ -130,10 +130,12 @@ def set_velocity(all_wheel_velocities, speed=0):
             set_velocity_client = rospy.ServiceProxy(service_name, set_float)
             MOTOR_VEL_CLIENT[motor] = set_velocity_client
         if(PREV_VELOCITY[motor] is None or PREV_VELOCITY[motor] != all_wheel_velocities[motor]):
-            set_velocity_client = MOTOR_VEL_CLIENT[motor]
-            set_velocity_client(SPEED_UNIT*all_wheel_velocities[motor])
-            PREV_VELOCITY[motor] = all_wheel_velocities[motor]
-    
+            try:
+                MOTOR_VEL_CLIENT[motor](SPEED_UNIT*all_wheel_velocities[motor])
+                PREV_VELOCITY[motor] = all_wheel_velocities[motor]
+            except:
+                MOTOR_VEL_CLIENT[motor] = None
+                rospy.logerr("the motor %s did not respond", motor)
     
     # rospy.loginfo("Done setting up all wheel velocities")
 
