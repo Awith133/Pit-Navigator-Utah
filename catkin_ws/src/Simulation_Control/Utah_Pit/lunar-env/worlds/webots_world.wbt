@@ -4,7 +4,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation 0.9999181057727938 -0.0064894508615448935 0.011030356987124004 5.088919388503823
-  position 9.018571919836557 19.405270060250988 35.29016404751973
+  position 9.069831285964867 19.405232614776367 35.28910670399247
   follow "Pioneer 3-AT"
 }
 DirectionalLight {
@@ -18,16 +18,24 @@ Robot {
   supervisor TRUE
 }
 Pioneer3at {
+  hidden linearVelocity_0 7.89687248694973e-08 1.1759523290030781e-06 2.0154129834728895e-07
+  hidden angularVelocity_0 1.0660804312612992e-06 -1.7319863756620416e-10 -4.175773629439955e-07
   hidden translation_16 -0.197 0 0.1331
-  hidden rotation_16 0.9999999999999999 0 0 2.221965807634625
+  hidden rotation_16 -1 0 0 0
+  hidden linearVelocity_16 4.5958070240496976e-08 0.00017854314250662643 1.1738192264299769e-07
+  hidden angularVelocity_16 1.0666876947214175e-06 -1.7282484059005715e-10 -4.170185700797027e-07
   hidden translation_17 0.197 0 0.1331
-  hidden rotation_17 1 0 0 5.396354177337127
+  hidden linearVelocity_17 4.596009707732096e-08 0.0001781200661925908 1.1735369128019932e-07
+  hidden angularVelocity_17 1.0662311742853286e-06 -1.7282717235525914e-10 -4.1745698380917634e-07
   hidden translation_18 -0.197 0 -0.1331
-  hidden rotation_18 1 0 0 2.253248932022044
+  hidden rotation_18 1 0 0 4.577207777896503
+  hidden linearVelocity_18 4.594527825501762e-08 0.00019466179156516714 1.1726591637827648e-07
+  hidden angularVelocity_18 1.0660515121027346e-06 -1.7282871266533085e-10 -4.1754066093998066e-07
   hidden translation_19 0.197 0 -0.1331
-  hidden rotation_19 -1 0 0 1.6383702666143285
-  translation 8.114235472893911 1.1070106607412795 28.0357195406897
-  rotation -0.0003723661137751218 -0.9999998551910853 -0.0003885373673064266 1.614749434245477
+  hidden linearVelocity_19 4.5909406326913784e-08 0.00019423871518235106 1.1727390404361374e-07
+  hidden angularVelocity_19 1.0662021082954572e-06 -1.7282925648616227e-10 -4.174747766952909e-07
+  translation 8.200256805924598 1.1070106397692867 28.03376375654804
+  rotation -0.00037530925408005874 -0.9999998540437194 -0.0003886585953363417 1.6068656937790013
   controller "ros"
   controllerArgs [
     "--name=apnapioneer3at"
@@ -36,21 +44,31 @@ Pioneer3at {
   ]
   extensionSlot [
     Camera {
-      name "PitCam"
       translation 0 0.25 -0.3
       rotation -1 0 0 0.7330383
-      height 1100
-      width 1200
+      name "PitCam"
       fieldOfView 2.5
+      width 1200
+      height 1100
     }
     InertialUnit {
       name "inertial_unit"
       resolution 0.01
     }
-    Pen {
-      inkColor 1 0 0
-      leadSize 0.001
-      write FALSE
+    LED {
+      translation 0 1 0
+      children [
+        SpotLight {
+          attenuation 0 0 1
+          beamWidth 0.785398
+          direction 0 -1 0
+          intensity 3
+          castShadows TRUE
+        }
+      ]
+      color [
+        1 1 1
+      ]
     }
     CustomMultiSenseS21 {
       translation 0 0.13 -0.18
