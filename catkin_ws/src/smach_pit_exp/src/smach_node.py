@@ -67,7 +67,8 @@ if ('Simulation' in file_locations['robot_simulation_env']):
 	if (os.path.isfile(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv')): 
 		os.remove(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/timekeeping.csv')
 	if ('Utah_Pit' in file_locations['robot_simulation_env']):
-		TIME_OUT = 2200*4.1 #one shot 2200*1.3, #3 shots = 2200*3
+		TIME_OUT = 226*3+ 162*12+ 355*3+ 500*5-300
+		#TIME_OUT = 2200*4.1 #one shot 2200*1.3, #3 shots = 2200*3
 	if ('Utah_BIG' in file_locations['robot_simulation_env']):
 		TIME_OUT = 2200*1 #normal = 1.3 big = 1 
 	if ('Lacus_Mortis_Pit' in file_locations['robot_simulation_env']):
@@ -450,9 +451,9 @@ class Highway(smach.State):
 			userdata.counter_highway_wp += num
 			if userdata.counter_highway_wp < userdata.alternative_point:
 				self.global_wp_nav(userdata)
-			# else:
-			# 	userdata.counter_highway_wp -= 1
-			# 	self.success_flag = True
+			else:
+				userdata.counter_highway_wp = 0
+				self.success_flag = True
 
 	def global_wp_nav(self,userdata):
 		msg = PoseStamped()

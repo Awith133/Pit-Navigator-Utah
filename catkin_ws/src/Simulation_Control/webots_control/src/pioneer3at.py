@@ -298,7 +298,13 @@ if __name__ == "__main__":
     enable_sensor("PitCam")
     enable_sensor("depth")
     set_velocity(CURR_VELOCITY)
-    
+
+    service_name = ROBOT_ROSNODE+"/led/"+"set_led"
+    rospy.wait_for_service(service_name,10)
+    enbale_client = rospy.ServiceProxy(service_name, set_int)
+    enbale_client(2)
+    enbale_client(1)
+
     rospy.Subscriber('cmd_vel', Twist, command_velocity_callback, queue_size=1)
     # Spin main ROS loop
     while not rospy.is_shutdown():
