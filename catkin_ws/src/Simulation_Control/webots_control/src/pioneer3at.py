@@ -56,7 +56,8 @@ CAMERA_NAMES = {
     "right_back": "MultiSense_S21_Backwards_right_camera",
     "meta_back": "MultiSense_S21_Backwards_meta_camera",
     "depth_back": "MultiSense_S21_Backwards_meta_range_finder",
-    "imu":"inertial_unit"
+    "imu":"inertial_unit",
+    "PitCam": "PitCam"
     }
 
 CAMERA_INFOS = {
@@ -68,7 +69,8 @@ CAMERA_INFOS = {
     "left_back": None,
     "right_back": None,
     "meta_back": None,
-    "depth_back": None
+    "depth_back": None,
+    "PitCam": None
 }
 
 CAMERA_INFO_PUBLISHERS = {
@@ -80,7 +82,8 @@ CAMERA_INFO_PUBLISHERS = {
     "left_back": None,
     "right_back": None,
     "meta_back": None,
-    "depth_back": None
+    "depth_back": None,
+    "PitCam": None
 }
 
 PC_PUBLISHER = None
@@ -225,7 +228,9 @@ def enable_sensor(sensor_name):
         service_name = ROBOT_ROSNODE+"/"+CAMERA_NAMES[sensor_name]+"/enable"
         rospy.wait_for_service(service_name,10)
         enbale_client = rospy.ServiceProxy(service_name, set_int)
-        if (not sensor_name == "imu"):
+        if (sensor_name == "PitCam"):
+            rep1 = enbale_client(1000)
+        elif (not sensor_name == "imu"):
             rep1 = enbale_client(64)
         else:
             rep1 = enbale_client(1)
@@ -284,14 +289,14 @@ if __name__ == "__main__":
     rospy.loginfo(("Finally started Node with name initialized to: " + ROBOT_ROSNODE))
     needDepth = rospy.get_param("show_rock_distances", 0)
     enable_sensor("meta")
-    enable_sensor("left")
-    enable_sensor("right")
-    enable_sensor("left_back")
-    enable_sensor("right_back")
+    #enable_sensor("left")
+    #enable_sensor("right")
+    #enable_sensor("left_back")
+    #enable_sensor("right_back")
     #enable_sensor("meta_back")
     enable_sensor("imu")
-    if(True):
-        enable_sensor("depth")
+    enable_sensor("PitCam")
+    enable_sensor("depth")
     set_velocity(CURR_VELOCITY)
     
     rospy.Subscriber('cmd_vel', Twist, command_velocity_callback, queue_size=1)

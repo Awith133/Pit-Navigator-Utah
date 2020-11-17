@@ -102,6 +102,7 @@ rgb_count = 0
 
 alert_helper = smach_helper.BrinkStatus()
 def image_subscriber_cb(msg):
+	global file_locations
 	global log_images
 	global rgb_count
 	if not log_images:
@@ -111,11 +112,12 @@ def image_subscriber_cb(msg):
 		rospy.logerr("Condition Met")
 		log_images = False
 		rgb_img = bridge.imgmsg_to_cv2(msg, "bgr8")
-        cv2.imwrite('/home/pitcrew/Pit-Navigator-Utah/catkin_ws/src/smach_pit_exp/logged_images/' + str(rgb_count) + '.png', rgb_img)
-        rgb_count += 1
+		print(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/logged_images/' + str(rgb_count) + '.png')
+		cv2.imwrite(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/logged_images/' + str(rgb_count) + '.png', rgb_img)
+		rgb_count += 1
 	return
 
-image_subscriber = rospy.Subscriber('/apnapioneer3at/MultiSense_S21_left_camera/image', Image, image_subscriber_cb)
+image_subscriber = rospy.Subscriber('/apnapioneer3at/PitCam/image', Image, image_subscriber_cb)
 
 listener = None
 
@@ -215,6 +217,7 @@ class circum_wp_cb(smach.State):
 	def atThisWaypoint(self,userdata):
 		global log_images
 		global GLOBAL_PITCH_COUNT
+		global rgb_count
 		#made it and ready to move on - anything to do here?
 		if(self.vantage_return ):
 			rospy.logwarn('vantage return')
@@ -237,6 +240,7 @@ class circum_wp_cb(smach.State):
 					alert_helper.is_published = False
 				else:
 					pass
+				time.sleep(0.025)
 				#rospy.loginfo(alert_helper.alert_bool)
 			end_time_going = rospy.get_rostime().secs
 			# zero twist to stop
@@ -245,7 +249,8 @@ class circum_wp_cb(smach.State):
 			# camera functions
 			if ('Simulation' in file_locations['robot_simulation_env']):
 				log_images = True
-				smach_helper.display_sim_images(userdata,file_locations) #relpace with pan tilt motions on robot #make it stop this one
+				time.sleep(1)
+				smach_helper.display_sim_images(rgb_count-1,file_locations) #relpace with pan tilt motions on robot #make it stop this one
 			else:
 				rospy.logwarn('return real life pictures')
 
@@ -343,7 +348,7 @@ class circum_wp_cb(smach.State):
 		if self.success_flag:
 			self.success_flag = False
 			userdata.direction = 'save_data'
-			userdata.alternative_point = userdata.counter_wp_around_pit
+			userdata.alternative_point = userdata.counter_wp_around_pit-1
 			return 'save_data'
 		return 'mission_ongoing'
 
@@ -489,7 +494,7 @@ class Highway(smach.State):
 		msg.header.frame_id = 'map'
 		
 		#update params
-		print('Publishing wp', msg.pose.position.x , msg.pose.position.y, smach_helper.current_goal )
+		print('Publishing wp', msg.pose.position.x , msg.pose.position.y, userdata.alternative_point-userdata.counter_highway_wp)
 		userdata.current_wp_cords = (msg.pose.position.x,msg.pose.position.y,yaw)
 		
 		#send action

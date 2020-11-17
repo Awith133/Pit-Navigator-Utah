@@ -36,10 +36,12 @@ Pioneer3at {
   ]
   extensionSlot [
     Camera {
-      translation 0 0.15 -0.18
-      height 64
-      width 64
-      fieldOfView 0.785
+      name "PitCam"
+      translation 0 0.25 -0.3
+      rotation -1 0 0 0.7330383
+      height 1100
+      width 1200
+      fieldOfView 2.5
     }
     InertialUnit {
       name "inertial_unit"

@@ -34,7 +34,7 @@ TebLocalPlannerROS:
 
  # GoalTolerance
 
- xy_goal_tolerance:  0.20 #decimeters? #default .2
+ xy_goal_tolerance:  0.80 #decimeters? #default .2
  yaw_goal_tolerance: 0.12 #default .12 #radians
  free_goal_vel: False
 

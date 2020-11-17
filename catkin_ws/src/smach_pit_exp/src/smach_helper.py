@@ -29,28 +29,28 @@ def display_real_images(arb, pan, tilt):
     rospy.logerr("move damn it")
     pan_tilt_to_pos(arb, pan, tilt)
     return
-    
         
-def display_sim_images(userdata, file_location):
+def display_sim_images(image, file_location):
     time.sleep(1)
     if False:
         print("capture new picture")
-    images_folder = file_location['robot_simulation_env'] + '/lunar-env/images/'
-    grep = images_folder + str(userdata.wp_around_pit[userdata.counter_wp_around_pit][5])+ '_' +str(userdata.wp_around_pit[userdata.counter_wp_around_pit][6])+ '_'+'2_1_1_0_0.png'
-    list1 = glob.glob(grep)
-    def compare(x, y):
-        partsOfX = x.split('_')
-        partsOfY = y.split('_')
-        integerListx = [int(partsOfX[5]),int(partsOfX[6].split('.')[0])*100]
-        integerListy = [int(partsOfY[5]),int(partsOfY[6].split('.')[0])*100]
-        return integerListx[0] - integerListy[0]+ integerListy[1]- integerListx[1]
-    list1.sort(cmp= compare)
-    for filename in list1:
-        #method#3
-        viewer = subprocess.Popen(['eog', filename])
-        time.sleep(2)
-        viewer.terminate()
-        viewer.kill()
+    image_folder = file_location['project_file_location']+'/catkin_ws/src/smach_pit_exp/logged_images/'
+    filename = image_folder + str(image)+ '.png'
+    # grep = images_folder + str(userdata.wp_around_pit[userdata.counter_wp_around_pit][5])+ '_' +str(userdata.wp_around_pit[userdata.counter_wp_around_pit][6])+ '_'+'2_1_1_0_0.png'
+    # list1 = glob.glob(grep)
+    # def compare(x, y):
+    #     partsOfX = x.split('_')
+    #     partsOfY = y.split('_')
+    #     integerListx = [int(partsOfX[5]),int(partsOfX[6].split('.')[0])*100]
+    #     integerListy = [int(partsOfY[5]),int(partsOfY[6].split('.')[0])*100]
+    #     return integerListx[0] - integerListy[0]+ integerListy[1]- integerListx[1]
+    # list1.sort(cmp= compare)
+    # for filename in list1:
+    #     #method#3
+    viewer = subprocess.Popen(['eog', filename])
+    time.sleep(2)
+    viewer.terminate()
+    viewer.kill()
 
 def pan_tilt_to_pos(arb, pan, tilt):
     pan_pos = arb.getPosition(1)
