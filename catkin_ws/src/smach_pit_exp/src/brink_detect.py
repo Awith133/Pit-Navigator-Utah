@@ -319,8 +319,8 @@ class CloudSubscriber:
         warn = False
         stop = False
         grid = split_mesh(mesh)
-        # band_1 = np.vstack((grid[0].reshape((-1, 3)),grid[1].reshape((-1, 3)),grid[2].reshape((-1, 3))))
-        band_2 = np.vstack((grid[0].reshape((-1, 3)),grid[1].reshape((-1, 3)),grid[2].reshape((-1, 3))))
+        band_1 = np.vstack((grid[0].reshape((-1, 3)),grid[1].reshape((-1, 3)),grid[2].reshape((-1, 3))))
+        # band_2 = np.vstack((grid[3].reshape((-1, 3)),grid[4].reshape((-1, 3)),grid[5].reshape((-1, 3))))
         # self.publish_processed_cloud(band2)
         grid_cell_sizes = np.array([x.shape[0] for x in grid])
         print('Grid cell_sizes = ', grid_cell_sizes)
@@ -351,7 +351,7 @@ class CloudSubscriber:
         # if intermediate_points < 20:
         #     print('Brink Detected')
         #     stop = True
-        pv_cloud = pv.PolyData(band_2)       
+        pv_cloud = pv.PolyData(band_1)       
         near_mesh = pv_cloud.delaunay_2d()
         unsafe_cells = [abs(near_mesh.cell_normals[:,2]) < 0.93]
         danger_rating = np.sum(unsafe_cells) / near_mesh.n_cells

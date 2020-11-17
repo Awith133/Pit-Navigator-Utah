@@ -224,12 +224,14 @@ class CloudSubscriber:
         warn = False
         stop = False
         grid = split_mesh(mesh)
-        # band_1 = np.vstack((grid[0].reshape((-1, 3)),grid[1].reshape((-1, 3)),grid[2].reshape((-1, 3))))
-        band_2 = np.vstack((grid[2].reshape((-1, 3)),grid[3].reshape((-1, 3)),grid[4].reshape((-1, 3))))
-        pv_cloud = pv.PolyData(band_2)       
+        band_1 = np.vstack((grid[0].reshape((-1, 3)),grid[1].reshape((-1, 3)),grid[2].reshape((-1, 3))))
+        # band_2 = np.vstack((grid[3].reshape((-1, 3)),grid[4].reshape((-1, 3)),grid[5].reshape((-1, 3))))
+        pv_cloud = pv.PolyData(band_1)       
         near_mesh = pv_cloud.delaunay_2d()
         grid_cell_sizes = [x.shape[0] for x in grid]
         print('Grid cell_sizes = ', grid_cell_sizes)
+        
+        
         far_points = sum(grid_cell_sizes[-3:])
         intermediate_points = sum(grid_cell_sizes[3:6])
         visualize_mesh(mesh)
