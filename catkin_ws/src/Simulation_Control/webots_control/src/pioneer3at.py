@@ -141,8 +141,8 @@ def command_velocity_callback(data):
     robot_linear_velocity = data.linear.x
     robot_angular_velocity = data.angular.z
 
-    left_velocity = robot_linear_velocity - 0.5*robot_angular_velocity*WHEEL_BASE
-    right_velocity = robot_linear_velocity + 0.5*robot_angular_velocity*WHEEL_BASE
+    left_velocity = robot_linear_velocity - 1*robot_angular_velocity*WHEEL_BASE
+    right_velocity = robot_linear_velocity + 1*robot_angular_velocity*WHEEL_BASE
     velocity = {
         "left_back": left_velocity,
         "right_back": right_velocity,

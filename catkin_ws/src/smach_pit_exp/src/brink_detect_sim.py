@@ -168,7 +168,7 @@ class CloudSubscriber:
         self.flush = not self.flush
         self.alert_status = 0
         if self.flush:
-            print('Skipping Data')
+            #print('Skipping Data')
             return
         
         xyz = ros_numpy.point_cloud2.pointcloud2_to_xyz_array(msg, remove_nans=True)
@@ -178,17 +178,18 @@ class CloudSubscriber:
             return
         rand_vec = np.random.randint(0, xyz.shape[0], size = xyz.shape[0]//3)
         xyz = xyz[rand_vec]
-        print(xyz.shape)
+        print('\n')
         print('One Step')
+        print(xyz.shape)
         self.H = self.get_transformation_matrix(self.tvec, self.rvec)
         self.cloud_data = self.transform_cloud(xyz, self.H)
 
         self.mesh = self.get_mesh(self.cloud_data)
         edges, boundary_points = extract_boundary(self.mesh)
-        print("Max y val = {}".format(np.amax(boundary_points[:,1])))
-        print("Min y val = {}".format(np.amin(boundary_points[:,1])))
-        print("Min X val = {}".format(np.amin(boundary_points[:,0])))
-        print("Min X val = {}".format(np.amax(boundary_points[:,0])))
+        #print("Max y val = {}".format(np.amax(boundary_points[:,1])))
+        #print("Min y val = {}".format(np.amin(boundary_points[:,1])))
+        #print("Min X val = {}".format(np.amin(boundary_points[:,0])))
+        #print("Min X val = {}".format(np.amax(boundary_points[:,0])))
         pts = get_farthest_points(boundary_points)
 
         warn, stop = self.risk(self.mesh)
@@ -224,9 +225,9 @@ class CloudSubscriber:
         warn = False
         stop = False
         grid = split_mesh(mesh)
-        # band_1 = np.vstack((grid[0].reshape((-1, 3)),grid[1].reshape((-1, 3)),grid[2].reshape((-1, 3))))
-        band_2 = np.vstack((grid[2].reshape((-1, 3)),grid[3].reshape((-1, 3)),grid[4].reshape((-1, 3))))
-        pv_cloud = pv.PolyData(band_2)       
+        band_1 = np.vstack((grid[0].reshape((-1, 3)),grid[1].reshape((-1, 3)),grid[2].reshape((-1, 3))))
+        # band_2 = np.vstack((grid[3].reshape((-1, 3)),grid[4].reshape((-1, 3)),grid[5].reshape((-1, 3))))
+        pv_cloud = pv.PolyData(band_1)       
         near_mesh = pv_cloud.delaunay_2d()
         grid_cell_sizes = [x.shape[0] for x in grid]
         print('Grid cell_sizes = ', grid_cell_sizes)
