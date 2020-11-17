@@ -111,7 +111,7 @@ def visualize_mesh(mesh, points = None, edges = None, color_pt = None):
             Points: Numpy array containing points to be visualized
             Edges: Pyvista object containing edge information (obtained from extract_edges)
     '''
-    p.add_mesh(mesh, show_edges=True, color=True, name = 'mesh')
+    p.add_mesh(mesh, scalars = abs(mesh.cell_normals[:,1]) < 0.93, show_edges=True, color=True, name = 'mesh')
     if edges is not None:
         p.add_mesh(edges, color="blue", line_width=5, name = 'edges')
     if points is not None:
@@ -179,7 +179,7 @@ class CloudSubscriber:
         rand_vec = np.random.randint(0, xyz.shape[0], size = xyz.shape[0]//3)
         xyz = xyz[rand_vec]
         print('\n')
-        print('One Step')
+        # print('One Step')
         print(xyz.shape)
         self.H = self.get_transformation_matrix(self.tvec, self.rvec)
         self.cloud_data = self.transform_cloud(xyz, self.H)
@@ -236,10 +236,18 @@ class CloudSubscriber:
         far_points = sum(grid_cell_sizes[-3:])
         intermediate_points = sum(grid_cell_sizes[3:6])
         visualize_mesh(mesh)
+
+        unsafe_cells = [abs(near_mesh.cell_normals[:,1]) < 0.93]
+        danger_rating = np.sum(unsafe_cells) / near_mesh.n_cells
+        print(danger_rating)
+        if danger_rating > 0.7:
+            stop = True
+            print('Unsafe Slope Detected')
         if far_points < 30:
             warn = True
-        if intermediate_points < 50 or far_points == 0:
+        if intermediate_points < 50 or far_points < 10:
             stop = True
+            print('Brink Detected')
         return warn, stop
 
     def near_unsafe_slope(self, surf):
