@@ -301,8 +301,8 @@ class circum_wp_cb(smach.State):
 		rospy.sleep(rospy.Duration(5.0))
 		msg = PoseStamped()
 		msg.header.frame_id = 'map'
-		#postion
-		msg.pose.position.x = userdata.wp_around_pit[userdata.counter_wp_around_pit][1]#x
+		#postionuserdata.counter_wp_around_pit
+		msg.pose.position.x = userdata.wp_around_pit[userdata.counter_wp_around_pit][1]#x 
 		msg.pose.position.y = userdata.wp_around_pit[userdata.counter_wp_around_pit][2]#y
 		#orientation
 		yaw = userdata.wp_around_pit[userdata.counter_wp_around_pit][4] #yaw
