@@ -47,6 +47,21 @@ Pioneer3at {
       name "inertial_unit"
       resolution 0.01
     }
+    LED {
+      translation 0 1 0
+      children [
+        SpotLight {
+          attenuation 0 0 1
+          beamWidth 0.785398
+          direction 0 -1 0
+          intensity 3
+          color 1 1 1
+          castShadows TRUE
+        }
+      ]
+      color 1 1 1
+    }
+
     Pen {
       inkColor 1 0 0
       leadSize 0.001

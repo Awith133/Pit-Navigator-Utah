@@ -133,9 +133,10 @@ def set_velocity(all_wheel_velocities, speed=0):
             try:
                 MOTOR_VEL_CLIENT[motor](SPEED_UNIT*all_wheel_velocities[motor])
                 PREV_VELOCITY[motor] = all_wheel_velocities[motor]
-            except:
+            except Exception as e:
+                # rospy.loginfo(e)
                 MOTOR_VEL_CLIENT[motor] = None
-                rospy.logerr("the motor %s did not respond", motor)
+                rospy.loginfo("the motor %s", motor)
     
     # rospy.loginfo("Done setting up all wheel velocities")
 

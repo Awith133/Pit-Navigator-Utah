@@ -110,7 +110,7 @@ def image_subscriber_cb(msg):
 		# rospy.logerr("Inside Callback")
 		return
 	else:
-		rospy.logerr("Condition Met")
+		rospy.logerr("Captured Image")
 		log_images = False
 		rgb_img = bridge.imgmsg_to_cv2(msg, "bgr8")
 		print(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/logged_images/' + str(rgb_count) + '.png')
@@ -234,9 +234,9 @@ class circum_wp_cb(smach.State):
 			while alert_helper.alert_flag != 2:
 				if alert_helper.is_published:
 					if alert_helper.alert_flag == 0:
-						brink_controller.generate_twist_msg([0.075, 0, 0], [0, 0, 0])
+						brink_controller.generate_twist_msg([0.075, 0.0, 0.0], [0.0, 0.0, 0.0])
 					else:
-						brink_controller.generate_twist_msg([0.075, 0, 0], [0, 0, 0])
+						brink_controller.generate_twist_msg([0.075, 0.0, 0.0], [0.0, 0.0, 0.0])
 					brink_controller.publish_twist_msg()
 					alert_helper.is_published = False
 				else:
@@ -245,8 +245,10 @@ class circum_wp_cb(smach.State):
 				#rospy.loginfo(alert_helper.alert_bool)
 			end_time_going = rospy.get_rostime().secs
 			# zero twist to stop
-			brink_controller.generate_twist_msg([0, 0, 0], [0, 0, 0])
+			rospy.loginfo('Completed Forward Motion')
+			brink_controller.generate_twist_msg([0.0, 0.0, 0.0], [0.0, 0.0, 0.0])
 			brink_controller.publish_twist_msg()
+			rospy.loginfo('Completed Stop Motion')
 			# camera functions
 			if ('Simulation' in file_locations['robot_simulation_env']):
 				log_images = True
@@ -270,6 +272,7 @@ class circum_wp_cb(smach.State):
 			#while start_time_coming+(end_time_going-start_time_going)/2>rospy.get_rostime().secs:
 			brink_controller.generate_twist_msg([-0.1, 0, 0], [0, 0, 0])
 			brink_controller.publish_twist_msg()
+			rospy.loginfo('Completed Forward Motion')
 			return_time = rospy.get_rostime().secs
 			while (return_time +int((end_time_going-start_time_going)*3/4)>rospy.get_rostime().secs):
 				time.sleep(0.01)

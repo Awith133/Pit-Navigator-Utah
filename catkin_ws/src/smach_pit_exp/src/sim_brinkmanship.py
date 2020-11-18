@@ -3,10 +3,10 @@ import numpy as np
 import rospy
 from std_msgs.msg import Float64, String
 import time
-
+import copy
 class Brinkmanship:
     def __init__(self):
-        self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
+        self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size = 10)
         self.msg = Twist()
         return
     
@@ -20,7 +20,8 @@ class Brinkmanship:
         return
 
     def publish_twist_msg(self):
-        self.cmd_vel_pub.publish(self.msg)
+        twist_copy = copy.deepcopy(self.msg)
+        self.cmd_vel_pub.publish(twist_copy)
         return
 
 if __name__ == '__main__':
