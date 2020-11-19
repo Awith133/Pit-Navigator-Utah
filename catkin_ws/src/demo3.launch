@@ -3,8 +3,8 @@
 	<env name="WEBOTS_HOME"    value="/usr/local/webots"/>
 	
 
-	<arg name="SYSTEM_NAME"          value="/home/alex/Pit-Navigator-Utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
-	<arg name="ROBOT_SIMULATION_ARG" value="/home/alex/Pit-Navigator-Utah/catkin_ws/src/Simulation_Control/Utah_Pit"/>
+	<arg name="SYSTEM_NAME"          value="/home/pit_crew/pit-navigator-utah/Pit-Navigator-Utah"/>       <!-- V 'Simulation_Control/Utah_Pit' or Simulation_Control/Utah_BIG' or 'Simulation_Control/Lacus_Mortis_Pit' or 'Simulation_Control/Pit_Edge_Test'-->
+	<arg name="ROBOT_SIMULATION_ARG" value="/home/pit_crew/pit-navigator-utah/Pit-Navigator-Utah/catkin_ws/src/Robot_Control"/>
 	<!--rosparam file="$(arg SYSTEM_NAME)/server_parameters/parameters.yaml" command="load" /-->
 	
 	<param name="system_name" type="string" value="$(arg SYSTEM_NAME)"/>
@@ -124,7 +124,7 @@
                                                       0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    1e-9]</rosparam>
 		</node>
 		
-		<!-- <node pkg="smach_pit_exp" type="dense_reconstruct.py" name="dense_reconstruct" output="screen"/> -->
+		<node pkg="smach_pit_exp" type="dense_reconstruct.py" name="dense_reconstruct" output="screen"/>
 
 		<node name="arbotix" pkg="arbotix_python" type="arbotix_driver" output="screen">
 		<rosparam file="$(arg SYSTEM_NAME)/catkin_ws/src/cfg/pantilt.yaml" command="load"/>

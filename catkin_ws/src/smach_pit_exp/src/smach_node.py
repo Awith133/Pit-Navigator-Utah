@@ -78,7 +78,7 @@ else:
 	# from brinkmanship import Brinkmanship
 	from arbotix_python.arbotix import ArbotiX
 	TIME_OUT = 80+3*160+240 + rospy.get_rostime().secs
-	arb = ArbotiX("/dev/ttyUSB0",115200)
+	arb = ArbotiX("/dev/ttyUSB1",115200)
 
 
 img_capture_pub = rospy.Publisher('/image_number', Int32, queue_size = 10)
@@ -225,8 +225,8 @@ class circum_wp_cb(smach.State):
 			else:
 				rospy.logwarn('return real life pictures')
 
-				pan_rng = [437, 512, 587, 437, 512, 587, 437, 512, 587]
-				tilt_rng = [512, 512, 512, 482, 482, 482, 452, 452, 452]
+				pan_rng =  [362, 437, 512, 587, 662, 362, 437, 512, 587, 662, 362, 437, 512, 587, 662, 362, 437, 512, 587, 662]
+				tilt_rng = [512, 512, 512, 512, 512, 482, 482, 482, 482, 482, 452, 452, 452, 452, 452, 422, 422, 422, 422, 422]
 				pan_tilt_list = zip(pan_rng, tilt_rng)
 				for idx, (pan, tilt) in enumerate(pan_tilt_list):
 					smach_helper.display_real_images(arb, pan, tilt) #relpace with pan tilt motions on robot #make it stop this one
@@ -245,7 +245,7 @@ class circum_wp_cb(smach.State):
 			brink_controller.publish_twist_msg()
 			time.sleep(1)
 			self.vantage_return = True
-			self.count_visited += 1
+			#self.count_visited += 1     #TODO: undo comment do make risk algorithm
 
 	def nextwaypoint(self,userdata,num):
 		#moving on to next waypoint

@@ -267,7 +267,7 @@ class CloudSubscriber:
         self.cloud_data = self.cloud_data[self.cloud_data[:,2] > 1.2*avg_z ]
         self.cloud_data = self.cloud_data[self.cloud_data[:,2] < 0.8*avg_z ]
         self.cloud_data = self.cloud_data[self.cloud_data[:,2] > -0.3]
-        if self.cloud_data.shape[0] < 600:
+        if self.cloud_data.shape[0] < 1000:
             self.alert_status = 2
             self.publish_stop_signal()
             print('Cannot generate mesh')
@@ -356,7 +356,7 @@ class CloudSubscriber:
         unsafe_cells = [abs(near_mesh.cell_normals[:,2]) < 0.93]
         danger_rating = np.sum(unsafe_cells) / near_mesh.n_cells
         print(danger_rating)
-        if danger_rating > 0.95:
+        if danger_rating > 0.7:
             print('Unsafe Slope')
             stop = True
         

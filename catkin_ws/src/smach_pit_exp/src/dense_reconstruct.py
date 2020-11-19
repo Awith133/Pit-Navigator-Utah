@@ -21,8 +21,8 @@ pipeline = rs.pipeline()
 config = rs.config()
 config.enable_stream(rs.stream.infrared, 1, 640, 480, rs.format.y8, 30)
 config.enable_stream(rs.stream.infrared, 2, 640, 480, rs.format.y8, 30)
-config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
-config.enable_record_to_file('run4.bag')
+config.enable_stream(rs.stream.color, 1920, 1080, rs.format.bgr8, 30)
+# config.enable_record_to_file('run4.bag')
 profile = pipeline.start(config)
 
 # matrix containing the camera parameters
