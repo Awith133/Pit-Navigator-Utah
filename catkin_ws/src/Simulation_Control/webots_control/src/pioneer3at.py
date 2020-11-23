@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-from std_msgs.msg import Float64, String
+from std_msgs.msg import Float64, String, Bool
 import os
 import math
 from nav_msgs.msg import Odometry
@@ -14,7 +14,7 @@ from cv_bridge import CvBridge, CvBridgeError
 
 from webots_ros.srv import set_int, set_float, camera_get_info
 from sensor_msgs import point_cloud2
-
+import time
 TIME_STEP = 32
 
 SPEED_UNIT = 9.09
@@ -223,6 +223,27 @@ def get_model_name(data):
     ROBOT_ROSNODE = data.data
     rospy.loginfo(("Got the ROS node of the Robot as: " + ROBOT_ROSNODE))
 
+
+def disable_sensor(sensor_name):
+    global CAMERA_NAMES
+    global ROBOT_ROSNODE
+    try:
+        # Publish camera images
+        service_name = ROBOT_ROSNODE+"/"+CAMERA_NAMES[sensor_name]+"/enable"
+        rospy.wait_for_service(service_name,10)
+        enbale_client = rospy.ServiceProxy(service_name, set_int)
+        rep1 = enbale_client(0)
+    except rospy.ServiceException, e:
+        print "Service call failed: %s"%e
+
+def capture_image_cb(msg):
+    rospy.loginfo('Entered Callback with msg %s ', str(msg.data))
+    if msg.data:
+        enable_sensor("PitCam")
+    else:
+        disable_sensor("PitCam")
+    return
+
 def enable_sensor(sensor_name):
     global CAMERA_NAMES
     global ROBOT_ROSNODE
@@ -232,7 +253,7 @@ def enable_sensor(sensor_name):
         rospy.wait_for_service(service_name,10)
         enbale_client = rospy.ServiceProxy(service_name, set_int)
         if (sensor_name == "PitCam"):
-            rep1 = enbale_client(1000)
+            rep1 = enbale_client(2000)
         elif (not sensor_name == "imu"):
             rep1 = enbale_client(64)
         else:
@@ -283,6 +304,7 @@ if __name__ == "__main__":
     # Subscribe to model_name to get the name of the node for the robot
     model_name_sub = rospy.Subscriber("/model_name", String, get_model_name) 
     
+    capture_image_sub = rospy.Subscriber('/apnapioneer3at/PitCam/CaptureImage', Bool, capture_image_cb)
     counter = 0
     while(ROBOT_ROSNODE == ""):
         if(counter%200 == 0):
@@ -297,8 +319,10 @@ if __name__ == "__main__":
     #enable_sensor("left_back")
     #enable_sensor("right_back")
     #enable_sensor("meta_back")
+    # enable_sensor("PitCam")
+    # time.sleep(3)
+    # disable_sensor('PitCam')
     enable_sensor("imu")
-    enable_sensor("PitCam")
     enable_sensor("depth")
     set_velocity(CURR_VELOCITY)
 

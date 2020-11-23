@@ -6,9 +6,10 @@ import smach
 import pdb
 import cv2
 import smach_ros
+import numpy as np
 from smach import CBState
 from nav_msgs.msg import Odometry
-from std_msgs.msg import Empty, String, Int32
+from std_msgs.msg import Empty, String, Int32, Bool
 from geometry_msgs.msg import PoseStamped, PolygonStamped
 
 from tf.transformations import quaternion_from_euler
@@ -30,6 +31,8 @@ import smach_helper
 from sim_brinkmanship import Brinkmanship
 import sys
 from cv_bridge import CvBridge, CvBridgeError
+import copy
+
 bridge = CvBridge()
 
 rospy.init_node('smach_nodelet')
@@ -101,25 +104,52 @@ log_images = False
 
 rgb_count = 0
 
+PUBLISH_COUNT = 0
+
+total_published_images = 0
+
 alert_helper = smach_helper.BrinkStatus()
+
+prev_image = [None]
 def image_subscriber_cb(msg):
 	global file_locations
 	global log_images
-	global rgb_count
+	global rgb_count, PUBLISH_COUNT, total_published_images, prev_image
+	total_published_images += 1
+	# print(total_published_images)
+	# if PUBLISH_COUNT < 10:
+	# 	rgb_img = bridge.imgmsg_to_cv2(msg, "bgr8")
+	# 	PUBLISH_COUNT += 1
+	# 	rospy.loginfo("Skipping image %s", str(PUBLISH_COUNT))
+	# 	return
 	if not log_images:
 		# rospy.logerr("Inside Callback")
 		return
 	else:
-		rospy.logerr("Captured Image")
-		log_images = False
 		rgb_img = bridge.imgmsg_to_cv2(msg, "bgr8")
-		print(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/logged_images/' + str(rgb_count) + '.png')
-		cv2.imwrite(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/logged_images/' + str(rgb_count) + '.png', rgb_img)
-		rgb_count += 1
+		if np.array_equal(prev_image, rgb_img):
+			return
+		elif not np.array_equal([None], prev_image):
+			rospy.logerr("Captured Image")
+			log_images = False
+			# rgb_img = np.array(rgb_img).astype(np.int16)
+			r, c, d = rgb_img.shape
+			image_list = [rgb_img[j*r//2:(j+1)*r//2, i*c//2:(i+1)*c//2,:] for j in range(2) for i in range(2)]
+			print(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/logged_images/' + str(rgb_count) + '.png')
+			cv2.imwrite(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/logged_images/full_image_' + str(rgb_count) + '.tif', rgb_img)
+			for idx, im in enumerate(image_list):
+				cv2.imwrite(file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/logged_images/' + str(rgb_count) + '_' + str(idx) + '.tif', im)
+			rgb_count += 1
+			PUBLISH_COUNT = 0
+			prev_image = copy.deepcopy(rgb_img)
+			time.sleep(5)
+			image_publish_signal.publish(False)
+		else:
+			prev_image = copy.deepcopy(rgb_img)
 	return
 
 image_subscriber = rospy.Subscriber('/apnapioneer3at/PitCam/image', Image, image_subscriber_cb)
-
+image_publish_signal = rospy.Publisher('/apnapioneer3at/PitCam/CaptureImage', Bool, queue_size=10)
 listener = None
 
 # Brinkmanship Edge Alert Flag
@@ -252,8 +282,13 @@ class circum_wp_cb(smach.State):
 			# camera functions
 			if ('Simulation' in file_locations['robot_simulation_env']):
 				log_images = True
+				image_publish_signal.publish(True)
+				while log_images:
+					continue
+				# time.sleep(5)
+				# image_publish_signal.publish(False)
 				time.sleep(1)
-				smach_helper.display_sim_images(rgb_count-1,file_locations) #relpace with pan tilt motions on robot #make it stop this one
+				# smach_helper.display_sim_images(rgb_count-1,file_locations) #relpace with pan tilt motions on robot #make it stop this one
 			else:
 				rospy.logwarn('return real life pictures')
 

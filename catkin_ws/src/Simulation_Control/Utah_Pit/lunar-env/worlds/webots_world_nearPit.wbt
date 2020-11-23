@@ -40,8 +40,9 @@ Pioneer3at {
       rotation -1 0 0 0.7330383
       name "PitCam"
       fieldOfView 2
-      width 1200
-      height 640
+      width 16000
+      height 12000
+      spherical FALSE
     }
     InertialUnit {
       name "inertial_unit"
