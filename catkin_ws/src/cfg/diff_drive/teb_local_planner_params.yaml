@@ -1,6 +1,7 @@
 TebLocalPlannerROS:
 
- odom_topic: odometry_ground_truth #this makes me nervous
+
+ odom_topic: odommetry_ground_truth #this makes me nervous - was odoetry_ground_truth
 
  # Trajectory
 
@@ -19,12 +20,12 @@ TebLocalPlannerROS:
 
  # Robot
 
- max_vel_x: 0.11 #default .64 #units: m/s
- max_vel_x_backwards: 0.11 #default .1
+ max_vel_x: 0.64 #default .64 #units: m/s
+ max_vel_x_backwards: 0.64 #default .1
  max_vel_y: 0
- max_vel_theta: 1.2 #default 3.036 #1.2 is radians per second
- acc_lim_x: .11 #default .5
- acc_lim_theta: 1.2 #default 3
+ max_vel_theta: 3 #default 3.036 #1.2 is radians per second
+ acc_lim_x: .64 #default .5
+ acc_lim_theta: 3 #default 3
  min_turning_radius: 0.0 # diff-drive robot (can turn in place!)
  wheelbase: 0.266
 
@@ -33,7 +34,7 @@ TebLocalPlannerROS:
 
  # GoalTolerance
 
- xy_goal_tolerance:  0.20 #decimeters? #default .2
+ xy_goal_tolerance:  0.80 #decimeters? #default .2
  yaw_goal_tolerance: 0.12 #default .12 #radians
  free_goal_vel: False
 
@@ -68,7 +69,7 @@ TebLocalPlannerROS:
  weight_kinematics_forward_drive: 1  # how much backwards movement? 1 is backwards, 1000 is no backwards #defualt 1
  weight_kinematics_turning_radius: 0 #default 1 #carlike only #enforces a min turning radius
  weight_optimaltime: 1 # must be > 0
- weight_shortest_path: 1 # default 3
+ weight_shortest_path: 0 # default 3
  weight_obstacle: 100
  weight_inflation: 0.5 #default .5
  weight_dynamic_obstacle: 10

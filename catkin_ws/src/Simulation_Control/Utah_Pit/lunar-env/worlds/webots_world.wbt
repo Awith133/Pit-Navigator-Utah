@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.9993363245231679 -0.032099610419712654 -0.017219915778773468 4.727972631661148
-  position 44.686704738628684 15.522303368490206 52.2314589237425
+  orientation 0.9999181057727938 -0.0064894508615448935 0.011030356987124004 5.088919388503823
+  position 9.06983127621742 19.40523276847085 35.2891066932713
   follow "Pioneer 3-AT"
 }
 DirectionalLight {
@@ -18,16 +18,13 @@ Robot {
   supervisor TRUE
 }
 Pioneer3at {
-  hidden position_0_0 445.3001582665581
-  hidden position_0_1 448.52894915642094
-  hidden position_0_2 445.3547025840031
-  hidden position_0_3 448.4978831952727
-  hidden rotation_14 -1 0 0 5.477186763987075
-  hidden rotation_15 1 0 0 3.860392960509291
-  hidden rotation_16 -1 0 0 5.531731081432068
-  hidden rotation_17 1 0 0 3.891458921657506
-  translation 42.63761086934634 1.1434257502590224 52.399431457720674
-  rotation 0.002552888338737344 -0.9999426655116673 0.010399444723244812 1.6376441827957224
+  hidden position_0_0 1.5394430631888402e-10
+  hidden position_0_1 1.5376516671706004e-10
+  hidden position_0_2 1.0564928290668202e-11
+  hidden position_0_3 1.5140280222904762e-10
+  hidden rotation_18 1 0 0 4.577207777885938
+  translation 8.20025681390114 1.1070106975285068 28.033763779879642
+  rotation -0.0003752432701388817 -0.9999998540136928 -0.00038879953855675014 1.6068656937649568
   controller "ros"
   controllerArgs [
     "--name=apnapioneer3at"
@@ -35,14 +32,32 @@ Pioneer3at {
     "--use-sim-time"
   ]
   extensionSlot [
+    Camera {
+      translation 0 0.25 -0.3
+      rotation -1 0 0 0.7330383
+      name "PitCam"
+      fieldOfView 2
+      width 16000
+      height 12000
+      spherical FALSE
+    }
     InertialUnit {
       name "inertial_unit"
       resolution 0.01
     }
-    Pen {
-      inkColor 1 0 0
-      leadSize 0.001
-      write FALSE
+    LED {
+      translation 0 1 0
+      children [
+        SpotLight {
+          attenuation 0 0 1
+          beamWidth 0.785398
+          direction 0 -1 0
+          intensity 3
+          color 1 1 1
+          castShadows TRUE
+        }
+      ]
+      color 1 1 1
     }
     CustomMultiSenseS21 {
       translation 0 0.13 -0.18

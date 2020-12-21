@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 #display image imports
 #import cv2
 import glob
@@ -8,78 +7,66 @@ import glob
 #from PIL import Image
 import time
 import subprocess
+import rospy
+from std_msgs.msg import Int8
+
+PT_SPEED = 8
 
 class BrinkStatus:
     def __init__(self):
-       self.alert_flag = 'False'
-       return
+        # self.edge_sub = rospy.Subscriber('/edge_alert', Bool, self.edge_alert_cb)             # USING A DIFFERENT METHOD
+        self.edge_sub = rospy.Subscriber('/edge_alert', Int8, self.edge_alert_cb)
+        self.alert_flag = False
+        self.is_published = False
+        return
     
     def edge_alert_cb(self, msg):
-        self.alert_flag = 'True'
+        self.is_published = True
+        self.alert_flag = msg.data
         return
 
-def display_real_images(userdata, file_locations):
+def display_real_images(arb, pan, tilt):
+    rospy.logerr("move damn it")
+    pan_tilt_to_pos(arb, pan, tilt)
+    return
+        
+def display_sim_images(image, file_location):
     time.sleep(1)
-    images_folder = file_locations['robot_simulation_env'] + '/lunar-env/images/'
-    
-    grep = images_folder + str(userdata.wp_around_pit[userdata.counter_wp_around_pit][5])+ '_' +str(userdata.wp_around_pit[userdata.counter_wp_around_pit][6])+ '_'+'2_1_1_0_0.png'
-    #smalldst = images_folder+iteration[userdata.counter_wp_around_pit][0] +'_'+iteration[userdata.counter_wp_around_pit][1]+'/'
-    #smallgrep = iteration[userdata.counter_wp_around_pit][0] + '_' +iteration[userdata.counter_wp_around_pit][1]+ '_'+ '2_1_1_*_*.png'
-    #import os
-    ##method 4
-    #if not os.path.exists(smalldst):
-    #os.mkdir(smalldst)
-    
-    list1 = glob.glob(grep)
-    def compare(x, y):
-        partsOfX = x.split('_')
-        partsOfY = y.split('_')
-        integerListx = [int(partsOfX[5]),int(partsOfX[6].split('.')[0])*100]
-        integerListy = [int(partsOfY[5]),int(partsOfY[6].split('.')[0])*100]
-        return integerListx[0] - integerListy[0]+ integerListy[1]- integerListx[1]
-    list1.sort(cmp= compare)
-    
-    #i = 0
-    for filename in list1:
-        #make method 4
-        #from shutil import copyfile
-        #dst = smalldst+'{0}.png'.format(str(i).zfill(3))
-        #i+=1
-        #copyfile(filename, dst)
+    if False:
+        print("capture new picture")
+    image_folder = file_location['project_file_location']+'/catkin_ws/src/smach_pit_exp/logged_images/'
+    filename = image_folder + str(image)+ '.png'
+    # grep = images_folder + str(userdata.wp_around_pit[userdata.counter_wp_around_pit][5])+ '_' +str(userdata.wp_around_pit[userdata.counter_wp_around_pit][6])+ '_'+'2_1_1_0_0.png'
+    # list1 = glob.glob(grep)
+    # def compare(x, y):
+    #     partsOfX = x.split('_')
+    #     partsOfY = y.split('_')
+    #     integerListx = [int(partsOfX[5]),int(partsOfX[6].split('.')[0])*100]
+    #     integerListy = [int(partsOfY[5]),int(partsOfY[6].split('.')[0])*100]
+    #     return integerListx[0] - integerListy[0]+ integerListy[1]- integerListx[1]
+    # list1.sort(cmp= compare)
+    # for filename in list1:
+    #     #method#3
+    viewer = subprocess.Popen(['eog', filename])
+    time.sleep(2)
+    viewer.terminate()
+    viewer.kill()
 
-        #method#3
-        viewer = subprocess.Popen(['eog', filename])
-        time.sleep(2)
-        viewer.terminate()
-        viewer.kill()
-        
-        #method2
-        #img=mpimg.imread(filename)
-        #imgplot = plt.imshow(img)
-        #plt.show(block=False)
-        #plt.pause(1)
-        #plt.close()
+def pan_tilt_to_pos(arb, pan, tilt):
+    pan_pos = arb.getPosition(1)
+    tilt_pos = arb.getPosition(2)
 
-        #method1
-        #image = cv2.imread(filename)
-        #print('1')
-        #cv2.imshow('image',image)
-        #cv2.waitKey(1000)
-        #cv2.destroyAllWindows()
-        
-    #make method 4
-    #location = file_locations['project_file_location']+'/catkin_ws/src/smach_pit_exp/src/'
-    #subprocess.call("{0}makeVantagegif.sh {1} {2}".format(location,smalldst,smallgrep),shell=True)
-    #else:
-        #method 4
-        #viewer = subprocess.Popen(['eog', smalldst+smallgrep+'.gif'])
-        #time.sleep(14)
-        #viewer.terminate()
-        #viewer.kill()
-        
+    while (abs(pan_pos - pan) > 5 or abs(tilt_pos - tilt) > 5):
+        pan_move = min(PT_SPEED, abs(pan - pan_pos)) * (1 if pan >= pan_pos else -1)
+        tilt_move = min(PT_SPEED, abs(tilt - tilt_pos)) * (1 if tilt >= tilt_pos else -1)
 
+        arb.setPosition(1, pan_pos + pan_move)
+        arb.setPosition(2, tilt_pos + tilt_move)
 
+        pan_pos = arb.getPosition(1)
+        tilt_pos = arb.getPosition(2)
 
+    return
 
 def show_model(model,file_locations):
 
@@ -127,21 +114,31 @@ def calculate_yaw(q,msg):
 #read csv imports
 import csv
 def read_csv(filename,_map_resolution):
-	wp = []
-	resolution = _map_resolution
-	with open(filename, 'rb') as f:
-		reader = csv.reader(f, delimiter=',')
-		for row in reader:
-			tmp = []
-			i = 0
-			for elem in row:
-				if(i == 0):
-					tmp.append((int(elem)*resolution ))
-				else:
-					tmp.append(-1*int(elem)*resolution )
-				i+=1
-			wp.append(tmp)
-	return wp
+    wp = []
+    resolution = _map_resolution
+    with open(filename, 'rb') as f:
+        reader = csv.reader(f, delimiter=',')
+        for row in reader:
+            tmp = []
+            i = 0
+            for elem in row:
+                if elem == '':
+                    print("")
+                elif(i == 0):
+                    tmp.append(int(elem)*resolution )
+                elif(i==1):
+                    if("Robot_Control" in filename):
+                        tmp.append(int(elem)*resolution )
+                    else:
+                        tmp.append(-1*int(elem)*resolution )
+                else:
+                    if("Robot_Control" in filename):
+                        tmp.append(int(elem) )
+                    else:
+                        tmp.append(int(elem))
+                i+=1
+            wp.append(tmp)
+    return wp
 def read_csv_around_pit(filename, _map_resolution):
     wp = []
     map_resolution = _map_resolution
@@ -159,7 +156,10 @@ def read_csv_around_pit(filename, _map_resolution):
                 elif (i==1):
                     tmp.append(   int(elem) * map_resolution ) #x
                 elif (i==2):
-                    tmp.append(-1*int(elem) * map_resolution ) #y
+                    if ("Robot_Control" in filename):
+                        tmp.append(int(elem)*map_resolution )
+                    else:
+                        tmp.append(-1*int(elem)*map_resolution )
                 elif (i==3 or i==5 or i==6):
                     tmp.append(   int(elem)) #vatage point y = 1, n = -1
                 elif (i==4):
@@ -193,15 +193,15 @@ def time_estimations(file_locations , estimation=None):
     reader = csv.reader(csvfile)
     if ('Simulation' in file_locations['robot_simulation_env']):
         if ('Utah_Pit' in file_locations['robot_simulation_env']):
-            average = [80, 78, 567, 132]
+            average = [226, 162, 355, 500] #Lander2Pit,Navaroundpit,pit2lander,highway
         if ('Utah_BIG' in file_locations['robot_simulation_env']):
-            average = [80, 78, 567, 132]
+            average = [80, 78, 567, 132] #Lander2Pit,Navaroundpit,pit2lander,highway
         if ('Lacus_Mortis_Pit' in file_locations['robot_simulation_env']):
-            average = [800, 780, 5670, 1320]
+            average = [800, 780, 5670, 1320] #Lander2Pit,Navaroundpit,pit2lander,highway
         if ('Pit_Edge_Test' in file_locations['robot_simulation_env']):
-            average = [10, 160, 15, 25] 
+            average = [10, 160, 15, 25] #Lander2Pit,Navaroundpit,pit2lander,highway
     else:
-        average = [80, 78, 567, 132]
+        average = [80, 160, 120, 120] #Lander2Pit,Navaroundpit,pit2lander,highway
     
     output = average[:]
     count = [0,0,0,0]

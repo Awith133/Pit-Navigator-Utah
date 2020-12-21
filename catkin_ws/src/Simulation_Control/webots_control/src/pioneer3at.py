@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-from std_msgs.msg import Float64, String
+from std_msgs.msg import Float64, String, Bool
 import os
 import math
 from nav_msgs.msg import Odometry
@@ -14,7 +14,7 @@ from cv_bridge import CvBridge, CvBridgeError
 
 from webots_ros.srv import set_int, set_float, camera_get_info
 from sensor_msgs import point_cloud2
-
+import time
 TIME_STEP = 32
 
 SPEED_UNIT = 9.09
@@ -56,7 +56,8 @@ CAMERA_NAMES = {
     "right_back": "MultiSense_S21_Backwards_right_camera",
     "meta_back": "MultiSense_S21_Backwards_meta_camera",
     "depth_back": "MultiSense_S21_Backwards_meta_range_finder",
-    "imu":"inertial_unit"
+    "imu":"inertial_unit",
+    "PitCam": "PitCam"
     }
 
 CAMERA_INFOS = {
@@ -68,7 +69,8 @@ CAMERA_INFOS = {
     "left_back": None,
     "right_back": None,
     "meta_back": None,
-    "depth_back": None
+    "depth_back": None,
+    "PitCam": None
 }
 
 CAMERA_INFO_PUBLISHERS = {
@@ -80,7 +82,8 @@ CAMERA_INFO_PUBLISHERS = {
     "left_back": None,
     "right_back": None,
     "meta_back": None,
-    "depth_back": None
+    "depth_back": None,
+    "PitCam": None
 }
 
 PC_PUBLISHER = None
@@ -127,10 +130,13 @@ def set_velocity(all_wheel_velocities, speed=0):
             set_velocity_client = rospy.ServiceProxy(service_name, set_float)
             MOTOR_VEL_CLIENT[motor] = set_velocity_client
         if(PREV_VELOCITY[motor] is None or PREV_VELOCITY[motor] != all_wheel_velocities[motor]):
-            set_velocity_client = MOTOR_VEL_CLIENT[motor]
-            set_velocity_client(SPEED_UNIT*all_wheel_velocities[motor])
-            PREV_VELOCITY[motor] = all_wheel_velocities[motor]
-    
+            try:
+                MOTOR_VEL_CLIENT[motor](SPEED_UNIT*all_wheel_velocities[motor])
+                PREV_VELOCITY[motor] = all_wheel_velocities[motor]
+            except Exception as e:
+                # rospy.loginfo(e)
+                MOTOR_VEL_CLIENT[motor] = None
+                rospy.loginfo("the motor %s", motor)
     
     # rospy.loginfo("Done setting up all wheel velocities")
 
@@ -138,8 +144,8 @@ def command_velocity_callback(data):
     robot_linear_velocity = data.linear.x
     robot_angular_velocity = data.angular.z
 
-    left_velocity = robot_linear_velocity - 0.5*robot_angular_velocity*WHEEL_BASE
-    right_velocity = robot_linear_velocity + 0.5*robot_angular_velocity*WHEEL_BASE
+    left_velocity = robot_linear_velocity - 1*robot_angular_velocity*WHEEL_BASE
+    right_velocity = robot_linear_velocity + 1*robot_angular_velocity*WHEEL_BASE
     velocity = {
         "left_back": left_velocity,
         "right_back": right_velocity,
@@ -217,6 +223,27 @@ def get_model_name(data):
     ROBOT_ROSNODE = data.data
     rospy.loginfo(("Got the ROS node of the Robot as: " + ROBOT_ROSNODE))
 
+
+def disable_sensor(sensor_name):
+    global CAMERA_NAMES
+    global ROBOT_ROSNODE
+    try:
+        # Publish camera images
+        service_name = ROBOT_ROSNODE+"/"+CAMERA_NAMES[sensor_name]+"/enable"
+        rospy.wait_for_service(service_name,10)
+        enbale_client = rospy.ServiceProxy(service_name, set_int)
+        rep1 = enbale_client(0)
+    except rospy.ServiceException, e:
+        print "Service call failed: %s"%e
+
+def capture_image_cb(msg):
+    rospy.loginfo('Entered Callback with msg %s ', str(msg.data))
+    if msg.data:
+        enable_sensor("PitCam")
+    else:
+        disable_sensor("PitCam")
+    return
+
 def enable_sensor(sensor_name):
     global CAMERA_NAMES
     global ROBOT_ROSNODE
@@ -225,7 +252,9 @@ def enable_sensor(sensor_name):
         service_name = ROBOT_ROSNODE+"/"+CAMERA_NAMES[sensor_name]+"/enable"
         rospy.wait_for_service(service_name,10)
         enbale_client = rospy.ServiceProxy(service_name, set_int)
-        if (not sensor_name == "imu"):
+        if (sensor_name == "PitCam"):
+            rep1 = enbale_client(2000)
+        elif (not sensor_name == "imu"):
             rep1 = enbale_client(64)
         else:
             rep1 = enbale_client(1)
@@ -275,6 +304,7 @@ if __name__ == "__main__":
     # Subscribe to model_name to get the name of the node for the robot
     model_name_sub = rospy.Subscriber("/model_name", String, get_model_name) 
     
+    capture_image_sub = rospy.Subscriber('/apnapioneer3at/PitCam/CaptureImage', Bool, capture_image_cb)
     counter = 0
     while(ROBOT_ROSNODE == ""):
         if(counter%200 == 0):
@@ -284,16 +314,24 @@ if __name__ == "__main__":
     rospy.loginfo(("Finally started Node with name initialized to: " + ROBOT_ROSNODE))
     needDepth = rospy.get_param("show_rock_distances", 0)
     enable_sensor("meta")
-    enable_sensor("left")
-    enable_sensor("right")
-    enable_sensor("left_back")
-    enable_sensor("right_back")
+    #enable_sensor("left")
+    #enable_sensor("right")
+    #enable_sensor("left_back")
+    #enable_sensor("right_back")
     #enable_sensor("meta_back")
+    # enable_sensor("PitCam")
+    # time.sleep(3)
+    # disable_sensor('PitCam')
     enable_sensor("imu")
-    if(True):
-        enable_sensor("depth")
+    enable_sensor("depth")
     set_velocity(CURR_VELOCITY)
-    
+
+    service_name = ROBOT_ROSNODE+"/led/"+"set_led"
+    rospy.wait_for_service(service_name,10)
+    enbale_client = rospy.ServiceProxy(service_name, set_int)
+    enbale_client(2)
+    enbale_client(1)
+
     rospy.Subscriber('cmd_vel', Twist, command_velocity_callback, queue_size=1)
     # Spin main ROS loop
     while not rospy.is_shutdown():
