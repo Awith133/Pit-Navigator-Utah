@@ -84,8 +84,8 @@ nav_msgs::OccupancyGrid getOccupancy(PointCloud<PointXYZI>::Ptr cloud) {
 
   for (int i = 0; i < cloud->points.size(); i++) {
     PointXYZI p = cloud->points[i];
-    int index_row = (int) std::fmin(100.0, std::fmax(((5.0 - p.x) * 100) / 5.0, 0.0));
-    int index_col = (int) std::fmin(100.0, std::fmax(((2.5 - p.y) * 100) / 5.0, 0.0));
+    int index_row = (int) fmin(100.0, fmax(((5.0 - p.x) * 100) / 5.0, 0.0));
+    int index_col = (int) fmin(100.0, fmax(((2.5 - p.y) * 100) / 5.0, 0.0));
 
     int index = index_row * 100 + index_col;
     if (count[index] == 0) {
@@ -138,7 +138,7 @@ int main(int argc, char **argv) {
   nh.getParam("/ranger_brinkmanship/CAMERA_X_LIMIT", CAMERA_X_LIMIT);
   nh.getParam("/ranger_brinkmanship/ANGLE_THRESHOLD", ANGLE_THRESHOLD);
 
-  ros::Subscriber sub = nh.subscribe<PointCloud<PointXYZRGB>>("/camera/depth_registered/points", 1, mapCallback); 
+  ros::Subscriber sub = nh.subscribe<PointCloud<PointXYZRGB> >("/camera/depth_registered/points", 1, mapCallback); 
   grid_pub = nh.advertise<nav_msgs::OccupancyGrid>("/blue/gameplan", 1);
   
   ros::spin();
