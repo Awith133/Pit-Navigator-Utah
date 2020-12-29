@@ -48,7 +48,7 @@ sudo apt update
 
 sudo apt upgrade
 
-cd ~/pit-navigator-utah/catkin_ws/src
+cd ~/Pit-Navigator-Utah/catkin_ws/src
 
 rosdep update
 
@@ -60,7 +60,7 @@ echo 'export WEBOTS_HOME=/snap/webots/current/usr/share/webots' >> ~/.bashrc
 
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$WEBOTS_HOME/lib' >> ~/.bashrc
 
-cd ~/pit-navigator-utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/
+cd ~/Pit-Navigator-Utah/catkin_ws/src/global_planner/sbpl_lattice_planner/sbpl/
 
 rm -r build/
 
@@ -74,17 +74,17 @@ make
 
 sudo make install
 
-cd ~/pit-navigator-utah/
+cd ~/Pit-Navigator-Utah/
 
 chmod +x catkin_ws/src/smach_pit_exp/src/smach_node.py
 
-chmod +x catkin_ws/src/webots_control/src/pioneer3at.py
+chmod +x catkin_ws/src/Simulation_Control/webots_control/src/pioneer3at.py
 
 chmod +x catkin_ws/src/visualization/src/visualize_test2.py
 
 chmod +x catkin_ws/src/global_planner/mprim_generator_node/src/MPrimGeneratorNode.py
 
-cd ~/pit-navigator-utah/catkin_ws
+cd ~/Pit-Navigator-Utah/catkin_ws
 
 catkin_make 
 
@@ -97,7 +97,7 @@ roslaunch src/demo3.launch
 
 
 # RUN
-cd ~/pit-navigator-utah/catkin_ws/
+cd ~/Pit-Navigator-Utah/catkin_ws/
 
 source devel/setup.bash
 
