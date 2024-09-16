@@ -6,7 +6,7 @@ import time
 
 class Brinkmanship:
     def __init__(self):
-        self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size = 10)
+        self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
         self.msg = Twist()
         return
     
